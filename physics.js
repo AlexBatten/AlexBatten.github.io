@@ -37,12 +37,14 @@
     const engine = Engine.create();
     engine.world.gravity.y = 1.2;
 
-    // ── Walls ──
-    const wallOpts = { isStatic: true, friction: 0.3, restitution: 0.4 };
-    const floor = Bodies.rectangle(W / 2, H + 25, W + 100, 50, wallOpts);
-    const leftWall = Bodies.rectangle(-25, H / 2, 50, H + 100, wallOpts);
-    const rightWall = Bodies.rectangle(W + 25, H / 2, 50, H + 100, wallOpts);
-    Composite.add(engine.world, [floor, leftWall, rightWall]);
+    // ── Walls (all 4 sides) ──
+    const wallOpts = { isStatic: true, friction: 0.3, restitution: 0.6 };
+    const WALL = 50;
+    const floor    = Bodies.rectangle(W / 2, H + WALL / 2, W + 200, WALL, wallOpts);
+    const ceiling  = Bodies.rectangle(W / 2, -WALL / 2, W + 200, WALL, wallOpts);
+    const leftWall = Bodies.rectangle(-WALL / 2, H / 2, WALL, H + 200, wallOpts);
+    const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, H + 200, wallOpts);
+    Composite.add(engine.world, [floor, ceiling, leftWall, rightWall]);
 
     // ── Create physics bodies for each ball ──
     const r = getRadius();
@@ -173,8 +175,16 @@
     function render() {
         const r = getRadius();
         for (const { body, el } of pairs) {
-            const x = body.position.x - r;
-            const y = body.position.y - r;
+            // Clamp position so balls never visually leave the playground
+            let bx = body.position.x;
+            let by = body.position.y;
+            if (bx < r) { bx = r; Body.setPosition(body, { x: r, y: by }); Body.setVelocity(body, { x: Math.abs(body.velocity.x), y: body.velocity.y }); }
+            if (bx > W - r) { bx = W - r; Body.setPosition(body, { x: W - r, y: by }); Body.setVelocity(body, { x: -Math.abs(body.velocity.x), y: body.velocity.y }); }
+            if (by < r) { by = r; Body.setPosition(body, { x: bx, y: r }); Body.setVelocity(body, { x: body.velocity.x, y: Math.abs(body.velocity.y) }); }
+            if (by > H - r) { by = H - r; Body.setPosition(body, { x: bx, y: H - r }); Body.setVelocity(body, { x: body.velocity.x, y: -Math.abs(body.velocity.y) }); }
+
+            const x = bx - r;
+            const y = by - r;
             el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
         }
         requestAnimationFrame(render);
@@ -193,14 +203,25 @@
     // ── Handle resize ──
     window.addEventListener('resize', function () {
         resize();
-        Body.setPosition(floor, { x: W / 2, y: H + 25 });
-        Body.setPosition(rightWall, { x: W + 25, y: H / 2 });
+        const r = getRadius();
 
-        // Keep balls inside bounds
+        // Reposition all 4 walls
+        Body.setPosition(floor,     { x: W / 2, y: H + WALL / 2 });
+        Body.setPosition(ceiling,   { x: W / 2, y: -WALL / 2 });
+        Body.setPosition(leftWall,  { x: -WALL / 2, y: H / 2 });
+        Body.setPosition(rightWall, { x: W + WALL / 2, y: H / 2 });
+
+        // Clamp balls inside bounds
         for (const { body } of pairs) {
             const pos = body.position;
-            if (pos.x > W - r) Body.setPosition(body, { x: W - r, y: pos.y });
-            if (pos.x < r) Body.setPosition(body, { x: r, y: pos.y });
+            let nx = pos.x, ny = pos.y;
+            if (nx < r) nx = r;
+            if (nx > W - r) nx = W - r;
+            if (ny < r) ny = r;
+            if (ny > H - r) ny = H - r;
+            if (nx !== pos.x || ny !== pos.y) {
+                Body.setPosition(body, { x: nx, y: ny });
+            }
         }
     });
 })();
