@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <title>Alex B — Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+</head>
+<body>
+
+    <!-- ASCII background -->
+    <div id="ascii-bg"></div>
+
+    <!-- Physics playground -->
+    <section class="playground" id="playground">
+        <p class="hint" id="hint">click a ball to explore — drag to play</p>
+        <canvas id="physics-canvas"></canvas>
+
+        <!-- DOM icons synced to physics bodies -->
+        <div class="ball" data-id="about">
+            <span class="ball-icon">01</span>
+            <span class="ball-label">About</span>
+        </div>
+        <div class="ball" data-id="experience">
+            <span class="ball-icon">02</span>
+            <span class="ball-label">Experience</span>
+        </div>
+        <div class="ball" data-id="projects">
+            <span class="ball-icon">03</span>
+            <span class="ball-label">Projects</span>
+        </div>
+        <div class="ball" data-id="skills">
+            <span class="ball-icon">04</span>
+            <span class="ball-label">Skills</span>
+        </div>
+        <div class="ball" data-id="education">
+            <span class="ball-icon">05</span>
+            <span class="ball-label">Education</span>
+        </div>
+        <div class="ball" data-id="contact">
+            <span class="ball-icon">06</span>
+            <span class="ball-label">Contact</span>
+        </div>
+    </section>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Alex B</p>
+    </footer>
+
+    <script src="content.js?v=4"></script>
+    <script src="ascii-bg.js?v=4"></script>
+    <script src="physics.js?v=4"></script>
+</body>
+</html>
