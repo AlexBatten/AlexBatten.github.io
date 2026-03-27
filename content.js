@@ -5,11 +5,12 @@ const CONTENT = {
     about: {
         title: 'About Me',
         html: `
-            <p>Hi, I'm <strong>Alex</strong> — a software engineer who enjoys building clean,
-            performant systems. I care about good architecture, developer experience,
-            and shipping things that actually work.</p>
-            <p style="margin-top:12px">When I'm not coding, you'll find me exploring new tech,
-            contributing to open-source, or tinkering with side projects.</p>
+            <p>Hi, I'm <strong>Alex</strong> — a software engineer based in Denmark with a
+            BEng in Software Technology from DTU. I care about clean code, solid architecture,
+            and building things that actually work.</p>
+            <p style="margin-top:12px">I'm drawn to system design, performance optimization,
+            and writing maintainable software. Outside of coding, I'm into strength training
+            and music production — from audio engineering to composition.</p>
         `
     },
 
@@ -18,43 +19,46 @@ const CONTENT = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Senior Software Engineer — Company A</h3>
-                    <span class="entry-date">2024 — Present</span>
+                    <h3>Backend Developer — Acconta (Startup)</h3>
+                    <span class="entry-date">2026</span>
                 </div>
-                <p>Led the redesign of the core API platform, improving response times by 40%.
-                Built internal tooling used by 50+ engineers daily.</p>
+                <p>Built external integrations for currency rates (National Bank), VAT reporting
+                (Danish Tax Agency), business data via CVR, and Stripe payments. Worked within
+                a multi-tenant SaaS architecture using ASP.NET Core and Entity Framework Core.</p>
                 <div style="margin-top:8px">
-                    <span class="tag">Node.js</span>
-                    <span class="tag">TypeScript</span>
-                    <span class="tag">AWS</span>
-                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">C#</span>
+                    <span class="tag">ASP.NET Core</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">Stripe</span>
                 </div>
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Software Engineer — Company B</h3>
-                    <span class="entry-date">2022 — 2024</span>
+                    <h3>AI Data Annotator — Outlier</h3>
+                    <span class="entry-date">2025 — 2026</span>
                 </div>
-                <p>Developed and maintained microservices handling 10M+ requests/day.
-                Implemented CI/CD pipelines that reduced deployment time by 60%.</p>
+                <p>Contributed to advanced AI model development through data annotation and QA.
+                Crafted system prompts, designed multi-turn conversational datasets, and evaluated
+                model responses across 50+ risk categories including bias, misinformation, and safety.</p>
                 <div style="margin-top:8px">
-                    <span class="tag">Go</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">gRPC</span>
+                    <span class="tag">AI/ML</span>
+                    <span class="tag">Prompt Engineering</span>
+                    <span class="tag">Data Annotation</span>
                 </div>
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Junior Developer — Company C</h3>
-                    <span class="entry-date">2020 — 2022</span>
+                    <h3>Software Development Intern — IT Operators</h3>
+                    <span class="entry-date">2024</span>
                 </div>
-                <p>Built full-stack features across the product, from database design
-                to React front-end components.</p>
+                <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
+                web apps with Angular, .NET, and Bootstrap — including JWT auth, real-time dashboards,
+                and automated reporting. Maintained and optimized ERP systems in production.</p>
                 <div style="margin-top:8px">
-                    <span class="tag">React</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">MongoDB</span>
+                    <span class="tag">Angular</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">SQL</span>
                 </div>
             </div>
         `
@@ -64,34 +68,12 @@ const CONTENT = {
         title: 'Projects',
         html: `
             <div class="entry">
-                <h3>Project Alpha</h3>
-                <p>A real-time collaboration tool for distributed teams.
-                WebSocket-based architecture with conflict-free replicated data types (CRDTs).</p>
-                <div style="margin-top:8px">
-                    <span class="tag">TypeScript</span>
-                    <span class="tag">WebSockets</span>
-                    <span class="tag">Redis</span>
-                </div>
-            </div>
-            <div class="entry">
-                <h3>Project Beta</h3>
-                <p>CLI tool that automates infrastructure provisioning and monitoring.
-                Used by 200+ developers internally.</p>
-                <div style="margin-top:8px">
-                    <span class="tag">Go</span>
-                    <span class="tag">Terraform</span>
-                    <span class="tag">Prometheus</span>
-                </div>
-            </div>
-            <div class="entry">
-                <h3>Project Gamma</h3>
-                <p>Open-source design system with accessible, composable components.
-                500+ GitHub stars.</p>
-                <div style="margin-top:8px">
-                    <span class="tag">React</span>
-                    <span class="tag">Storybook</span>
-                    <span class="tag">CSS</span>
-                </div>
+                <p style="opacity:0.6; font-style:italic; text-align:center; padding: 32px 0;">
+                    This section is still under construction.<br>
+                    Check back soon — or visit my
+                    <a href="https://github.com/AlexBatten" target="_blank" rel="noopener">GitHub</a>
+                    in the meantime.
+                </p>
             </div>
         `
     },
@@ -101,35 +83,36 @@ const CONTENT = {
         html: `
             <h3>Languages</h3>
             <div style="margin-bottom:16px">
+                <span class="tag">C#</span>
+                <span class="tag">C++</span>
+                <span class="tag">Java</span>
                 <span class="tag">TypeScript</span>
                 <span class="tag">JavaScript</span>
-                <span class="tag">Go</span>
-                <span class="tag">Python</span>
+                <span class="tag">Kotlin</span>
                 <span class="tag">SQL</span>
-                <span class="tag">Rust</span>
             </div>
             <h3>Frameworks & Libraries</h3>
             <div style="margin-bottom:16px">
-                <span class="tag">React</span>
-                <span class="tag">Next.js</span>
-                <span class="tag">Node.js</span>
-                <span class="tag">Express</span>
-                <span class="tag">FastAPI</span>
+                <span class="tag">ASP.NET Core</span>
+                <span class="tag">Entity Framework</span>
+                <span class="tag">Angular</span>
+                <span class="tag">.NET</span>
+                <span class="tag">Bootstrap</span>
             </div>
-            <h3>Infrastructure</h3>
+            <h3>Concepts & Practices</h3>
             <div style="margin-bottom:16px">
-                <span class="tag">AWS</span>
-                <span class="tag">Docker</span>
-                <span class="tag">Kubernetes</span>
-                <span class="tag">Terraform</span>
+                <span class="tag">REST APIs</span>
+                <span class="tag">System Design</span>
+                <span class="tag">Agile / Scrum</span>
                 <span class="tag">CI/CD</span>
+                <span class="tag">JWT Auth</span>
             </div>
-            <h3>Databases</h3>
+            <h3>Other</h3>
             <div>
-                <span class="tag">PostgreSQL</span>
-                <span class="tag">Redis</span>
-                <span class="tag">MongoDB</span>
-                <span class="tag">DynamoDB</span>
+                <span class="tag">Git</span>
+                <span class="tag">ERP Systems</span>
+                <span class="tag">Multi-tenant SaaS</span>
+                <span class="tag">Audio Engineering</span>
             </div>
         `
     },
@@ -139,15 +122,12 @@ const CONTENT = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>B.S. Computer Science — University</h3>
-                    <span class="entry-date">2016 — 2020</span>
+                    <h3>BEng Software Technology — Technical University of Denmark (DTU)</h3>
+                    <span class="entry-date">2021 — 2025</span>
                 </div>
-                <p>Focused on distributed systems, algorithms, and software architecture.
-                Dean's list. Teaching assistant for Data Structures.</p>
-            </div>
-            <div class="entry">
-                <h3>Certifications</h3>
-                <p>AWS Solutions Architect Associate</p>
+                <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
+                Bachelor's project focused on building an integration between two ERP systems from scratch.
+                GPA: 7.62 (Danish 7-point scale).</p>
             </div>
         `
     },
@@ -158,13 +138,13 @@ const CONTENT = {
             <p>I'm always open to interesting conversations and opportunities.</p>
             <ul style="list-style:none;padding:0;margin-top:16px">
                 <li style="margin-bottom:10px">
-                    <a href="mailto:alex@example.com">alex@example.com</a>
+                    <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
                 </li>
                 <li style="margin-bottom:10px">
-                    <a href="https://github.com/alexb" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://github.com/AlexBatten" target="_blank" rel="noopener">GitHub</a>
                 </li>
                 <li style="margin-bottom:10px">
-                    <a href="https://linkedin.com/in/alexb" target="_blank" rel="noopener">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" target="_blank" rel="noopener">LinkedIn</a>
                 </li>
             </ul>
         `

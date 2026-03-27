@@ -38,12 +38,13 @@
     engine.world.gravity.y = 1.2;
 
     // ── Walls (all 4 sides) ──
+    // Use oversized walls (10000px) so they always cover any viewport size
     const wallOpts = { isStatic: true, friction: 0.3, restitution: 0.6 };
     const WALL = 50;
-    const floor    = Bodies.rectangle(W / 2, H + WALL / 2, W + 200, WALL, wallOpts);
-    const ceiling  = Bodies.rectangle(W / 2, -WALL / 2, W + 200, WALL, wallOpts);
-    const leftWall = Bodies.rectangle(-WALL / 2, H / 2, WALL, H + 200, wallOpts);
-    const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, H + 200, wallOpts);
+    const floor    = Bodies.rectangle(W / 2, H + WALL / 2, 10000, WALL, wallOpts);
+    const ceiling  = Bodies.rectangle(W / 2, -WALL / 2, 10000, WALL, wallOpts);
+    const leftWall = Bodies.rectangle(-WALL / 2, H / 2, WALL, 10000, wallOpts);
+    const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, 10000, wallOpts);
     Composite.add(engine.world, [floor, ceiling, leftWall, rightWall]);
 
     // ── Create physics bodies for each ball ──
