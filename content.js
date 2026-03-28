@@ -77,7 +77,7 @@ const CONTENT = {
                     <span class="entry-date">Bachelor Project</span>
                 </div>
                 <p>Full-stack application bridging two enterprise platforms — transferring and
-                reconciling time registrations from Accelo (PSA) into Microsoft Business Central (ERP).
+                reviewing time registrations from Accelo (PSA) into Microsoft Business Central (ERP).
                 Built a custom UI for reviewing and adjusting hours before syncing. Designed the data model
                 in MSSQL, implemented multi-tenant authentication via Microsoft Entra ID, and containerized
                 the entire stack with Docker in a Jenkins CI/CD pipeline. Fully tested — unit tests on both
@@ -97,8 +97,8 @@ const CONTENT = {
                     <h3>Uno X — Custom REST API</h3>
                     <span class="entry-date">Client: ISTOBAL</span>
                 </div>
-                <p>Built a bespoke API for ISTOBAL (car wash equipment manufacturer) to serve operational
-                data to their client Uno X (Nordic fuel station chain). Implemented a custom token-based
+                <p>Built a bespoke API for ISTOBAL (car wash manufacturer) to serve operational
+                data to their client Uno X (Nordic fuel station chain). Implemented a custom token based
                 authentication system and rate limiting with automated email alerts on threshold breach.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
@@ -129,11 +129,11 @@ const CONTENT = {
                     <h3>Internal Monitoring Dashboards</h3>
                     <span class="entry-date">IT Operators</span>
                 </div>
-                <p>Real-time dashboard views deployed on Raspberry Pis for office TV screens — monitoring
+                <p>Real time dashboard views deployed on Raspberry Pis for office TV screens — monitoring
                 time registrations and cron job health to track work efficiency and catch failed jobs early.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
-                    <span class="tag">Real-time</span>
+                    <span class="tag">Real time</span>
                     <span class="tag">Raspberry Pi</span>
                 </div>
             </div>
@@ -143,8 +143,8 @@ const CONTENT = {
                     <h3>TIMEVAT — External API Integrations</h3>
                     <span class="entry-date">Client: TIMEVAT</span>
                 </div>
-                <p>Integrated the EU VIES API for real-time VAT number validation and the Danish National
-                Bank API for live currency exchange rates into a VAT compliance platform.</p>
+                <p>Integrated the EU VIES API for VAT number validation and the Danish National
+                Bank API for daily currency exchange rates into a VAT compliance platform.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">VIES API</span>
@@ -161,10 +161,9 @@ const CONTENT = {
                     <h3>Hemi-Sync Guided Meditation App</h3>
                     <span class="entry-date">In progress</span>
                 </div>
-                <p>A concept app for generating customizable guided meditations using AI-driven
-                text-to-speech, layered with Hemi-Sync binaural beat technology for brainwave
-                entrainment. Built in React Native targeting both iOS and Android. Currently paused
-                — planning to finish and open-source it.</p>
+                <p>A concept app for generating customizable guided meditations using AI driven
+                text to speech, layered with Hemi Sync binaural beat technology for brainwave
+                entrainment. Built in React Native targeting both iOS and Android. Currently paused </p>
                 <div style="margin-top:8px">
                     <span class="tag">React Native</span>
                     <span class="tag">OpenAI API</span>
@@ -177,7 +176,7 @@ const CONTENT = {
                     <h3>Distortion VST Plugin</h3>
                     <span class="entry-date"><a href="https://github.com/AlexBatten" target="_blank" rel="noopener">GitHub</a></span>
                 </div>
-                <p>A simple audio distortion plugin built with the JUCE framework. Compatible with
+                <p>A simple audio distortion plugin with bitcrushing capabilities built with the JUCE framework. Compatible with
                 most DAWs as a VST.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C++</span>
