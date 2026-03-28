@@ -99,20 +99,65 @@
     mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel);
 
     // ── Touch support ──
+    let touchStartPos = null;
+    let touchStartTime = 0;
+    let touchedPair = null;
+
     canvas.addEventListener('touchstart', function (e) {
         if (e.touches.length === 1) {
-            // Only prevent default if we're actually grabbing a ball
             const rect = canvas.getBoundingClientRect();
             const x = e.touches[0].clientX - rect.left;
             const y = e.touches[0].clientY - rect.top;
-            const hit = pairs.some(p => {
+            touchStartPos = { x, y };
+            touchStartTime = Date.now();
+            touchedPair = null;
+            for (const p of pairs) {
                 const dx = p.body.position.x - x;
                 const dy = p.body.position.y - y;
-                return Math.sqrt(dx * dx + dy * dy) < r + 5;
-            });
-            if (hit) e.preventDefault();
+                if (Math.sqrt(dx * dx + dy * dy) < r + 10) {
+                    touchedPair = p;
+                    e.preventDefault();
+                    break;
+                }
+            }
         }
     }, { passive: false });
+
+    canvas.addEventListener('touchend', function (e) {
+        if (!touchStartPos || !touchedPair) return;
+        const rect = canvas.getBoundingClientRect();
+        const touch = e.changedTouches[0];
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        const dx = x - touchStartPos.x;
+        const dy = y - touchStartPos.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const elapsed = Date.now() - touchStartTime;
+
+        if (dist < 15 && elapsed < 400) {
+            const label = touchedPair.body.label;
+            const linkEl = document.querySelector(`.ball-link[data-id="${label}"]`);
+            if (linkEl && linkEl.dataset.href) {
+                const href = linkEl.dataset.href;
+                if (href.startsWith('mailto:')) {
+                    window.location.href = href;
+                } else {
+                    // Use <a> click for iOS Safari compatibility
+                    const a = document.createElement('a');
+                    a.href = href;
+                    a.target = '_blank';
+                    a.rel = 'noopener';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+            } else if (CONTENT[label]) {
+                openModal(label);
+            }
+        }
+        touchStartPos = null;
+        touchedPair = null;
+    }, { passive: true });
 
     // ── Track hover for visual feedback ──
     let hoveredBody = null;
