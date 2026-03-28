@@ -30,7 +30,7 @@
         var engine = PG.engine, pairs = PG.pairs, canvas = PG.canvas, ctx = PG.ctx;
 
         // State
-        var on = false, gameStarted = false, score = 0, lives = 0, dead = false;
+        var on = false, gameStarted = false, score = 0, lives = 0, dead = false, tableAlpha = 0;
         var activeBall = null;      // { body, el } from pairs
         var reserveBalls = [];      // remaining pairs
         var removedFromWorld = [];  // bodies removed from world
@@ -157,7 +157,7 @@
             })(flipR, -FLIP_ANG, rpx, flipY, FLIP_W / 2);
         }
 
-        // ── Scoop all balls into the table ──
+        // ── Scoop all balls into the table (smooth attraction) ──
         function scoopBalls() {
             var t = tbl();
             pairs.forEach(function (p) {
@@ -168,16 +168,17 @@
                 p.el.classList.add('visible');
                 Sleep.set(p.body, false);
 
-                // Teleport into table with random positions and chaotic velocity
-                Body.setPosition(p.body, {
-                    x: t.cx + (Math.random() - 0.5) * t.W * 0.4,
-                    y: t.top + t.H * 0.2 + Math.random() * t.H * 0.25
-                });
+                // Launch balls toward the table center instead of teleporting
+                var targetX = t.cx + (Math.random() - 0.5) * t.W * 0.3;
+                var targetY = t.top + t.H * 0.3;
+                var dx = targetX - p.body.position.x;
+                var dy = targetY - p.body.position.y;
+                var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                var speed = 12 + Math.random() * 4;
                 Body.setVelocity(p.body, {
-                    x: (Math.random() - 0.5) * 8,
-                    y: (Math.random() - 0.5) * 6
+                    x: (dx / dist) * speed,
+                    y: (dy / dist) * speed
                 });
-                Body.setAngularVelocity(p.body, (Math.random() - 0.5) * 0.2);
             });
         }
 
@@ -274,6 +275,7 @@
             engine.world.gravity.y = 1.6;
 
             // Build table and scoop balls in
+            tableAlpha = 0;
             buildTable();
             scoopBalls();
 
@@ -438,6 +440,12 @@
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+            // Fade in the table
+            if (tableAlpha < 1) tableAlpha = Math.min(1, tableAlpha + 0.02);
+
+            ctx.save();
+            ctx.globalAlpha = tableAlpha;
+
             // Table background
             ctx.beginPath();
             ctx.moveTo(t.L, t.top);
@@ -494,6 +502,7 @@
                 ctx.fill();
             }
 
+            ctx.restore();
             raf = requestAnimationFrame(draw);
         }
 
