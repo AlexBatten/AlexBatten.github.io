@@ -74,11 +74,17 @@ body {
     letter-spacing: 0.03em;
     z-index: 1;
     pointer-events: none;
-    opacity: 1;
+    opacity: 0;
+    animation: hintFadeIn 1s ease 1.5s forwards;
     transition: opacity 1.5s ease;
 }
 
+@keyframes hintFadeIn {
+    to { opacity: 1; }
+}
+
 .playground .hint.hidden {
+    animation: none;
     opacity: 0;
 }
 
@@ -102,8 +108,8 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: var(--surface);
-    border: 1.5px solid #c0c0c0;
+    background: #3a3a3a;
+    border: 1.5px solid #4a4a4a;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,8 +117,13 @@ body {
     pointer-events: none;
     z-index: 1;
     user-select: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.3s ease;
     will-change: transform;
+    opacity: 0;
+}
+
+.ball.visible {
+    opacity: 1;
 }
 
 .ball.hovered {
@@ -129,7 +140,7 @@ body {
 
 .ball-label {
     font-size: 0.65rem;
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.7);
     margin-top: 2px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -158,8 +169,8 @@ body {
 }
 
 .modal {
-    background: var(--surface);
-    border: 1px solid #c0c0c0;
+    background: #3a3a3a;
+    border: 1px solid #4a4a4a;
     border-radius: var(--radius);
     max-width: 600px;
     width: 90%;
@@ -181,7 +192,7 @@ body {
     right: 20px;
     background: none;
     border: none;
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.2s;
@@ -189,7 +200,7 @@ body {
 }
 
 .modal-close:hover {
-    color: var(--text);
+    color: #ffffff;
 }
 
 .modal-content h2 {
@@ -197,6 +208,7 @@ body {
     font-weight: 600;
     margin-bottom: 20px;
     letter-spacing: -0.02em;
+    color: #ffffff;
 }
 
 .modal-content h3 {
@@ -209,7 +221,7 @@ body {
 .modal-content p,
 .modal-content li {
     font-size: 0.9rem;
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.7);
     line-height: 1.7;
 }
 
@@ -235,7 +247,7 @@ body {
 
 .modal-content .tag {
     display: inline-block;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(59, 130, 246, 0.15);
     color: var(--accent);
     font-size: 0.75rem;
     padding: 3px 10px;
@@ -246,7 +258,7 @@ body {
 
 .modal-content .entry {
     padding: 16px 0;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .modal-content .entry:last-child {
@@ -263,7 +275,7 @@ body {
 
 .modal-content .entry-date {
     font-size: 0.75rem;
-    color: var(--text-dim);
+    color: rgba(255, 255, 255, 0.4);
     font-family: var(--mono);
     white-space: nowrap;
 }
@@ -288,10 +300,10 @@ footer {
     width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: var(--bg);
+    background: #3a3a3a;
 }
 ::-webkit-scrollbar-thumb {
-    background: #b0b0b0;
+    background: #555;
     border-radius: 3px;
 }
 

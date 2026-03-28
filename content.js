@@ -152,7 +152,7 @@ const CONTENT = {
                 </div>
             </div>
 
-            <p style="opacity:0.5; font-size:0.78rem; margin:24px 0 16px; padding-top:16px; border-top:1px solid #e0e0e0; letter-spacing:0.02em;">
+            <p style="opacity:0.5; font-size:0.78rem; margin:24px 0 16px; letter-spacing:0.02em;">
                 Personal projects
             </p>
 

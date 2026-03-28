@@ -34,7 +34,7 @@
     resize();
 
     // ── Engine ──
-    const engine = Engine.create();
+    const engine = Engine.create({ enableSleeping: true });
     engine.world.gravity.y = 1.2;
 
     // ── Walls (all 4 sides) ──
@@ -47,22 +47,36 @@
     const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, 10000, wallOpts);
     Composite.add(engine.world, [floor, ceiling, leftWall, rightWall]);
 
-    // ── Create physics bodies for each ball ──
+    // ── Create physics bodies for each ball (staggered drop-in) ──
     const r = getRadius();
+    const DROP_DELAY = 250; // ms between each ball
     const pairs = balls.map((el, i) => {
         const body = Bodies.circle(
-            80 + Math.random() * (W - 160),
-            -60 - i * 100,  // staggered drop
+            W * 0.2 + Math.random() * (W * 0.6),
+            -60,
             r,
             {
                 restitution: 0.55,
                 friction: 0.15,
                 frictionAir: 0.015,
                 density: 0.003,
-                label: el.dataset.id
+                label: el.dataset.id,
+                isSleeping: true  // start frozen, wake on drop
             }
         );
         Composite.add(engine.world, body);
+        // Stagger: reveal and wake each ball after a delay
+        setTimeout(() => {
+            el.classList.add('visible');
+            Matter.Sleeping.set(body, false);
+            // After last ball drops, disable sleeping so gravity toggle works
+            if (i === balls.length - 1) {
+                setTimeout(() => {
+                    engine.enableSleeping = false;
+                    pairs.forEach(p => Matter.Sleeping.set(p.body, false));
+                }, 1000);
+            }
+        }, i * DROP_DELAY + 300);
         return { body, el };
     });
 
