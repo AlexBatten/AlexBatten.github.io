@@ -154,7 +154,11 @@
         // If barely moved and quick tap, treat as click
         if (dist < 8 && elapsed < 300) {
             const label = e.body.label;
-            if (CONTENT[label]) {
+            // Check if it's a link ball (linkedin, email, github)
+            const linkEl = document.querySelector(`.ball-link[data-id="${label}"]`);
+            if (linkEl && linkEl.dataset.href) {
+                window.open(linkEl.dataset.href, linkEl.dataset.href.startsWith('mailto:') ? '_self' : '_blank');
+            } else if (CONTENT[label]) {
                 openModal(label);
             }
         }
@@ -182,7 +186,7 @@
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeModal();
         // ── Easter egg: toggle zero gravity ──
-        if ((e.key === 'g' || e.key === 'G') && !overlay.classList.contains('active')) {
+        if ((e.key === 'g' || e.key === 'G') && !overlay.classList.contains('active') && !window.PINBALL_ACTIVE) {
             var grav = engine.world.gravity;
             if (grav.y !== 0) {
                 grav.y = 0;
@@ -206,13 +210,16 @@
     function render() {
         const r = getRadius();
         for (const { body, el } of pairs) {
-            // Clamp position so balls never visually leave the playground
             let bx = body.position.x;
             let by = body.position.y;
-            if (bx < r) { bx = r; Body.setPosition(body, { x: r, y: by }); Body.setVelocity(body, { x: Math.abs(body.velocity.x), y: body.velocity.y }); }
-            if (bx > W - r) { bx = W - r; Body.setPosition(body, { x: W - r, y: by }); Body.setVelocity(body, { x: -Math.abs(body.velocity.x), y: body.velocity.y }); }
-            if (by < r) { by = r; Body.setPosition(body, { x: bx, y: r }); Body.setVelocity(body, { x: body.velocity.x, y: Math.abs(body.velocity.y) }); }
-            if (by > H - r) { by = H - r; Body.setPosition(body, { x: bx, y: H - r }); Body.setVelocity(body, { x: body.velocity.x, y: -Math.abs(body.velocity.y) }); }
+
+            // Clamp position so balls never leave the playground (skip during pinball)
+            if (!window.PINBALL_ACTIVE) {
+                if (bx < r) { bx = r; Body.setPosition(body, { x: r, y: by }); Body.setVelocity(body, { x: Math.abs(body.velocity.x), y: body.velocity.y }); }
+                if (bx > W - r) { bx = W - r; Body.setPosition(body, { x: W - r, y: by }); Body.setVelocity(body, { x: -Math.abs(body.velocity.x), y: body.velocity.y }); }
+                if (by < r) { by = r; Body.setPosition(body, { x: bx, y: r }); Body.setVelocity(body, { x: body.velocity.x, y: Math.abs(body.velocity.y) }); }
+                if (by > H - r) { by = H - r; Body.setPosition(body, { x: bx, y: H - r }); Body.setVelocity(body, { x: body.velocity.x, y: -Math.abs(body.velocity.y) }); }
+            }
 
             const x = bx - r;
             const y = by - r;
@@ -255,6 +262,9 @@
             }
         }
     });
+
+    // ── Expose for pinball module ──
+    window.PLAYGROUND = { engine, pairs, canvas, ctx, mouseConstraint, getSize: function () { return { W: W, H: H }; } };
 })();
 
 // ── Console easter egg ──
