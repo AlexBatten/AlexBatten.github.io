@@ -167,6 +167,22 @@
     });
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') closeModal();
+        // ── Easter egg: toggle zero gravity ──
+        if ((e.key === 'g' || e.key === 'G') && !overlay.classList.contains('active')) {
+            var grav = engine.world.gravity;
+            if (grav.y !== 0) {
+                grav.y = 0;
+                // Give each ball a gentle random drift
+                for (var i = 0; i < pairs.length; i++) {
+                    Body.setVelocity(pairs[i].body, {
+                        x: (Math.random() - 0.5) * 3,
+                        y: (Math.random() - 0.5) * 3
+                    });
+                }
+            } else {
+                grav.y = 1.2;
+            }
+        }
     });
 
     // ── Render loop (sync DOM balls to physics) ──
@@ -225,4 +241,24 @@
             }
         }
     });
+})();
+
+// ── Console easter egg ──
+(function () {
+    var lines = [
+        '%c┌─────────────────────────────────────┐',
+        '│                                     │',
+        '│   Looking under the hood?           │',
+        '│                                     │',
+        '│   Let\'s talk:                       │',
+        '│   alex.batten1234@gmail.com         │',
+        '│                                     │',
+        '│   hint: press G                     │',
+        '│                                     │',
+        '└─────────────────────────────────────┘'
+    ];
+    console.log(
+        lines.join('\n'),
+        'color: #3b82f6; font-family: monospace; font-size: 13px; line-height: 1.4;'
+    );
 })();
