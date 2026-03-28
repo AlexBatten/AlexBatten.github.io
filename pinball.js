@@ -59,13 +59,10 @@
         ui.id = 'pinball-ui';
         ui.style.cssText = 'display:none;position:fixed;inset:0;z-index:50;pointer-events:none;';
         ui.innerHTML =
-            '<div id="pb-score" style="position:absolute;top:16px;left:50%;transform:translateX(-50%);' +
+            '<div id="pb-score" style="position:absolute;top:28px;left:50%;transform:translateX(-50%);' +
             'font:700 2rem var(--mono);color:#3b82f6;text-shadow:0 0 20px rgba(59,130,246,0.3)"></div>' +
-            '<div id="pb-lives" style="position:absolute;top:56px;left:50%;transform:translateX(-50%);' +
+            '<div id="pb-lives" style="position:absolute;top:68px;left:50%;transform:translateX(-50%);' +
             'font:0.85rem var(--mono);color:rgba(255,255,255,0.5)"></div>' +
-            '<div id="pb-hint" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);' +
-            'font:0.72rem var(--mono);color:rgba(255,255,255,0.25);letter-spacing:0.05em">' +
-            '\u2190 \u2192 flip \u00b7 scroll up to exit</div>' +
             '<div id="pb-over" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--mono)">' +
             '<div style="font:700 1.6rem var(--mono);color:#3b82f6">GAME OVER</div>' +
             '<div id="pb-final" style="font:1rem var(--mono);color:rgba(255,255,255,0.6);margin-top:8px"></div>' +
@@ -263,7 +260,7 @@
             dead = false;
             $over.style.display = 'none';
             $score.textContent = '';
-            $lives.textContent = 'GET READY';
+            $lives.textContent = 'GET READY \u2014 use \u2190 \u2192 arrow keys to flip';
             calcDims();
 
             // Hide hint
