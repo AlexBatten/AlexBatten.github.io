@@ -288,6 +288,25 @@ body {
     white-space: nowrap;
 }
 
+/* ── Privacy Link ── */
+.privacy-link {
+    position: fixed;
+    top: 16px;
+    right: 20px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    z-index: 10;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+}
+
+.privacy-link:hover {
+    color: var(--accent);
+}
+
 /* ── Footer ── */
 footer {
     position: fixed;

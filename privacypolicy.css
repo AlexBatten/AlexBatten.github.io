@@ -1,0 +1,118 @@
+/* Privacy Policy Page Styles */
+
+body {
+    overflow-y: auto;
+    height: auto;
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+.back-link {
+    position: fixed;
+    top: 16px;
+    left: 20px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    z-index: 10;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: var(--accent);
+}
+
+.privacy-policy-content {
+    position: relative;
+    z-index: 5;
+    max-width: 800px;
+    width: 90%;
+    margin: 60px auto 2rem;
+    padding: 2rem 3rem;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text);
+    text-align: left;
+}
+
+.privacy-policy-content h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    padding-bottom: 12px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+}
+
+.privacy-policy-content h2 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.privacy-policy-content h3 {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.privacy-policy-content p,
+.privacy-policy-content ul {
+    margin-bottom: 16px;
+    color: var(--text-dim);
+}
+
+.privacy-policy-content ul {
+    padding-left: 20px;
+}
+
+.privacy-policy-content li {
+    margin-bottom: 8px;
+}
+
+.privacy-policy-content strong {
+    color: var(--text);
+}
+
+.privacy-policy-content a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.privacy-policy-content a:hover {
+    border-bottom-color: var(--accent);
+}
+
+footer {
+    position: relative;
+    z-index: 5;
+}
+
+@media (max-width: 600px) {
+    .privacy-policy-content {
+        width: 95%;
+        margin-top: 50px;
+        padding: 1.5rem;
+        font-size: 0.85rem;
+    }
+
+    .privacy-policy-content h1 {
+        font-size: 1.4rem;
+    }
+
+    .privacy-policy-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .privacy-policy-content h3 {
+        font-size: 1rem;
+    }
+}
