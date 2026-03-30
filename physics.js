@@ -214,7 +214,7 @@
     function openModal(id) {
         const data = CONTENT[id];
         if (!data) return;
-        modalContent.innerHTML = `<h2>${data.title}</h2>${data.html}`;
+        modalContent.innerHTML = `<h2><span class="modal-number">${data.number}</span> ${data.title}</h2>${data.html}`;
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
     }

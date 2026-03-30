@@ -3,7 +3,8 @@
 
 const CONTENT = {
     about: {
-        title: 'About Me',
+        number: '01',
+        title: 'About',
         html: `
             <p>Hi, I'm <strong>Alex</strong> — a software engineer based in Denmark with a
             BEng in Software Technology from DTU. I care about clean code, solid architecture,
@@ -15,6 +16,7 @@ const CONTENT = {
     },
 
     experience: {
+        number: '02',
         title: 'Experience',
         html: `
             <div class="entry">
@@ -65,6 +67,7 @@ const CONTENT = {
     },
 
     projects: {
+        number: '03',
         title: 'Projects',
         html: `
             <p style="opacity:0.5; font-size:0.78rem; margin-bottom:16px; letter-spacing:0.02em;">
@@ -188,6 +191,7 @@ const CONTENT = {
     },
 
     skills: {
+        number: '04',
         title: 'Skills & Tools',
         html: `
             <h3>Languages</h3>
@@ -230,6 +234,7 @@ const CONTENT = {
     },
 
     education: {
+        number: '05',
         title: 'Education',
         html: `
             <div class="entry">
