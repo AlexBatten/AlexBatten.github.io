@@ -50,7 +50,7 @@ const CONTENT = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Software Development Intern — IT Operators</h3>
+                    <h3>Software Development Intern — IT Operators / Simple Agency Group</h3>
                     <span class="entry-date">2024</span>
                 </div>
                 <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
