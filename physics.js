@@ -47,6 +47,21 @@
     const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, 10000, wallOpts);
     Composite.add(engine.world, [floor, ceiling, leftWall, rightWall]);
 
+    // In-app browsers (e.g. LinkedIn iOS) may report 0 dimensions before
+    // layout completes. Poll until the viewport is valid, then reposition walls.
+    if (W === 0 || H === 0) {
+        var layoutCheck = setInterval(function () {
+            resize();
+            if (W > 0 && H > 0) {
+                clearInterval(layoutCheck);
+                Body.setPosition(floor,     { x: W / 2, y: H + WALL / 2 });
+                Body.setPosition(ceiling,   { x: W / 2, y: -WALL / 2 });
+                Body.setPosition(leftWall,  { x: -WALL / 2, y: H / 2 });
+                Body.setPosition(rightWall, { x: W + WALL / 2, y: H / 2 });
+            }
+        }, 50);
+    }
+
     // ── Create physics bodies for each ball (staggered drop-in) ──
     const r = getRadius();
     const DROP_DELAY = 250; // ms between each ball
