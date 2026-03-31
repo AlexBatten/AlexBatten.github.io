@@ -22,7 +22,7 @@
     const RADIUS_MOBILE = 32;
 
     function getRadius() {
-        return window.innerWidth <= 600 ? RADIUS_MOBILE : RADIUS;
+        return document.documentElement.clientWidth <= 600 ? RADIUS_MOBILE : RADIUS;
     }
 
     function resize() {
