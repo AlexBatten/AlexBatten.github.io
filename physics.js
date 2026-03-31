@@ -26,8 +26,11 @@
     }
 
     function resize() {
-        W = playground.clientWidth;
-        H = playground.clientHeight;
+        // Use document.documentElement dimensions — they are the most reliable
+        // in iOS WKWebView (LinkedIn/Facebook/Instagram in-app browsers) where
+        // element.clientHeight and window.innerHeight can report stale values.
+        W = document.documentElement.clientWidth;
+        H = document.documentElement.clientHeight;
         canvas.width = W;
         canvas.height = H;
     }
@@ -47,20 +50,22 @@
     const rightWall = Bodies.rectangle(W + WALL / 2, H / 2, WALL, 10000, wallOpts);
     Composite.add(engine.world, [floor, ceiling, leftWall, rightWall]);
 
-    // In-app browsers (e.g. LinkedIn iOS) may report 0 dimensions before
-    // layout completes. Poll until the viewport is valid, then reposition walls.
-    if (W === 0 || H === 0) {
-        var layoutCheck = setInterval(function () {
+    // iOS WKWebView (LinkedIn, Facebook, Instagram in-app browsers) often
+    // reports wrong viewport dimensions on first load — not necessarily 0,
+    // but 60-80px off. Use double-rAF to wait for layout to stabilize,
+    // then unconditionally reposition walls with correct dimensions.
+    requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+            var prevH = H;
             resize();
-            if (W > 0 && H > 0) {
-                clearInterval(layoutCheck);
+            if (H !== prevH) {
                 Body.setPosition(floor,     { x: W / 2, y: H + WALL / 2 });
                 Body.setPosition(ceiling,   { x: W / 2, y: -WALL / 2 });
                 Body.setPosition(leftWall,  { x: -WALL / 2, y: H / 2 });
                 Body.setPosition(rightWall, { x: W + WALL / 2, y: H / 2 });
             }
-        }, 50);
-    }
+        });
+    });
 
     // ── Create physics bodies for each ball (staggered drop-in) ──
     const r = getRadius();
