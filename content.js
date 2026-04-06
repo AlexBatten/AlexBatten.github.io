@@ -249,6 +249,21 @@ const CONTENT = {
         `
     },
 
+    recommendations: {
+        number: '06',
+        title: 'Recommendations',
+        html: `
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Mike Valencia — Simple Agency Group</h3>
+                </div>
+                <div style="margin-top:12px">
+                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7196790267926994945" height="967" width="100%" style="max-width:504px; border:none;" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
+                </div>
+            </div>
+        `
+    },
+
     contact: {
         title: 'Get in Touch',
         html: `
