@@ -257,9 +257,8 @@ const CONTENT = {
                 <div class="entry-header">
                     <h3>Mike Valencia — Simple Agency Group</h3>
                 </div>
-                <div style="margin-top:12px">
-                    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:share:7196790267926994945" height="967" width="100%" style="max-width:504px; border:none;" frameborder="0" allowfullscreen="" title="Embedded post"></iframe>
-                </div>
+                <p>CEO at Simple Agency Group</p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View recommendation on LinkedIn &rarr;</a></p>
             </div>
         `
     },
