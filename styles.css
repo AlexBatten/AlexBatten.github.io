@@ -317,6 +317,140 @@ body {
     color: var(--accent);
 }
 
+/* ── Hints Button ── */
+.hints-btn {
+    position: fixed;
+    top: 12px;
+    left: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1.5px solid #4a4a4a;
+    background: #3a3a3a;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.hints-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+/* ── Hints Overlay ── */
+.hints-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.hints-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.hints-panel {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: var(--radius);
+    max-width: 380px;
+    width: 85%;
+    padding: 32px;
+    position: relative;
+    transform: translateY(20px) scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.hints-overlay.active .hints-panel {
+    transform: translateY(0) scale(1);
+}
+
+.hints-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.hints-close:hover {
+    color: #fff;
+}
+
+.hints-title {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 24px;
+}
+
+.hints-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.hint-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.hint-symbol {
+    font-family: var(--mono);
+    font-size: 1.2rem;
+    color: var(--accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.hint-item p {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.7;
+    font-style: italic;
+}
+
+.hints-footer {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid #3a3a3a;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    letter-spacing: 0.05em;
+}
+
 /* ── Footer ── */
 footer {
     position: fixed;

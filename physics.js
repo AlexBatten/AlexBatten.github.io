@@ -17,6 +17,24 @@
     const modalClose = document.getElementById('modal-close');
     const hint = document.getElementById('hint');
 
+    // ── Hints panel ──
+    const hintsBtn = document.getElementById('hints-btn');
+    const hintsOverlay = document.getElementById('hints-overlay');
+    const hintsClose = document.getElementById('hints-close');
+
+    hintsBtn.addEventListener('click', function () {
+        hintsOverlay.classList.add('active');
+    });
+
+    function closeHints() {
+        hintsOverlay.classList.remove('active');
+    }
+
+    hintsClose.addEventListener('click', closeHints);
+    hintsOverlay.addEventListener('click', function (e) {
+        if (e.target === hintsOverlay) closeHints();
+    });
+
     let W, H;
     const RADIUS = 40;
     const RADIUS_MOBILE = 32;
@@ -249,7 +267,7 @@
         if (e.target === overlay) closeModal();
     });
     document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeModal();
+        if (e.key === 'Escape') { closeModal(); closeHints(); }
         // ── Easter egg: toggle zero gravity ──
         if ((e.key === 'g' || e.key === 'G') && !overlay.classList.contains('active') && !window.PINBALL_ACTIVE) {
             var grav = engine.world.gravity;

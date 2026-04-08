@@ -15,6 +15,26 @@
 <body>
 
     <a href="privacypolicy" class="privacy-link">Privacy</a>
+    <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
+
+    <!-- Hints overlay -->
+    <div class="hints-overlay" id="hints-overlay">
+        <div class="hints-panel" id="hints-panel">
+            <button class="hints-close" id="hints-close">&times;</button>
+            <h3 class="hints-title">secrets</h3>
+            <div class="hints-list">
+                <div class="hint-item">
+                    <span class="hint-symbol">&#8595;</span>
+                    <p>there's more beneath the surface. the page doesn't end where you think it does.</p>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-symbol">~</span>
+                    <p>what goes down doesn't always have to stay down. sometimes a single letter changes everything.</p>
+                </div>
+            </div>
+            <p class="hints-footer">some things are best discovered by accident.</p>
+        </div>
+    </div>
 
     <!-- ASCII background -->
     <div id="ascii-bg"></div>
