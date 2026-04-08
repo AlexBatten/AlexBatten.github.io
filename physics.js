@@ -351,31 +351,49 @@
     });
 
     // ── Device orientation → tilt gravity (mobile only) ──
-    var tiltActive = false;
     var defaultGravityScale = 1.2;
+    var refBeta = null;       // reference angle captured from how the user holds their phone
+    var smoothGx = 0;
+    var smoothGy = defaultGravityScale;
+    var SMOOTHING = 0.15;     // lower = smoother (lerp factor per frame)
+    var DEAD_ZONE = 5;        // degrees of tilt ignored around neutral
 
     function handleOrientation(e) {
         if (window.PINBALL_ACTIVE || window.ZERO_GRAVITY) return;
-        // beta = front-back tilt (-180..180), gamma = left-right tilt (-90..90)
-        var beta = e.beta;   // forward/back
-        var gamma = e.gamma; // left/right
+        var beta = e.beta;
+        var gamma = e.gamma;
         if (beta === null || gamma === null) return;
 
-        if (!tiltActive) {
-            tiltActive = true;
-        }
-
-        // Clamp values
         beta = Math.max(-90, Math.min(90, beta));
         gamma = Math.max(-90, Math.min(90, gamma));
 
-        // Map tilt angles to gravity vector
-        // gamma → x axis, beta → y axis
-        var gx = gamma / 90 * defaultGravityScale;
-        var gy = beta / 90 * defaultGravityScale;
+        // Capture reference angle from the user's natural holding position
+        if (refBeta === null) {
+            refBeta = beta;
+        }
 
-        engine.world.gravity.x = gx;
-        engine.world.gravity.y = gy;
+        // Compute tilt relative to how the user is holding the phone
+        var deltaBeta = beta - refBeta;
+        var deltaGamma = gamma;
+
+        // Apply dead zone — small tilts are ignored
+        if (Math.abs(deltaBeta) < DEAD_ZONE) deltaBeta = 0;
+        else deltaBeta -= Math.sign(deltaBeta) * DEAD_ZONE;
+
+        if (Math.abs(deltaGamma) < DEAD_ZONE) deltaGamma = 0;
+        else deltaGamma -= Math.sign(deltaGamma) * DEAD_ZONE;
+
+        // Map tilt to target gravity (scale down range after dead zone removal)
+        var maxTilt = 90 - DEAD_ZONE;
+        var targetGx = (deltaGamma / maxTilt) * defaultGravityScale;
+        var targetGy = defaultGravityScale + (deltaBeta / maxTilt) * defaultGravityScale;
+
+        // Smooth interpolation to prevent jitter
+        smoothGx += (targetGx - smoothGx) * SMOOTHING;
+        smoothGy += (targetGy - smoothGy) * SMOOTHING;
+
+        engine.world.gravity.x = smoothGx;
+        engine.world.gravity.y = smoothGy;
     }
 
     // Only enable on touch devices
