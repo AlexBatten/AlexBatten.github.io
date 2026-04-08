@@ -1,5 +1,5 @@
 // ── ASCII Binary Flow Background ──
-// Renders "ALEX BATTEN" as flowing/eroding binary text
+// Renders "ALEX BATTEN" as flowing/eroding binary text at times.
 
 (function () {
     var container = document.getElementById('ascii-bg');
