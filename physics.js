@@ -380,11 +380,10 @@
 
     // Only enable on touch devices
     if ('ontouchstart' in window) {
-        // iOS 13+ requires permission request
+        // iOS 13+ requires permission request from a click gesture (touchstart doesn't qualify)
         if (typeof DeviceOrientationEvent !== 'undefined' &&
             typeof DeviceOrientationEvent.requestPermission === 'function') {
-            // Add a one-time tap listener to request permission
-            document.addEventListener('touchstart', function requestTilt() {
+            document.addEventListener('click', function requestTilt() {
                 DeviceOrientationEvent.requestPermission()
                     .then(function (state) {
                         if (state === 'granted') {
@@ -392,7 +391,6 @@
                         }
                     })
                     .catch(function () {});
-                document.removeEventListener('touchstart', requestTilt);
             }, { once: true });
         } else {
             window.addEventListener('deviceorientation', handleOrientation);
