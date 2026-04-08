@@ -1,17 +1,16 @@
 // ── Modal content for each ball ──
-// Edit this file to customize your portfolio content.
 
 const CONTENT = {
     about: {
         number: '01',
         title: 'About',
         html: `
-            <p>Hi, I'm <strong>Alex</strong> — a software engineer based in Denmark with a
-            BEng in Software Technology from DTU. I care about clean code, solid architecture,
+            <p>Hi, I'm <strong>Alex</strong>, a software engineer based in Denmark with a
+            BEng in Software Technology from DTU. I care about functional clean code, solid architecture,
             and building things that actually work.</p>
             <p style="margin-top:12px">I'm drawn to system design, performance optimization,
             and writing maintainable software. Outside of coding, I'm into strength training
-            and music production — from audio engineering to composition.</p>
+            and music production, from audio engineering to composition.</p>
         `
     },
 
@@ -26,7 +25,7 @@ const CONTENT = {
                 </div>
                 <p>Built external integrations for currency rates (National Bank), VAT reporting
                 (Danish Tax Agency), business data via CVR, and Stripe payments. Worked within
-                a multi-tenant SaaS architecture using ASP.NET Core and Entity Framework Core.</p>
+                a multi tenant SaaS architecture using ASP.NET Core and Entity Framework Core.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">ASP.NET Core</span>
@@ -54,7 +53,7 @@ const CONTENT = {
                     <span class="entry-date">2024</span>
                 </div>
                 <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
-                web apps with Angular, .NET, and Bootstrap — including JWT auth, real-time dashboards,
+                web apps with Angular, .NET, and Bootstrap, including JWT auth, real-time dashboards,
                 and automated reporting. Maintained and optimized ERP systems in production.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
@@ -79,12 +78,12 @@ const CONTENT = {
                     <h3>Accelo → Business Central Integration</h3>
                     <span class="entry-date">Bachelor Project</span>
                 </div>
-                <p>Full-stack application bridging two enterprise platforms — transferring and
+                <p>Fullstack application bridging two enterprise platforms, transferring and
                 reviewing time registrations from Accelo (PSA) into Microsoft Business Central (ERP).
                 Built a custom UI for reviewing and adjusting hours before syncing. Designed the data model
-                in MSSQL, implemented multi-tenant authentication via Microsoft Entra ID, and containerized
-                the entire stack with Docker in a Jenkins CI/CD pipeline. Fully tested — unit tests on both
-                layers, plus end-to-end integration tests using Selenium and WebApplicationFactory.</p>
+                in MSSQL, implemented multi tenant authentication via Microsoft Entra ID, and containerized
+                the entire stack with Docker in a Jenkins CI/CD pipeline. Fully tested, unit tests on both
+                layers, plus integration tests using Selenium and WebApplicationFactory.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
                     <span class="tag">.NET</span>
@@ -100,7 +99,7 @@ const CONTENT = {
                     <h3>Uno X — Custom REST API</h3>
                     <span class="entry-date">Client: ISTOBAL</span>
                 </div>
-                <p>Built a bespoke API for ISTOBAL (car wash manufacturer) to serve operational
+                <p>Built a custom API for ISTOBAL (car wash manufacturer) to serve operational
                 data to their client Uno X (Nordic fuel station chain). Implemented a custom token based
                 authentication system and rate limiting with automated email alerts on threshold breach.</p>
                 <div style="margin-top:8px">
@@ -118,7 +117,7 @@ const CONTENT = {
                 </div>
                 <p>Extended a surveillance customer portal with automated SMS notifications triggered
                 by medicine cooler temperature deviations detected across a sensor network. Reduced risk
-                of unnoticed electrical or staff errors. Built as a multi-tenant SaaS module — each customer
+                of unnoticed electrical or staff errors. Built as a multi tenant SaaS module, each customer
                 with their own sensor configuration and alert thresholds.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
@@ -132,7 +131,7 @@ const CONTENT = {
                     <h3>Internal Monitoring Dashboards</h3>
                     <span class="entry-date">IT Operators</span>
                 </div>
-                <p>Real time dashboard views deployed on Raspberry Pis for office TV screens — monitoring
+                <p>Real time dashboard views deployed on Raspberry Pis for office TV screens, monitoring
                 time registrations and cron job health to track work efficiency and catch failed jobs early.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
