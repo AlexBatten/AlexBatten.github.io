@@ -271,7 +271,9 @@
         // ── Easter egg: toggle zero gravity ──
         if ((e.key === 'g' || e.key === 'G') && !overlay.classList.contains('active') && !window.PINBALL_ACTIVE) {
             var grav = engine.world.gravity;
-            if (grav.y !== 0) {
+            if (!window.ZERO_GRAVITY) {
+                window.ZERO_GRAVITY = true;
+                grav.x = 0;
                 grav.y = 0;
                 // Give each ball a gentle random drift
                 for (var i = 0; i < pairs.length; i++) {
@@ -281,6 +283,8 @@
                     });
                 }
             } else {
+                window.ZERO_GRAVITY = false;
+                grav.x = 0;
                 grav.y = 1.2;
             }
         }
@@ -345,6 +349,55 @@
             }
         }
     });
+
+    // ── Device orientation → tilt gravity (mobile only) ──
+    var tiltActive = false;
+    var defaultGravityScale = 1.2;
+
+    function handleOrientation(e) {
+        if (window.PINBALL_ACTIVE || window.ZERO_GRAVITY) return;
+        // beta = front-back tilt (-180..180), gamma = left-right tilt (-90..90)
+        var beta = e.beta;   // forward/back
+        var gamma = e.gamma; // left/right
+        if (beta === null || gamma === null) return;
+
+        if (!tiltActive) {
+            tiltActive = true;
+        }
+
+        // Clamp values
+        beta = Math.max(-90, Math.min(90, beta));
+        gamma = Math.max(-90, Math.min(90, gamma));
+
+        // Map tilt angles to gravity vector
+        // gamma → x axis, beta → y axis
+        var gx = gamma / 90 * defaultGravityScale;
+        var gy = beta / 90 * defaultGravityScale;
+
+        engine.world.gravity.x = gx;
+        engine.world.gravity.y = gy;
+    }
+
+    // Only enable on touch devices
+    if ('ontouchstart' in window) {
+        // iOS 13+ requires permission request
+        if (typeof DeviceOrientationEvent !== 'undefined' &&
+            typeof DeviceOrientationEvent.requestPermission === 'function') {
+            // Add a one-time tap listener to request permission
+            document.addEventListener('touchstart', function requestTilt() {
+                DeviceOrientationEvent.requestPermission()
+                    .then(function (state) {
+                        if (state === 'granted') {
+                            window.addEventListener('deviceorientation', handleOrientation);
+                        }
+                    })
+                    .catch(function () {});
+                document.removeEventListener('touchstart', requestTilt);
+            }, { once: true });
+        } else {
+            window.addEventListener('deviceorientation', handleOrientation);
+        }
+    }
 
     // ── Expose for pinball module ──
     window.PLAYGROUND = { engine, pairs, canvas, ctx, mouseConstraint, getSize: function () { return { W: W, H: H }; } };
