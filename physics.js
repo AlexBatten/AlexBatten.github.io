@@ -351,12 +351,12 @@
     });
 
     // ── Device orientation → tilt gravity (mobile only) ──
-    var defaultGravityScale = 1.2;
-    var refBeta = null;       // reference angle captured from how the user holds their phone
+    // Project Earth's gravity onto the phone's screen plane using real 3D math.
+    // Balls always fall toward the lowest physical point of the phone.
+    var GRAVITY_SCALE = 1.2;
+    var SMOOTHING = 0.15;
     var smoothGx = 0;
-    var smoothGy = defaultGravityScale;
-    var SMOOTHING = 0.15;     // lower = smoother (lerp factor per frame)
-    var DEAD_ZONE = 5;        // degrees of tilt ignored around neutral
+    var smoothGy = GRAVITY_SCALE;
 
     function handleOrientation(e) {
         if (window.PINBALL_ACTIVE || window.ZERO_GRAVITY) return;
@@ -364,29 +364,15 @@
         var gamma = e.gamma;
         if (beta === null || gamma === null) return;
 
-        beta = Math.max(-90, Math.min(90, beta));
-        gamma = Math.max(-90, Math.min(90, gamma));
+        // Convert to radians
+        var b = beta * Math.PI / 180;
+        var g = gamma * Math.PI / 180;
 
-        // Capture reference angle from the user's natural holding position
-        if (refBeta === null) {
-            refBeta = beta;
-        }
-
-        // Compute tilt relative to how the user is holding the phone
-        var deltaBeta = beta - refBeta;
-        var deltaGamma = gamma;
-
-        // Apply dead zone — small tilts are ignored
-        if (Math.abs(deltaBeta) < DEAD_ZONE) deltaBeta = 0;
-        else deltaBeta -= Math.sign(deltaBeta) * DEAD_ZONE;
-
-        if (Math.abs(deltaGamma) < DEAD_ZONE) deltaGamma = 0;
-        else deltaGamma -= Math.sign(deltaGamma) * DEAD_ZONE;
-
-        // Map tilt to target gravity (scale down range after dead zone removal)
-        var maxTilt = 90 - DEAD_ZONE;
-        var targetGx = (deltaGamma / maxTilt) * defaultGravityScale;
-        var targetGy = defaultGravityScale + (deltaBeta / maxTilt) * defaultGravityScale;
+        // Project Earth's gravity onto the screen plane:
+        // Screen X = how much gravity pulls left/right on screen
+        // Screen Y = how much gravity pulls up/down on screen
+        var targetGx = Math.sin(g) * Math.cos(b) * GRAVITY_SCALE;
+        var targetGy = Math.sin(b) * GRAVITY_SCALE;
 
         // Smooth interpolation to prevent jitter
         smoothGx += (targetGx - smoothGx) * SMOOTHING;
