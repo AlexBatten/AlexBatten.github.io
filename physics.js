@@ -118,6 +118,64 @@
         return { body, el };
     });
 
+    // ── Bounce sound (dynamic volume based on impact speed) ──
+    // AudioContext starts suspended — browser blocks audio until first user
+    // interaction. We load the buffer eagerly so sound plays instantly once
+    // the user clicks/touches/presses a key.
+    const bounceCtx = new (window.AudioContext || window.webkitAudioContext)();
+    let bounceBuffer = null;
+    const bounceCooldowns = {};
+    const BOUNCE_COOLDOWN = 120;  // ms between sounds per ball
+    const MAX_CONCURRENT = 3;     // max overlapping bounce sounds
+    const GLOBAL_COOLDOWN = 80;   // ms between any two sounds
+    let activeSources = 0;
+    let lastGlobalBounce = 0;
+
+    fetch('audio/ballsound.wav')
+        .then(r => r.arrayBuffer())
+        .then(buf => bounceCtx.decodeAudioData(buf))
+        .then(decoded => { bounceBuffer = decoded; });
+
+    function playBounce(speed) {
+        if (!bounceBuffer || speed < 1.5) return;
+        const now = performance.now();
+        if (now - lastGlobalBounce < GLOBAL_COOLDOWN) return;
+        if (activeSources >= MAX_CONCURRENT) return;
+        if (bounceCtx.state === 'suspended') bounceCtx.resume();
+        lastGlobalBounce = now;
+        activeSources++;
+        const source = bounceCtx.createBufferSource();
+        const gain = bounceCtx.createGain();
+        source.buffer = bounceBuffer;
+        gain.gain.value = Math.min(1, speed / 12);
+        source.playbackRate.value = 0.95 + Math.random() * 0.1;
+        source.connect(gain);
+        gain.connect(bounceCtx.destination);
+        source.onended = () => { activeSources--; };
+        source.start(0);
+    }
+
+    // Resume audio context on first user interaction (browser autoplay policy)
+    ['click', 'touchstart', 'keydown'].forEach(evt => {
+        document.addEventListener(evt, () => bounceCtx.resume(), { once: true });
+    });
+
+    // Play bounce sound on any ball collision with a surface
+    const ballBodyIds = new Set(pairs.map(p => p.body.id));
+    Events.on(engine, 'collisionStart', function (ev) {
+        const now = Date.now();
+        ev.pairs.forEach(function (pair) {
+            let ball = null;
+            if (ballBodyIds.has(pair.bodyA.id)) ball = pair.bodyA;
+            else if (ballBodyIds.has(pair.bodyB.id)) ball = pair.bodyB;
+            if (!ball) return;
+            if (bounceCooldowns[ball.id] && now - bounceCooldowns[ball.id] < BOUNCE_COOLDOWN) return;
+            bounceCooldowns[ball.id] = now;
+            const speed = Math.hypot(ball.velocity.x, ball.velocity.y);
+            playBounce(speed);
+        });
+    });
+
     // ── Mouse constraint for drag ──
     const mouse = Mouse.create(canvas);
     const mouseConstraint = MouseConstraint.create(engine, {
