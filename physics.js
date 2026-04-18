@@ -155,9 +155,19 @@
         source.start(0);
     }
 
-    // Resume audio context on first user interaction (browser autoplay policy)
+    // Resume audio context on first user interaction (browser autoplay policy).
+    // On iOS, Web Audio defaults to the "ambient" session — muted by the ring/silent
+    // switch and routed away from the speaker. Playing a silent HTMLAudioElement
+    // once flips the page to "playback" so Web Audio reaches the speaker.
+    const silentUnlock = new Audio(
+        'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7097lVE/NrchYxYnzkgU7HVF9X///9FacnlkkoU5//cfYBAdAAACgAAQBEAFIAAAQAAAQAAAAIAAAAAAAAAAAQAQAAAAAAQAAAAgAAAACA='
+    );
+    silentUnlock.loop = false;
     ['click', 'touchstart', 'keydown'].forEach(evt => {
-        document.addEventListener(evt, () => bounceCtx.resume(), { once: true });
+        document.addEventListener(evt, () => {
+            bounceCtx.resume();
+            silentUnlock.play().catch(() => {});
+        }, { once: true });
     });
 
     // Play bounce sound on any ball collision with a surface
