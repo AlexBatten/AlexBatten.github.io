@@ -155,22 +155,46 @@
         source.start(0);
     }
 
-    // Resume audio context on first user interaction (browser autoplay policy).
-    // On iOS, Web Audio defaults to the "ambient" session — muted by the hardware
-    // ring/silent switch and routed away from the speaker. Keeping a silent
-    // HTMLAudioElement looping holds the page in "playback" mode, which ignores
-    // the silent switch so Web Audio reaches the speaker regardless.
-    const silentUnlock = new Audio(
-        'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7097lVE/NrchYxYnzkgU7HVF9X///9FacnlkkoU5//cfYBAdAAACgAAQBEAFIAAAQAAAQAAAAIAAAAAAAAAAAQAQAAAAAAQAAAAgAAAACA='
-    );
-    silentUnlock.loop = true;
-    silentUnlock.volume = 0;
-    silentUnlock.setAttribute('playsinline', '');
-    ['click', 'touchstart', 'keydown'].forEach(evt => {
-        document.addEventListener(evt, () => {
-            bounceCtx.resume();
-            silentUnlock.play().catch(() => {});
-        }, { once: true });
+    // Resume audio context on user interaction, and force iOS to route Web Audio
+    // onto the media channel (ignoring the hardware mute switch) by keeping a
+    // high-quality silent <audio> looping. Adapted from swevans/unmute (MIT).
+    // The silence MP3 must be high-bitrate VBR stereo — iOS mixes Web Audio to
+    // match the HTML audio's bitrate, so a low-quality blob won't flip it over.
+    const huffman = (n, s) => s.repeat(n);
+    const silenceSrc =
+        "data:audio/mpeg;base64,//uQx" + huffman(23, "A") + "WGluZwAAAA8AAAACAAACcQCA" +
+        huffman(16, "gICA") + huffman(66, "/") +
+        "8AAABhTEFNRTMuMTAwA8MAAAAAAAAAABQgJAUHQQAB9AAAAnGMHkkI" + huffman(320, "A") +
+        "//sQxAADgnABGiAAQBCqgCRMAAgEAH" + huffman(15, "/") +
+        "7+n/9FTuQsQH//////2NG0jWUGlio5gLQTOtIoeR2WX////X4s9Atb/JRVCbBUpeRUq" +
+        huffman(18, "/") +
+        "9RUi0f2jn/+xDECgPCjAEQAABN4AAANIAAAAQVTEFNRTMuMTAw" + huffman(97, "V") + "Q==";
+
+    let channelTag = null;
+    function ensureChannel() {
+        if (!channelTag) {
+            channelTag = document.createElement('audio');
+            channelTag.setAttribute('x-webkit-airplay', 'deny');
+            channelTag.setAttribute('playsinline', '');
+            channelTag.controls = false;
+            channelTag.disableRemotePlayback = true;
+            channelTag.preload = 'auto';
+            channelTag.loop = true;
+            channelTag.src = silenceSrc;
+            channelTag.load();
+        }
+        if (channelTag.paused) {
+            const p = channelTag.play();
+            if (p) p.catch(() => { channelTag = null; });
+        }
+    }
+
+    const mediaEvents = ['click', 'touchend', 'touchstart', 'keydown', 'mousedown'];
+    mediaEvents.forEach(evt => {
+        window.addEventListener(evt, () => {
+            if (bounceCtx.state !== 'running') bounceCtx.resume();
+            ensureChannel();
+        }, { capture: true, passive: true });
     });
 
     // Play bounce sound on any ball collision with a surface
