@@ -156,13 +156,16 @@
     }
 
     // Resume audio context on first user interaction (browser autoplay policy).
-    // On iOS, Web Audio defaults to the "ambient" session — muted by the ring/silent
-    // switch and routed away from the speaker. Playing a silent HTMLAudioElement
-    // once flips the page to "playback" so Web Audio reaches the speaker.
+    // On iOS, Web Audio defaults to the "ambient" session — muted by the hardware
+    // ring/silent switch and routed away from the speaker. Keeping a silent
+    // HTMLAudioElement looping holds the page in "playback" mode, which ignores
+    // the silent switch so Web Audio reaches the speaker regardless.
     const silentUnlock = new Audio(
         'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQxAADB8AhSmxhIIEVCSiJrDCQBTcu3UrAIwUdkRgQbFAZC1CQEwTJ9mjRvBA4UOLD8nKVOWfh+UlK3z/177OXrfOdKl7097lVE/NrchYxYnzkgU7HVF9X///9FacnlkkoU5//cfYBAdAAACgAAQBEAFIAAAQAAAQAAAAIAAAAAAAAAAAQAQAAAAAAQAAAAgAAAACA='
     );
-    silentUnlock.loop = false;
+    silentUnlock.loop = true;
+    silentUnlock.volume = 0;
+    silentUnlock.setAttribute('playsinline', '');
     ['click', 'touchstart', 'keydown'].forEach(evt => {
         document.addEventListener(evt, () => {
             bounceCtx.resume();
