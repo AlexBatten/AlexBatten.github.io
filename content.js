@@ -24,8 +24,7 @@ const CONTENT = {
                     <span class="entry-date">2026</span>
                 </div>
                 <p>Built external integrations for currency rates (National Bank), VAT reporting
-                (Danish Tax Agency), business data via CVR, and Stripe payments. Worked within
-                a multi tenant SaaS architecture using ASP.NET Core and Entity Framework Core.</p>
+                (Danish Tax Agency), business data via CVR, and Stripe payments.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">ASP.NET Core</span>
