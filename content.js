@@ -160,7 +160,7 @@ const CONTENT = {
             <div class="entry">
                 <div class="entry-header">
                     <h3>Invarix Guard</h3>
-                    <span class="entry-date"><a href="https://www.nuget.org/packages/Invarix.Guard" target="_blank" rel="noopener">NuGet</a></span>
+                    <span class="entry-date"><a href="https://invarix.dk" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Guard" target="_blank" rel="noopener">NuGet</a></span>
                 </div>
                 <p>A plug and play AI safety library for .NET, shipped as a NuGet package. Covers
                 several AI safety categories out of the box, prompt injection, PII, and content
