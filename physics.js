@@ -422,28 +422,6 @@
         runner.delta = 1000 / fps;
     });
 
-    // Optional FPS overlay — append ?fps to the URL to verify on-device.
-    if (/[?#&]fps\b/.test(location.search + location.hash)) {
-        const fpsEl = document.createElement('div');
-        fpsEl.style.cssText =
-            'position:fixed;top:8px;left:8px;z-index:9999;' +
-            'font:600 11px var(--mono);color:#3b82f6;' +
-            'background:rgba(0,0,0,0.7);padding:4px 8px;border-radius:4px;' +
-            'pointer-events:none';
-        fpsEl.textContent = 'measuring…';
-        document.body.appendChild(fpsEl);
-        let fLast = performance.now(), fCount = 0;
-        (function loop(now) {
-            fCount++;
-            if (now - fLast >= 500) {
-                const live = Math.round(fCount / ((now - fLast) / 1000));
-                fpsEl.textContent = 'target ' + window.DISPLAY_FPS + 'Hz · ' + live + ' fps';
-                fLast = now; fCount = 0;
-            }
-            requestAnimationFrame(loop);
-        })(performance.now());
-    }
-
     function render() {
         const r = getRadius();
         for (const { body, el } of pairs) {
