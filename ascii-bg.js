@@ -7,7 +7,13 @@
 
     var CHAR_W = 8.5;
     var CHAR_H = 14;
-    var width, height, textMask, edgeDist, time, animId;
+    // 30Hz cap — text animation is subtle, no point burning the frame budget on
+    // it at 60/120Hz. Original 60Hz speed was time++ * 0.003 = 0.18 t-units/sec.
+    // Threshold sits a few ms below 1000/30 so float jitter at 60Hz native rAF
+    // doesn't push us into a 20Hz/30Hz alternating pattern.
+    var FRAME_INTERVAL = 30;
+    var T_PER_MS = 0.18 / 1000;
+    var width, height, textMask, edgeDist, animId, startTime, lastRender;
 
     // ── Build boolean mask via offscreen canvas ──
     function buildTextMask() {
@@ -82,8 +88,12 @@
         return dist;
     }
 
-    function frame() {
-        var t = time * 0.003;
+    function frame(now) {
+        animId = requestAnimationFrame(frame);
+        if (now - lastRender < FRAME_INTERVAL) return;
+        lastRender = now;
+
+        var t = (now - startTime) * T_PER_MS;
         var hw = width / 2, hh = height / 2;
         var erosion = (Math.sin(t * 0.4) * 0.5 + 0.5) * 4 + 0.5;
         var lines = [];
@@ -133,9 +143,6 @@
         var output = '';
         for (var i = 0; i < grid.length; i++) output += grid[i].join('') + '\n';
         container.textContent = output;
-
-        time++;
-        animId = requestAnimationFrame(frame);
     }
 
     function getSize() {
@@ -151,7 +158,8 @@
         height = Math.max(10, Math.floor(size.h / CHAR_H));
         textMask = buildTextMask();
         edgeDist = buildEdgeDist();
-        time = 0;
+        startTime = performance.now();
+        lastRender = 0;
     }
 
     function start() {
