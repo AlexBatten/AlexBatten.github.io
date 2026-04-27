@@ -231,6 +231,24 @@
     mouse.element.removeEventListener('mousewheel', mouse.mousewheel);
     mouse.element.removeEventListener('DOMMouseScroll', mouse.mousewheel);
 
+    // Let multi-touch gestures pass through (iOS pinch-to-tab-overview,
+    // pinch-zoom). Matter.js's Mouse handlers call preventDefault() on every
+    // touchstart/touchmove, which makes Safari abandon the pinch before it
+    // can recognize the gesture. Wrap them to skip when more than one finger
+    // is on the canvas.
+    const origMouseDown = mouse.mousedown;
+    const origMouseMove = mouse.mousemove;
+    mouse.element.removeEventListener('touchstart', mouse.mousedown);
+    mouse.element.removeEventListener('touchmove', mouse.mousemove);
+    mouse.element.addEventListener('touchstart', function (e) {
+        if (e.touches.length > 1) return;
+        origMouseDown(e);
+    });
+    mouse.element.addEventListener('touchmove', function (e) {
+        if (e.touches.length > 1) return;
+        origMouseMove(e);
+    });
+
     // ── Touch support ──
     let touchStartPos = null;
     let touchStartTime = 0;
