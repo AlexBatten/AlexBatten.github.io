@@ -385,9 +385,64 @@
         }
     });
 
+    // ── Detect display refresh rate ──
+    // Matter.js Runner defaults to a fixed 1000/60 step, so on a 120Hz iPhone
+    // the balls' positions only change every 16.66ms — rAF fires twice between
+    // physics ticks and redraws identical frames. Sample rAF intervals to find
+    // the device rate, snap to a common target, then set runner.delta to match.
+    const TARGET_RATES = [60, 75, 90, 120, 144, 165, 240];
+    function detectRefreshRate(cb) {
+        const samples = [];
+        let last = performance.now();
+        function tick(now) {
+            samples.push(now - last);
+            last = now;
+            if (samples.length >= 30) {
+                const sorted = samples.slice().sort((a, b) => a - b);
+                const median = sorted[Math.floor(sorted.length / 2)];
+                const fps = Math.round(1000 / median);
+                const snapped = TARGET_RATES.reduce((c, t) =>
+                    Math.abs(t - fps) < Math.abs(c - fps) ? t : c
+                );
+                cb(snapped);
+            } else {
+                requestAnimationFrame(tick);
+            }
+        }
+        requestAnimationFrame(tick);
+    }
+    window.DISPLAY_FPS = 60;
+
     // ── Render loop (sync DOM balls to physics) ──
     const runner = Runner.create();
     Runner.run(runner, engine);
+
+    detectRefreshRate(function (fps) {
+        window.DISPLAY_FPS = fps;
+        runner.delta = 1000 / fps;
+    });
+
+    // Optional FPS overlay — append ?fps to the URL to verify on-device.
+    if (/[?#&]fps\b/.test(location.search + location.hash)) {
+        const fpsEl = document.createElement('div');
+        fpsEl.style.cssText =
+            'position:fixed;top:8px;left:8px;z-index:9999;' +
+            'font:600 11px var(--mono);color:#3b82f6;' +
+            'background:rgba(0,0,0,0.7);padding:4px 8px;border-radius:4px;' +
+            'pointer-events:none';
+        fpsEl.textContent = 'measuring…';
+        document.body.appendChild(fpsEl);
+        let fLast = performance.now(), fCount = 0;
+        (function loop(now) {
+            fCount++;
+            if (now - fLast >= 500) {
+                const live = Math.round(fCount / ((now - fLast) / 1000));
+                fpsEl.textContent = 'target ' + window.DISPLAY_FPS + 'Hz · ' + live + ' fps';
+                fLast = now; fCount = 0;
+            }
+            requestAnimationFrame(loop);
+        })(performance.now());
+    }
 
     function render() {
         const r = getRadius();

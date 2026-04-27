@@ -10,8 +10,10 @@
     // ── Config ──
     var WALL_T      = 10;
     var FLIP_ANG    = 0.5;
-    var FLIP_RATE   = 0.24;    // radians per frame when flipping (powerful)
-    var REST_RATE   = 0.03;    // radians per frame returning to rest
+    // Per-second rates so flipper speed stays the same across 60/120/144Hz.
+    // Originals were 0.24 and 0.03 radians/tick at the old fixed 60Hz step.
+    var FLIP_RATE_PER_SEC = 14.4;
+    var REST_RATE_PER_SEC = 1.8;
     var BUMP_FORCE  = 0.012;
     var SCROLL_IN   = 400;
     var SCROLL_OUT  = 350;
@@ -297,26 +299,33 @@
                 if (!on) return;
 
                 var sh = tableShape;
+                // Per-tick step scales with display rate; angular velocity is
+                // re-scaled to 60Hz-equivalent units (Body._baseDelta) so
+                // collision response stays constant across refresh rates.
+                var fps = window.DISPLAY_FPS || 60;
+                var flipStep = FLIP_RATE_PER_SEC / fps;
+                var restStep = REST_RATE_PER_SEC / fps;
+                var velScale = fps / 60;
 
                 // Left flipper (pivot outer-left, free end toward center-right)
                 var la, ra;
                 var prevLA = flipL.angle, prevRA = flipR.angle;
                 if (keyL) {
-                    la = Math.max(prevLA - FLIP_RATE, -FLIP_ANG);
+                    la = Math.max(prevLA - flipStep, -FLIP_ANG);
                 } else {
-                    la = Math.min(prevLA + REST_RATE, FLIP_ANG);
+                    la = Math.min(prevLA + restStep, FLIP_ANG);
                 }
                 positionFlipper(flipL, la, sh.lpx, sh.flipY, -FLIP_W / 2);
-                Body.setAngularVelocity(flipL, la - prevLA);
+                Body.setAngularVelocity(flipL, (la - prevLA) * velScale);
 
                 // Right flipper (pivot outer-right, free end toward center-left)
                 if (keyR) {
-                    ra = Math.min(prevRA + FLIP_RATE, FLIP_ANG);
+                    ra = Math.min(prevRA + flipStep, FLIP_ANG);
                 } else {
-                    ra = Math.max(prevRA - REST_RATE, -FLIP_ANG);
+                    ra = Math.max(prevRA - restStep, -FLIP_ANG);
                 }
                 positionFlipper(flipR, ra, sh.rpx, sh.flipY, FLIP_W / 2);
-                Body.setAngularVelocity(flipR, ra - prevRA);
+                Body.setAngularVelocity(flipR, (ra - prevRA) * velScale);
 
                 // Speed cap on active ball
                 if (gameStarted && activeBall) {
