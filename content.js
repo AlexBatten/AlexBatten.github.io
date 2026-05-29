@@ -37,12 +37,20 @@ const CONTENT = {
                     <h3>AI Data Annotator — Outlier</h3>
                     <span class="entry-date">2025 — 2026</span>
                 </div>
-                <p>Contributed to advanced AI model development through data annotation and QA.
-                Crafted system prompts, designed multi-turn conversational datasets, and evaluated
-                model responses across 50+ risk categories including bias, misinformation, and safety.</p>
+                <p>Contributed to frontier AI model development through data annotation, prompt
+                engineering, trajectory refinement, and QA across projects including Clutch Zayu,
+                Maraca Camera, Mechanic Astrologer, and Meter Pavilion (OpenClaw). Crafted system
+                prompts defining model behavior and constraints, and designed single and multi turn
+                conversational and agentic datasets spanning 50+ risk categories including bias,
+                misinformation, privacy, and safety. Built autonomous agent trajectories exercising
+                skill discovery, memory, long horizon context, and native tools (cron, sub agent
+                delegation), and refined Golden Trajectories for efficiency and grounding. Served as
+                both author and reviewer on Mechanic Astrologer, auditing peer Task Blueprints against
+                structured rubrics, verifying ground truth, and writing teaching feedback.</p>
                 <div style="margin-top:8px">
                     <span class="tag">AI/ML</span>
                     <span class="tag">Prompt Engineering</span>
+                    <span class="tag">Agentic AI</span>
                     <span class="tag">Data Annotation</span>
                 </div>
             </div>
