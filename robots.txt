@@ -1,0 +1,5 @@
+# https://alexbatten.dk/ — crawlers welcome
+User-agent: *
+Allow: /
+
+Sitemap: https://alexbatten.dk/sitemap.xml

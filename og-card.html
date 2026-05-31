@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- Internal scene used only to render the social share card (images/og-image.png). Not linked publicly. -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>OG card — Alex Batten</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css?v=11">
+    <style>
+        html, body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+
+        .og {
+            position: relative;
+            width: 1200px;
+            height: 630px;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        /* Reuse the site's ASCII "ALEX BATTEN" background, kept very subtle */
+        #ascii-bg { color: rgba(0, 0, 0, 0.06) !important; z-index: 0; }
+
+        .og-inner {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 96px;
+            box-sizing: border-box;
+        }
+
+        /* small blue accent bar — echoes the blue "04" number accent */
+        .og-rule {
+            width: 66px;
+            height: 4px;
+            background: #3b82f6;
+            border-radius: 2px;
+            margin-bottom: 34px;
+        }
+
+        /* All headings use the modal-heading treatment:
+           uppercase · weight 600 · letter-spacing 0.08em (adapted to dark text on light bg) */
+        .og-name {
+            font-family: 'Roboto Condensed', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.045em;
+            font-size: 122px;
+            line-height: 1.0;
+            color: #1a1a1a;
+            margin: 0;
+        }
+
+        .og-role {
+            font-family: 'Roboto Condensed', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.11em;
+            font-size: 33px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-top: 28px;
+        }
+
+        .og-desc {
+            font-family: 'Roboto Condensed', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.10em;
+            font-size: 26px;
+            color: rgba(0, 0, 0, 0.5);
+            margin-top: 15px;
+        }
+        .og-desc b { color: #3b82f6; font-weight: 600; }
+
+        .og-url {
+            position: absolute;
+            bottom: 48px;
+            left: 96px;
+            z-index: 2;
+            font-family: 'Roboto Condensed', sans-serif;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            font-size: 22px;
+            color: rgba(0, 0, 0, 0.38);
+        }
+
+        /* Dark variant (matches the modal aesthetic) — toggle with ?theme=dark */
+        html.dark, html.dark body { background: #23262b; }
+        html.dark .og { background: #23262b; }
+        html.dark #ascii-bg { color: rgba(255, 255, 255, 0.06) !important; }
+        html.dark .og-name { color: rgba(255, 255, 255, 0.92); }
+        html.dark .og-role, html.dark .og-desc { color: rgba(255, 255, 255, 0.55); }
+        html.dark .og-url { color: rgba(255, 255, 255, 0.34); }
+    </style>
+    <script>
+        if (new URLSearchParams(location.search).get('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body>
+    <div class="og">
+        <div id="ascii-bg"></div>
+
+        <div class="og-inner">
+            <div class="og-rule"></div>
+            <h1 class="og-name">Alex Batten</h1>
+            <div class="og-role">Software Engineer&nbsp;&nbsp;·&nbsp;&nbsp;Denmark</div>
+            <div class="og-desc">Building <b>.NET</b>, Full-Stack &amp; <b>AI</b> Systems</div>
+        </div>
+
+        <div class="og-url">alexbatten.dk</div>
+    </div>
+
+    <script src="ascii-bg.js?v=10"></script>
+</body>
+</html>

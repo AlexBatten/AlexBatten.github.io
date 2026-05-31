@@ -4,15 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <title>Alex Batten | Portfolio</title>
+
+    <!-- ── Primary meta / SEO ── -->
+    <title>Alex Batten — Software Engineer · .NET, Full-Stack &amp; AI</title>
+    <meta name="description" content="Alex Batten — software engineer in Denmark specializing in .NET, full-stack web, and AI/ML. I build APIs, enterprise integrations, and AI-safety tooling.">
+    <meta name="author" content="Alex Batten">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="canonical" href="https://alexbatten.dk/">
+
+    <!-- ── Open Graph (LinkedIn, Facebook, Slack, iMessage) ── -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alex Batten">
+    <meta property="og:title" content="Alex Batten — Software Engineer · .NET, Full-Stack &amp; AI">
+    <meta property="og:description" content="Software engineer in Denmark specializing in .NET, full-stack web, and AI/ML. I build APIs, enterprise integrations, and AI-safety tooling.">
+    <meta property="og:url" content="https://alexbatten.dk/">
+    <meta property="og:image" content="https://alexbatten.dk/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Alex Batten — Software Engineer">
+    <meta property="og:locale" content="en_US">
+
+    <!-- ── Twitter / X ── -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alex Batten — Software Engineer · .NET, Full-Stack &amp; AI">
+    <meta name="twitter:description" content="Software engineer in Denmark specializing in .NET, full-stack web, and AI/ML. I build APIs, enterprise integrations, and AI-safety tooling.">
+    <meta name="twitter:image" content="https://alexbatten.dk/images/og-image.png">
+
     <link rel="icon" href="images/portfolio.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=10">
+    <link rel="stylesheet" href="styles.css?v=11">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+
+    <!-- ── Structured data (Person) ── -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Alex Batten",
+      "url": "https://alexbatten.dk/",
+      "image": "https://alexbatten.dk/images/og-image.png",
+      "jobTitle": "Software Engineer",
+      "description": "Software engineer in Denmark specializing in .NET, full-stack web development, and AI/ML.",
+      "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Technical University of Denmark (DTU)" },
+      "worksFor": { "@type": "Organization", "name": "Acconta" },
+      "knowsAbout": ["C#", ".NET", "ASP.NET Core", "Angular", "Full-Stack Development", "AI/ML", "Prompt Engineering", "System Design", "REST APIs", "Docker"],
+      "sameAs": [
+        "https://github.com/AlexBatten",
+        "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+      ]
+    }
+    </script>
 </head>
 <body>
+
+    <!-- ── SEO / accessibility content ──
+         Real, crawlable portfolio text for search engines and screen-reader
+         users. Mirrors the interactive modal content in content.js. Visually
+         hidden (see .seo-content) so the pinball UI stays the visual experience. -->
+    <main class="seo-content" aria-label="Alex Batten — software engineer portfolio">
+        <h1>Alex Batten — Software Engineer</h1>
+        <p>Software engineer based in Denmark with a BEng in Software Technology from
+        the Technical University of Denmark (DTU). I specialize in .NET and full-stack
+        web development, API and enterprise system integrations, and AI/ML data work.
+        I care about clean, functional code, solid architecture, and building things
+        that actually work. Outside of coding I'm into strength training and music
+        production, from audio engineering to composition.</p>
+
+        <section aria-labelledby="seo-exp">
+            <h2 id="seo-exp">Experience</h2>
+            <article>
+                <h3>Backend Developer — Acconta (2026)</h3>
+                <p>Built external integrations for currency rates (Danish National Bank),
+                VAT reporting (Danish Tax Agency), business data via CVR, and Stripe
+                payments. Stack: C#, ASP.NET Core, Entity Framework, Stripe.</p>
+            </article>
+            <article>
+                <h3>AI Data Annotator — Outlier (2025–2026)</h3>
+                <p>Contributed to frontier AI model development through data annotation,
+                prompt engineering, trajectory refinement, and QA across projects including
+                Clutch Zayu, Maraca Camera, Mechanic Astrologer, and Meter Pavilion
+                (OpenClaw). Crafted system prompts defining model behavior and constraints,
+                and designed single and multi-turn conversational and agentic datasets
+                spanning 50+ risk categories including bias, misinformation, privacy, and
+                safety. Built autonomous agent trajectories exercising skill discovery,
+                memory, long-horizon context, and native tools (cron, sub-agent delegation),
+                and refined Golden Trajectories for efficiency and grounding. Served as both
+                author and reviewer on Mechanic Astrologer. Skills: AI/ML, Prompt
+                Engineering, Agentic AI, Data Annotation.</p>
+            </article>
+            <article>
+                <h3>Software Development Intern — IT Operators / Simple Agency Group (2024)</h3>
+                <p>Developed REST APIs with auth, rate limiting, and monitoring. Built
+                fullstack web apps with Angular, .NET, and Bootstrap, including JWT auth,
+                real-time dashboards, and automated reporting. Maintained and optimized ERP
+                systems in production.</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-proj">
+            <h2 id="seo-proj">Projects</h2>
+            <article>
+                <h3>Accelo → Business Central Integration (Bachelor Project)</h3>
+                <p>Fullstack application bridging two enterprise platforms, transferring and
+                reviewing time registrations from Accelo (PSA) into Microsoft Business Central
+                (ERP). Custom review UI, MSSQL data model, multi-tenant authentication via
+                Microsoft Entra ID, containerized with Docker in a Jenkins CI/CD pipeline,
+                with unit and Selenium integration tests.</p>
+            </article>
+            <article>
+                <h3>Uno X — Custom REST API (Client: ISTOBAL)</h3>
+                <p>Custom API for ISTOBAL (car wash manufacturer) serving operational data to
+                Uno X (Nordic fuel station chain), with token-based authentication and rate
+                limiting with automated email alerts.</p>
+            </article>
+            <article>
+                <h3>Eye4u — Automated SMS Alert System</h3>
+                <p>Extended a surveillance customer portal with automated SMS notifications
+                triggered by medicine-cooler temperature deviations across a sensor network.
+                Built as a multi-tenant SaaS module.</p>
+            </article>
+            <article>
+                <h3>Internal Monitoring Dashboards (IT Operators)</h3>
+                <p>Real-time dashboards deployed on Raspberry Pis for office TV screens,
+                monitoring time registrations and cron job health.</p>
+            </article>
+            <article>
+                <h3>TIMEVAT — External API Integrations</h3>
+                <p>Integrated the EU VIES API for VAT number validation and the Danish
+                National Bank API for currency exchange rates into a VAT compliance platform.</p>
+            </article>
+            <article>
+                <h3>Invarix Guard — AI safety library for .NET</h3>
+                <p>A plug-and-play AI safety library for .NET, shipped as a NuGet package
+                (Invarix.Guard). Covers prompt injection, PII, and content safety so apps can
+                add guardrails in a few lines of code. Website: invarix.dk.</p>
+            </article>
+            <article>
+                <h3>Hemi-Sync Guided Meditation App</h3>
+                <p>A concept app for generating customizable guided meditations using
+                AI-driven text-to-speech layered with Hemi-Sync binaural beats, built in
+                React Native for iOS and Android.</p>
+            </article>
+            <article>
+                <h3>Distortion VST Plugin</h3>
+                <p>An audio distortion plugin with bitcrushing built with the JUCE framework
+                (C++), compatible with most DAWs as a VST.</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-skills">
+            <h2 id="seo-skills">Skills &amp; Tools</h2>
+            <p><strong>Languages:</strong> C#, C++, Java, TypeScript, JavaScript, Kotlin, SQL.</p>
+            <p><strong>Frameworks &amp; Libraries:</strong> ASP.NET Core, Entity Framework,
+            Angular, .NET, React Native, Bootstrap, JUCE.</p>
+            <p><strong>Concepts &amp; Practices:</strong> REST APIs, System Design,
+            Agile/Scrum, CI/CD, JWT Auth, Docker.</p>
+            <p><strong>Other:</strong> Git, ERP Systems, Multi-tenant SaaS, Audio Engineering.</p>
+        </section>
+
+        <section aria-labelledby="seo-edu">
+            <h2 id="seo-edu">Education</h2>
+            <article>
+                <h3>BEng Software Technology — Technical University of Denmark (DTU), 2021–2025</h3>
+                <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering
+                Economics. Bachelor's project: an integration between two ERP systems built
+                from scratch. GPA: 7.62 (Danish 7-point scale).</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-contact">
+            <h2 id="seo-contact">Contact</h2>
+            <p>Email: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.
+            GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.
+            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.</p>
+        </section>
+    </main>
 
     <a href="privacypolicy" class="privacy-link">Privacy</a>
     <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
@@ -96,7 +266,7 @@
         <p>&copy; 2026 Alex Batten</p>
     </footer>
 
-    <script src="content.js?v=8"></script>
+    <script src="content.js?v=9"></script>
     <script src="ascii-bg.js?v=10"></script>
     <script src="physics.js?v=13"></script>
     <script src="pinball.js?v=11"></script>

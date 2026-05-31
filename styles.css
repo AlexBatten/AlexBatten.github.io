@@ -494,3 +494,21 @@ footer {
         padding: 28px 24px;
     }
 }
+
+/* ── SEO / Accessibility: visually-hidden crawlable content ──
+   Real portfolio text for search engines and screen readers. It stays in
+   the rendered DOM (so Google indexes it after rendering) but is removed
+   from the visual flow — the pinball canvas stays the only thing sighted
+   users see. Standard "visually hidden" / sr-only pattern. */
+.seo-content {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
