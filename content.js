@@ -37,7 +37,7 @@ const CONTENT = {
                     <h3>AI Data Annotator — Outlier</h3>
                     <span class="entry-date">2025 — 2026</span>
                 </div>
-                <p>Contributed to frontier AI model development through data annotation, prompt
+                <p>Contributed to advanced AI model development through data annotation, prompt
                 engineering, trajectory refinement, and QA across projects including Clutch Zayu,
                 Maraca Camera, Mechanic Astrologer, and Meter Pavilion (OpenClaw). Crafted system
                 prompts defining model behavior and constraints, and designed single and multi turn

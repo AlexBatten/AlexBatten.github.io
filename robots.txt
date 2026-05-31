@@ -1,4 +1,4 @@
-# https://alexbatten.dk/ — crawlers welcome
+# robots.txt for alexbatten.dk
 User-agent: *
 Allow: /
 
