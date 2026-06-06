@@ -23,13 +23,24 @@ const CONTENT = {
                     <h3>Backend Developer — Acconta (Startup)</h3>
                     <span class="entry-date">2026</span>
                 </div>
-                <p>Built external integrations for currency rates (National Bank), VAT reporting
-                (Danish Tax Agency), business data via CVR, and Stripe payments.</p>
+                <p>Designed and shipped production microservices on a multi-tenant SaaS
+                platform (.NET Aspire, ASP.NET Core, EF Core), each taken from prototype to
+                deployed service with OpenAPI/NSwag generated typed clients. Owned Stripe
+                billing end to end: subscriptions and seat logic (proration, credits, plan
+                switching, yearly plans, webhooks, secret hardening), plus a working
+                subscription flow prototype in the Next.js client. Implemented Danish tax
+                compliance: VAT reporting to SKAT via the NemVirksomhed service (SOAP with
+                WS signing), computing all 17 VAT return fields, plus SAF-T import with
+                schema validation. Also built standalone integrations for daily currency
+                rates (National Bank) and company data via CVR (Danish Business Authority).</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
+                    <span class="tag">.NET Aspire</span>
                     <span class="tag">ASP.NET Core</span>
                     <span class="tag">Entity Framework</span>
+                    <span class="tag">Microservices</span>
                     <span class="tag">Stripe</span>
+                    <span class="tag">Next.js</span>
                 </div>
             </div>
             <div class="entry">
