@@ -640,6 +640,9 @@ body {
     width: 20px;
     text-align: center;
     line-height: 1.6;
+    /* Force monochrome text glyphs, not color emoji (mobile renders
+       symbols like the telephone as emoji by default) */
+    font-variant-emoji: text;
 }
 
 .hint-item p {
