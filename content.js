@@ -295,6 +295,80 @@ const CONTENT = {
         `
     },
 
+    hire: {
+        number: '07',
+        title: 'Start a Project',
+        html: `
+            <p class="brief-intro">Have something you'd like built? Tell me about
+            it and I'll get back to you within a couple of days.</p>
+
+            <form class="brief-form" id="brief-form" novalidate>
+                <input type="hidden" name="access_key" value="">
+                <input type="hidden" name="subject" value="New project request from your portfolio">
+                <input type="hidden" name="from_name" value="alexbatten.dk — Project Request">
+                <input type="hidden" name="project_type" value="">
+                <input type="checkbox" name="botcheck" class="brief-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                <div class="brief-row">
+                    <label class="brief-field">
+                        <span class="brief-label">Name</span>
+                        <input type="text" name="name" required autocomplete="name">
+                    </label>
+                    <label class="brief-field">
+                        <span class="brief-label">Email</span>
+                        <input type="email" name="email" required autocomplete="email">
+                    </label>
+                </div>
+
+                <div class="brief-field">
+                    <span class="brief-label">Project type</span>
+                    <div class="brief-pills">
+                        <button type="button" class="brief-pill" data-value="Web app">Web app</button>
+                        <button type="button" class="brief-pill" data-value="API / integration">API / integration</button>
+                        <button type="button" class="brief-pill" data-value="AI / ML">AI / ML</button>
+                        <button type="button" class="brief-pill" data-value="Mobile">Mobile</button>
+                        <button type="button" class="brief-pill" data-value="Other">Other</button>
+                    </div>
+                </div>
+
+                <div class="brief-row">
+                    <label class="brief-field">
+                        <span class="brief-label">Budget <em>(optional)</em></span>
+                        <select name="budget">
+                            <option value="">No preference</option>
+                            <option>Under €2k</option>
+                            <option>€2k – €5k</option>
+                            <option>€5k – €10k</option>
+                            <option>€10k+</option>
+                            <option>Not sure yet</option>
+                        </select>
+                    </label>
+                    <label class="brief-field">
+                        <span class="brief-label">Timeline <em>(optional)</em></span>
+                        <select name="timeline">
+                            <option value="">No preference</option>
+                            <option>ASAP</option>
+                            <option>Within 1 month</option>
+                            <option>1 – 2 months</option>
+                            <option>2 – 3 months</option>
+                            <option>Flexible</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label class="brief-field">
+                    <span class="brief-label">Project details</span>
+                    <textarea name="message" rows="4" required
+                        placeholder="What are you trying to build, and what does success look like?"></textarea>
+                </label>
+
+                <button type="submit" class="brief-submit">Send project request</button>
+                <p class="brief-status" id="brief-status" role="status" aria-live="polite"></p>
+                <p class="brief-note">No account needed. Goes straight to my inbox.</p>
+            </form>
+        `
+    },
+
     contact: {
         title: 'Get in Touch',
         html: `
