@@ -20,8 +20,31 @@ const CONTENT = {
         html: `
             <div class="entry">
                 <div class="entry-header">
+                    <h3>Senior Software Engineer, AI Infrastructure — Alignerr (Contract)</h3>
+                    <span class="entry-date">2026 — Present</span>
+                </div>
+                <p>Designing, building, and scaling the production infrastructure behind AI
+                training, evaluation, and deployment pipelines used by millions. Working
+                primarily in Python and TypeScript across backend services, APIs, and data
+                pipelines, architecting for reliability and long term maintainability at scale
+                on cloud and containerized environments. Collaborating asynchronously with ML
+                engineers, researchers, and product managers across a global distributed team,
+                covering system design, code reviews, debugging across distributed systems,
+                and contributing to engineering best practices.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Python</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">AI Infrastructure</span>
+                    <span class="tag">Distributed Systems</span>
+                    <span class="tag">Data Pipelines</span>
+                    <span class="tag">Cloud</span>
+                    <span class="tag">Containers</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
                     <h3>Backend Developer — Acconta (Startup)</h3>
-                    <span class="entry-date">2026</span>
+                    <span class="entry-date">2026 — Present</span>
                 </div>
                 <p>Designed and shipped production microservices on a multi-tenant SaaS
                 platform (.NET Aspire, ASP.NET Core, EF Core), each taken from prototype to
@@ -46,7 +69,7 @@ const CONTENT = {
             <div class="entry">
                 <div class="entry-header">
                     <h3>AI Data Annotator — Outlier</h3>
-                    <span class="entry-date">2025 — 2026</span>
+                    <span class="entry-date">2025 — Present</span>
                 </div>
                 <p>Contributed to advanced AI model development through data annotation, prompt
                 engineering, trajectory refinement, and QA across projects including Clutch Zayu,
@@ -230,6 +253,7 @@ const CONTENT = {
             <div style="margin-bottom:16px">
                 <span class="tag">C#</span>
                 <span class="tag">C++</span>
+                <span class="tag">Python</span>
                 <span class="tag">Java</span>
                 <span class="tag">TypeScript</span>
                 <span class="tag">JavaScript</span>
@@ -250,6 +274,7 @@ const CONTENT = {
             <div style="margin-bottom:16px">
                 <span class="tag">REST APIs</span>
                 <span class="tag">System Design</span>
+                <span class="tag">Distributed Systems</span>
                 <span class="tag">Agile / Scrum</span>
                 <span class="tag">CI/CD</span>
                 <span class="tag">JWT Auth</span>
