@@ -216,6 +216,26 @@ const CONTENT = {
 
             <div class="entry">
                 <div class="entry-header">
+                    <h3>Invarix Guard Evidence</h3>
+                    <span class="entry-date"><a href="https://invarix.dk/products/invarix-guard-evidence" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" target="_blank" rel="noopener">NuGet</a></span>
+                </div>
+                <p>A tamper evident audit trail for AI decisions in .NET, free under Elastic
+                License 2.0. Records each decision as a CloudEvents event keyed on SHA-256
+                hashes rather than the prompt text, then seals batches into an RFC 6962 Merkle
+                tree signed with the customer's own Ed25519 key, so an auditor can verify a
+                record was never altered using standard Certificate Transparency tooling.
+                Also ships retention policies with legal holds, signed deletion certificates,
+                and a streaming export endpoint. Runs fully in process with no outbound calls.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">NuGet</span>
+                    <span class="tag">Cryptography</span>
+                    <span class="tag">Audit Logging</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
                     <h3>Hemi-Sync Guided Meditation App</h3>
                     <span class="entry-date">In progress</span>
                 </div>
