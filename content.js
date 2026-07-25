@@ -337,6 +337,18 @@ const CONTENT = {
                 <p>CEO at Simple Agency Group</p>
                 <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View recommendation on LinkedIn &rarr;</a></p>
             </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Erik Seifert</h3>
+                </div>
+                <p>Endorsed the following skills:</p>
+                <div style="margin-top:8px">
+                    <span class="tag">C#</span>
+                    <span class="tag">.NET Framework</span>
+                    <span class="tag">Entity Framework (EF) Core</span>
+                </div>
+            </div>
         `
     },
 
