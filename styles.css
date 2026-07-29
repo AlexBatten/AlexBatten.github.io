@@ -711,12 +711,14 @@ footer {
     }
 }
 
-/* ── SEO / Accessibility: visually-hidden crawlable content ──
-   Real portfolio text for search engines and screen readers. It stays in
-   the rendered DOM (so Google indexes it after rendering) but is removed
-   from the visual flow, so the pinball canvas stays the only thing
-   sighted users see. Standard "visually hidden" / sr-only pattern. */
-.seo-content {
+/* ── Off-screen CV content ──
+   The portfolio text lives in the markup for screen readers and assistive
+   tech while the playground is the visual experience. The same content is
+   published fully visible at /cv, which is linked in the footer.
+   Standard "visually hidden" / sr-only pattern. No white-space: nowrap,
+   which is not part of the recipe and collapses multi-paragraph output
+   for screen readers. */
+.cv-content {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -725,6 +727,5 @@ footer {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     clip-path: inset(50%);
-    white-space: nowrap;
     border: 0;
 }

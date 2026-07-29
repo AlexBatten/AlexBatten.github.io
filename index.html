@@ -3,80 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 
     <!-- ── Primary meta / SEO ── -->
-    <title>Alex Batten | Software Engineer</title>
-    <meta name="description" content="Alex Batten is a software engineer in Denmark. I build .NET and full-stack web apps, the APIs and integrations behind them, and work on AI and machine learning.">
+    <title>Alex Batten | Freelance .NET &amp; Full-Stack Engineer in Denmark</title>
+    <meta name="description" content="Alex Batten is a freelance software engineer in Denmark. .NET, ASP.NET Core and full-stack web apps, REST APIs, enterprise integrations and AI infrastructure.">
     <meta name="author" content="Alex Batten">
-    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <meta name="theme-color" content="#3b82f6">
     <link rel="canonical" href="https://alexbatten.dk/">
 
     <!-- ── Open Graph (LinkedIn, Facebook, Slack, iMessage) ── -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Alex Batten">
-    <meta property="og:title" content="Alex Batten | Software Engineer">
-    <meta property="og:description" content="Software engineer in Denmark. I build .NET and full-stack web apps, APIs and integrations, and work on AI and machine learning.">
+    <meta property="og:title" content="Alex Batten | Freelance .NET &amp; Full-Stack Engineer in Denmark">
+    <meta property="og:description" content="Alex Batten is a freelance software engineer in Denmark. .NET, ASP.NET Core and full-stack web apps, REST APIs, enterprise integrations and AI infrastructure.">
     <meta property="og:url" content="https://alexbatten.dk/">
     <meta property="og:image" content="https://alexbatten.dk/images/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Alex Batten, Software Engineer">
-    <meta property="og:locale" content="en_US">
+    <meta property="og:locale" content="en_DK">
 
     <!-- ── Twitter / X ── -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Alex Batten | Software Engineer">
-    <meta name="twitter:description" content="Software engineer in Denmark. I build .NET and full-stack web apps, APIs and integrations, and work on AI and machine learning.">
+    <meta name="twitter:title" content="Alex Batten | Freelance .NET &amp; Full-Stack Engineer in Denmark">
+    <meta name="twitter:description" content="Alex Batten is a freelance software engineer in Denmark. .NET, ASP.NET Core and full-stack web apps, REST APIs, enterprise integrations and AI infrastructure.">
     <meta name="twitter:image" content="https://alexbatten.dk/images/og-image.png">
 
     <link rel="icon" href="images/portfolio.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=13">
+    <link rel="stylesheet" href="styles.css?v=14">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
 
-    <!-- ── Structured data (Person) ── -->
+    <!-- ── Structured data (linked graph: WebSite / ProfilePage / Person / packages) ── -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Alex Batten",
-      "url": "https://alexbatten.dk/",
-      "image": "https://alexbatten.dk/images/og-image.png",
-      "jobTitle": "Senior Software Engineer (AI Infrastructure)",
-      "description": "Software engineer in Denmark working with .NET, full-stack web development, AI infrastructure, and AI/ML.",
-      "address": { "@type": "PostalAddress", "addressCountry": "DK" },
-      "alumniOf": { "@type": "CollegeOrUniversity", "name": "Technical University of Denmark (DTU)" },
-      "worksFor": [
-        { "@type": "Organization", "name": "Alignerr" },
-        { "@type": "Organization", "name": "Acconta" },
-        { "@type": "Organization", "name": "Outlier" }
-      ],
-      "knowsAbout": ["C#", ".NET", "ASP.NET Core", "Angular", "Python", "TypeScript", "Full-Stack Development", "AI Infrastructure", "AI/ML", "Prompt Engineering", "Distributed Systems", "System Design", "REST APIs", "Docker"],
-      "sameAs": [
-        "https://github.com/AlexBatten",
-        "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://alexbatten.dk/#website",
+          "url": "https://alexbatten.dk/",
+          "name": "Alex Batten",
+          "alternateName": "alexbatten.dk",
+          "inLanguage": "en",
+          "publisher": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://alexbatten.dk/#webpage",
+          "url": "https://alexbatten.dk/",
+          "name": "Alex Batten | Freelance .NET & Full-Stack Engineer in Denmark",
+          "isPartOf": { "@id": "https://alexbatten.dk/#website" },
+          "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "about": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "inLanguage": "en",
+          "dateModified": "2026-07-29"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://alexbatten.dk/#alex-batten",
+          "name": "Alex Batten",
+          "url": "https://alexbatten.dk/",
+          "image": "https://alexbatten.dk/images/og-image.png",
+          "jobTitle": "Software Engineer",
+          "email": "alex.batten1234@gmail.com",
+          "description": "Freelance software engineer in Denmark working with .NET, ASP.NET Core, full-stack web development, REST APIs, enterprise integrations, and AI infrastructure.",
+          "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+          "homeLocation": { "@type": "Country", "name": "Denmark" },
+          "nationality": { "@type": "Country", "name": "Denmark" },
+          "knowsLanguage": ["en", "da"],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Technical University of Denmark (DTU)",
+            "url": "https://www.dtu.dk/"
+          },
+          "worksFor": [
+            {
+              "@type": "Organization",
+              "@id": "https://alexbatten.dk/#alignerr",
+              "name": "Alignerr"
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://alexbatten.dk/#acconta",
+              "name": "Acconta"
+            },
+            {
+              "@type": "Organization",
+              "@id": "https://alexbatten.dk/#outlier",
+              "name": "Outlier"
+            }
+          ],
+          "hasOccupation": {
+            "@type": "Occupation",
+            "name": "Software Engineer",
+            "occupationLocation": { "@type": "Country", "name": "Denmark" },
+            "skills": "C#, .NET, ASP.NET Core, Entity Framework, Angular, Next.js, Python, TypeScript, REST APIs, enterprise integrations, distributed systems, Docker, AI infrastructure"
+          },
+          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "Python", "TypeScript", "Full-Stack Development", "AI Infrastructure", "AI/ML", "Prompt Engineering", "Distributed Systems", "System Design", "REST APIs", "Enterprise Integrations", "Multi-tenant SaaS", "Docker"],
+          "sameAs": [
+            "https://github.com/AlexBatten",
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-guard",
+          "name": "Invarix.Guard",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "url": "https://invarix.dk",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard",
+          "description": "A plug-and-play AI safety library for .NET, shipped as a NuGet package. Covers prompt injection, PII, and content safety so apps can add guardrails in a few lines of code.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-guard-evidence",
+          "name": "Invarix.Guard.Evidence",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "url": "https://invarix.dk/products/invarix-guard-evidence",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
+          "license": "https://www.elastic.co/licensing/elastic-license",
+          "description": "A tamper-evident audit trail for AI decisions in .NET. Records decisions as CloudEvents keyed on SHA-256 hashes, sealed into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        }
       ]
     }
     </script>
 </head>
 <body>
 
-    <!-- ── SEO / accessibility content ──
-         Real, crawlable portfolio text for search engines and screen-reader
-         users. Mirrors the interactive modal content in content.js. Visually
-         hidden (see .seo-content) so the pinball UI stays the visual experience. -->
-    <main class="seo-content" aria-label="Alex Batten, software engineer portfolio">
-        <h1>Alex Batten, Software Engineer</h1>
-        <p>Software engineer based in Denmark with a BEng in Software Technology from
-        the Technical University of Denmark (DTU). Most of my work is in .NET and
-        full-stack web, with API and enterprise integrations and some AI/ML data work.
-        I care about clean, functional code, solid architecture, and building things
-        that actually work. Outside of coding I'm into strength training and music
+    <!-- ── Portfolio content ──
+         The full CV in plain markup, kept in sync with the modal content in
+         content.js. Also published as a fully visible page at /cv. -->
+    <main class="cv-content" aria-label="Alex Batten, software engineer portfolio">
+        <h1>Alex Batten, Freelance .NET &amp; Full-Stack Engineer in Denmark</h1>
+        <p>Alex Batten is a software engineer based in Denmark with a BEng in Software
+        Technology from the Technical University of Denmark (DTU). Most of my work is
+        in .NET and full-stack web, with API and enterprise integrations and some AI/ML
+        data work. I care about clean, functional code, solid architecture, and building
+        things that actually work. Outside of coding I'm into strength training and music
         production, from audio engineering to composition.</p>
+        <p>Available for freelance and contract work. Email
+        <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
+        (alex.batten1234@gmail.com), or see the
+        <a href="cv">full CV</a>.</p>
 
         <section aria-labelledby="seo-exp">
             <h2 id="seo-exp">Experience</h2>
@@ -166,17 +242,22 @@
                 <h3>Invarix Guard — AI safety library for .NET</h3>
                 <p>A plug-and-play AI safety library for .NET, shipped as a NuGet package
                 (Invarix.Guard). Covers prompt injection, PII, and content safety so apps can
-                add guardrails in a few lines of code. Website: invarix.dk.</p>
+                add guardrails in a few lines of code.
+                Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
             </article>
             <article>
                 <h3>Invarix Guard Evidence — tamper-evident AI audit trail for .NET</h3>
-                <p>A free .NET library (Invarix.Guard.Evidence) that records AI decisions as an
-                append-only audit trail, keyed on SHA-256 hashes rather than the prompt text.
+                <p>A free .NET library (Invarix.Guard.Evidence), licensed under Elastic License 2.0,
+                that records AI decisions as an append-only audit trail. Each decision is stored as a
+                CloudEvents event keyed on SHA-256 hashes rather than the prompt text.
                 Batches are sealed into an RFC 6962 Merkle tree and signed with the customer's
                 own Ed25519 key, so an auditor can prove no record changed after sealing using
                 standard Certificate Transparency tooling. Includes retention with legal holds,
-                signed deletion certificates, and a streaming export endpoint. Website:
-                invarix.dk.</p>
+                signed deletion certificates, and a streaming export endpoint. Runs fully in
+                process with no outbound calls.
+                Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
             </article>
             <article>
                 <h3>Hemi-Sync Guided Meditation App</h3>
@@ -208,6 +289,20 @@
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering
                 Economics. Bachelor's project: an integration between two ERP systems built
                 from scratch. GPA: 7.62 (Danish 7-point scale).</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-recs">
+            <h2 id="seo-recs">Recommendations</h2>
+            <article>
+                <h3>Mike Valencia — CEO at Simple Agency Group</h3>
+                <p>Recommended Alex Batten on LinkedIn for his work on development, software,
+                and integrations.
+                <a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" rel="noopener">View the recommendation on LinkedIn</a>.</p>
+            </article>
+            <article>
+                <h3>Erik Seifert</h3>
+                <p>Endorsed Alex Batten for C#, .NET Framework, and Entity Framework (EF) Core.</p>
             </article>
         </section>
 

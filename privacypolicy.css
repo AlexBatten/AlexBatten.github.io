@@ -62,6 +62,14 @@ body {
     color: var(--text);
 }
 
+.privacy-policy-content h4 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
 .privacy-policy-content p,
 .privacy-policy-content ul {
     margin-bottom: 16px;
