@@ -1,9 +1,15 @@
 // ── Live chat (tawk.to) — the "Chat" ball ──
 //
-// tawk.to ships its own floating launcher bubble. That bubble is suppressed
-// here so the playground stays the only entry point: the chat window opens
-// when the Chat ball is clicked and hides itself again when the visitor
-// closes it. Nothing pops up on its own.
+// tawk.to is loaded lazily, on the first click of the Chat ball, rather than
+// with the page. Loading it eagerly and calling hideWidget() in onLoad still
+// paints the launcher bubble for the frame or two before onLoad fires, so the
+// bubble visibly flashes in the corner on every page load. Not requesting the
+// widget at all until it is wanted removes the flash at the source, and has
+// the side effect that a visitor who never opens the chat never loads tawk's
+// script and never gets its cookies.
+//
+// The cost is a short delay on the very first click while the widget loads;
+// the click is queued and the window opens as soon as it is ready.
 //
 // Messages land in the tawk.to mobile app, which pushes a notification.
 
@@ -13,8 +19,9 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     var PROPERTY = '6a70ffca4bf7201d4aa60c02';
     var WIDGET   = '1jv4mebsp';
 
+    var injected = false;
     var loaded = false;
-    var pending = false;   // ball was clicked before the widget finished loading
+    var pending = false;   // ball was clicked while the widget was still loading
 
     function open() {
         Tawk_API.showWidget();
@@ -23,10 +30,11 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
 
     Tawk_API.onLoad = function () {
         loaded = true;
-        Tawk_API.hideWidget();
         if (pending) {
             pending = false;
             open();
+        } else {
+            Tawk_API.hideWidget();
         }
     };
 
@@ -37,16 +45,20 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         Tawk_API.hideWidget();
     };
 
-    window.openLiveChat = function () {
-        if (!loaded) { pending = true; return; }
-        open();
-    };
+    function inject() {
+        injected = true;
+        var s1 = document.createElement('script');
+        var s0 = document.getElementsByTagName('script')[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/' + PROPERTY + '/' + WIDGET;
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    }
 
-    var s1 = document.createElement('script');
-    var s0 = document.getElementsByTagName('script')[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/' + PROPERTY + '/' + WIDGET;
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
+    window.openLiveChat = function () {
+        if (loaded) { open(); return; }
+        pending = true;
+        if (!injected) inject();
+    };
 })();
