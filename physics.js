@@ -255,6 +255,9 @@
     let touchedPair = null;
 
     canvas.addEventListener('touchstart', function (e) {
+        // During pinball a touch on the canvas is a flipper press, not a ball
+        // tap. A ball happening to be under the finger must not activate.
+        if (window.PINBALL_ACTIVE) return;
         if (e.touches.length === 1) {
             const rect = canvas.getBoundingClientRect();
             const x = e.touches[0].clientX - rect.left;
@@ -286,25 +289,20 @@
         const elapsed = Date.now() - touchStartTime;
 
         if (dist < 15 && elapsed < 400) {
-            const label = touchedPair.body.label;
-            const linkEl = document.querySelector(`.ball-link[data-id="${label}"]`);
-            if (linkEl && linkEl.dataset.href) {
-                const href = linkEl.dataset.href;
+            activateBall(touchedPair.body.label, function (href) {
                 if (href.startsWith('mailto:')) {
                     window.location.href = href;
-                } else {
-                    // Use <a> click for iOS Safari compatibility
-                    const a = document.createElement('a');
-                    a.href = href;
-                    a.target = '_blank';
-                    a.rel = 'noopener';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
+                    return;
                 }
-            } else if (CONTENT[label]) {
-                openModal(label);
-            }
+                // Use <a> click for iOS Safari compatibility
+                const a = document.createElement('a');
+                a.href = href;
+                a.target = '_blank';
+                a.rel = 'noopener';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            });
         }
         touchStartPos = null;
         touchedPair = null;
@@ -349,17 +347,29 @@
 
         // If barely moved and quick tap, treat as click
         if (dist < 8 && elapsed < 300) {
-            const label = e.body.label;
-            // Check if it's a link ball (linkedin, email, github)
-            const linkEl = document.querySelector(`.ball-link[data-id="${label}"]`);
-            if (linkEl && linkEl.dataset.href) {
-                window.open(linkEl.dataset.href, linkEl.dataset.href.startsWith('mailto:') ? '_self' : '_blank');
-            } else if (CONTENT[label]) {
-                openModal(label);
-            }
+            activateBall(e.body.label, function (href) {
+                window.open(href, href.startsWith('mailto:') ? '_self' : '_blank');
+            });
         }
         mouseDownPos = null;
     });
+
+    // ── Ball activation ──
+    // A ball either opens the live chat, follows a link (linkedin, email,
+    // github), or opens its content modal. `openLink` is supplied by the
+    // caller because iOS Safari only follows a link from a synthesized <a>
+    // click, while a mouse click can use window.open directly.
+    function activateBall(label, openLink) {
+        const el = document.querySelector(`.ball[data-id="${label}"]`);
+        if (!el) return;
+        if (el.dataset.action === 'chat') {
+            if (window.openLiveChat) window.openLiveChat();
+        } else if (el.dataset.href) {
+            openLink(el.dataset.href);
+        } else if (CONTENT[label]) {
+            openModal(label);
+        }
+    }
 
     // ── Modal ──
     function openModal(id) {
