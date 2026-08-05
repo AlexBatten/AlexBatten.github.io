@@ -18,6 +18,24 @@
     var SCROLL_IN   = 400;
     var SCROLL_OUT  = 350;
     var MAX_SPEED   = 18;
+
+    // Corner bumpers: worth a burst instead of a flat 100, and the burst grows
+    // while the player keeps landing them inside the chain window.
+    var SURGE_FORCE = 0.026;
+    var SURGE_BASE  = 500;
+    var SURGE_CHAIN = 3500;   // ms to land the next corner hit and keep the chain
+    var SURGE_MAX   = 5;      // multiplier ceiling
+
+    // Boost: charges from points plus a passive trickle, so it always arrives
+    // eventually even for a player who isn't scoring.
+    var BOOST_COST    = 1000; // charge needed for one boost
+    var BOOST_TRICKLE = 25;   // charge per second, independent of score
+    var BOOST_MS      = 900;  // full-power window
+    var BOOST_FADE    = 700;  // speed cap eases back to normal over this
+    var BOOST_SPEED   = 30;   // launch speed
+    var BOOST_CAP     = 32;   // speed cap while boosting
+    var POPUP_MS      = 950;
+    var FONT          = '"Roboto Condensed", Arial, sans-serif';
     var CF_STATIC   = { category: 0x0002, mask: 0x0002, group: -1 };
     var CF_BALL     = { category: 0x0002, mask: 0x0002 };
     var CF_GHOST    = { category: 0x0004, mask: 0 };
@@ -44,16 +62,23 @@
         var updateH = null, collisionH = null;
         var tableShape = null;
         var drainBlocker = null;
+        var popups = [];
+        var surgeMult = 0, surgeLast = 0;
+        var boostCharge = 0, boostUntil = 0, boostBall = null, boostTrail = [];
+        var boostPct = -1, boostWasReady = null;
+        var canTouch = 'ontouchstart' in window;
 
         // Proportional dimensions based on ball radius
-        var R, FLIP_W, FLIP_H, BUMP_R, SM_BUMP_R, DRAIN_HALF;
+        var R, FLIP_W, FLIP_H, BUMP_R, SM_BUMP_R, SURGE_R, DRAIN_HALF, BALL_AIR;
         function calcDims() {
             R = pairs[0].body.circleRadius;
             FLIP_W    = R * 4;
             FLIP_H    = Math.max(12, R * 0.35);
             BUMP_R    = R * 0.65;
             SM_BUMP_R = R * 0.45;
+            SURGE_R   = R * 0.6;
             DRAIN_HALF = R * 0.5;
+            BALL_AIR  = pairs[0].body.frictionAir;
         }
 
         // ── UI ──
@@ -65,6 +90,13 @@
             'font:700 2rem var(--mono);color:#3b82f6;text-shadow:0 0 20px rgba(59,130,246,0.3)"></div>' +
             '<div id="pb-lives" style="position:absolute;top:68px;left:50%;transform:translateX(-50%);' +
             'font:0.85rem var(--mono);color:rgba(255,255,255,0.5)"></div>' +
+            '<div id="pb-boost" style="display:none;position:absolute;top:96px;left:50%;transform:translateX(-50%);' +
+            'text-align:center;padding:6px 10px;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent">' +
+            '<div style="width:150px;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);overflow:hidden">' +
+            '<div id="pb-boost-fill" style="width:0%;height:100%;background:#3b82f6"></div></div>' +
+            '<div id="pb-boost-label" style="margin-top:6px;font:0.66rem var(--mono);letter-spacing:0.1em;' +
+            'color:rgba(255,255,255,0.3)">BOOST</div>' +
+            '</div>' +
             '<div id="pb-over" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--mono)">' +
             '<div style="font:700 1.6rem var(--mono);color:#3b82f6">GAME OVER</div>' +
             '<div id="pb-final" style="font:1rem var(--mono);color:rgba(255,255,255,0.6);margin-top:8px"></div>' +
@@ -76,6 +108,11 @@
         var $lives = document.getElementById('pb-lives');
         var $over  = document.getElementById('pb-over');
         var $final = document.getElementById('pb-final');
+        var $boost = document.getElementById('pb-boost');
+        var $boostFill  = document.getElementById('pb-boost-fill');
+        var $boostLabel = document.getElementById('pb-boost-label');
+
+        $boost.addEventListener('click', function (e) { e.preventDefault(); fireBoost(); });
 
         // ── Table geometry ──
         function tbl() {
@@ -119,7 +156,13 @@
             // Bumpers (scaled to ball size)
             var bo = { isStatic: true, restitution: 1.2, collisionFilter: CF_STATIC, label: 'bumper' };
             var sbo = Object.assign({}, bo, { label: 'sm_bumper' });
+            var suo = Object.assign({}, bo, { label: 'surge', restitution: 1.35 });
+            // Corner bumpers sit close enough to the walls that the gap behind
+            // them is narrower than a ball — nothing can wedge into the corner.
+            var inset = WALL_T / 2 + R * 0.35 + SURGE_R;
             bumps = [
+                B.circle(t.L + inset, t.top + inset, SURGE_R, suo),
+                B.circle(t.R - inset, t.top + inset, SURGE_R, suo),
                 B.circle(t.cx, t.top + t.H * 0.25, BUMP_R, bo),
                 B.circle(t.cx - t.W * 0.24, t.top + t.H * 0.33, BUMP_R, bo),
                 B.circle(t.cx + t.W * 0.24, t.top + t.H * 0.38, BUMP_R, bo),
@@ -220,6 +263,9 @@
             score = 0;
             lives = reserveBalls.length + 1; // active + reserves
             dead = false;
+            boostCharge = 0;
+            boostPct = -1; boostWasReady = null;
+            $boost.style.display = 'block';
             $score.textContent = '0';
             showLives();
         }
@@ -252,6 +298,54 @@
             $lives.textContent = dots;
         }
 
+        // \u2500\u2500 Floating score text on the canvas \u2500\u2500
+        function popup(x, y, text, color) {
+            popups.push({ x: x, y: y, text: text, color: color, t0: Date.now() });
+            if (popups.length > 12) popups.shift();
+        }
+
+        // \u2500\u2500 Boost \u2500\u2500
+        function addCharge(pts) {
+            if (boostCharge < BOOST_COST) boostCharge = Math.min(BOOST_COST, boostCharge + pts);
+        }
+
+        function boostReady() {
+            return boostCharge >= BOOST_COST && gameStarted && !dead && !!activeBall;
+        }
+
+        function fireBoost() {
+            if (!on || !boostReady()) return;
+            var b = activeBall.body;
+            var spd = Math.hypot(b.velocity.x, b.velocity.y);
+            // Always launch up-table, keeping whatever sideways drift the ball
+            // had \u2014 boosting a falling ball straight down would just drain it.
+            var dx = spd > 0.5 ? (b.velocity.x / spd) * 0.55 : (Math.random() - 0.5) * 0.5;
+            var len = Math.hypot(dx, 1);
+            Sleep.set(b, false);
+            Body.setVelocity(b, { x: dx / len * BOOST_SPEED, y: -BOOST_SPEED / len });
+
+            endBoost(true);
+            boostBall = b;
+            b.frictionAir = 0;          // no drag, so the boost carries further
+            boostUntil = Date.now() + BOOST_MS;
+            boostCharge = 0;
+            popup(b.position.x, b.position.y - R, 'BOOST', '#93c5fd');
+        }
+
+        function endBoost(hard) {
+            if (boostBall) { boostBall.frictionAir = BALL_AIR; boostBall = null; }
+            if (hard) { boostUntil = 0; boostTrail.length = 0; }
+        }
+
+        // Cap eases back to normal after a boost so the ball decays instead of
+        // hitting an invisible wall the moment the window closes.
+        function speedCap() {
+            var dt = Date.now() - boostUntil;
+            if (dt < 0) return BOOST_CAP;
+            if (dt >= BOOST_FADE) return MAX_SPEED;
+            return BOOST_CAP + (MAX_SPEED - BOOST_CAP) * (dt / BOOST_FADE);
+        }
+
         // ── ENTER ──
         function enter() {
             if (on) return;
@@ -261,7 +355,11 @@
             scrollAcc = 0;
             gameStarted = false;
             dead = false;
+            popups = [];
+            surgeMult = 0; surgeLast = 0;
+            boostCharge = 0; boostUntil = 0; boostBall = null; boostTrail = [];
             $over.style.display = 'none';
+            $boost.style.display = 'none';
             $score.textContent = '';
             $lives.textContent = 'GET READY \u2014 use \u2190 \u2192 arrow keys to flip';
             calcDims();
@@ -327,19 +425,39 @@
                 positionFlipper(flipR, ra, sh.rpx, sh.flipY, FLIP_W / 2);
                 Body.setAngularVelocity(flipR, (ra - prevRA) * velScale);
 
-                // Speed cap on active ball
+                // Speed cap on active ball (raised while boosting)
                 if (gameStarted && activeBall) {
                     var b = activeBall.body;
                     var spd = Math.hypot(b.velocity.x, b.velocity.y);
-                    if (spd > MAX_SPEED) {
-                        var s = MAX_SPEED / spd;
+                    var cap = speedCap();
+                    if (spd > cap) {
+                        var s = cap / spd;
                         Body.setVelocity(b, { x: b.velocity.x * s, y: b.velocity.y * s });
+                    }
+                }
+
+                // Boost charge, trail and expiry
+                if (gameStarted && !dead) {
+                    if (boostCharge < BOOST_COST) {
+                        boostCharge = Math.min(BOOST_COST, boostCharge + BOOST_TRICKLE / fps);
+                    }
+                    if (boostBall) {
+                        if (Date.now() >= boostUntil) {
+                            endBoost(false);
+                        } else {
+                            boostTrail.push({ x: boostBall.position.x, y: boostBall.position.y });
+                            if (boostTrail.length > 20) boostTrail.shift();
+                        }
+                    } else if (boostTrail.length) {
+                        boostTrail.shift();
                     }
                 }
 
                 // Drain check (only after game starts)
                 if (gameStarted && !dead && activeBall && activeBall.body.position.y > tbl().B + R + 30) {
                     // Ball drained
+                    endBoost(true);
+                    surgeMult = 0;
                     activeBall.el.classList.remove('visible');
                     Comp.remove(engine.world, activeBall.body);
                     removedFromWorld.push(activeBall.body);
@@ -361,14 +479,29 @@
                 ev.pairs.forEach(function (p) {
                     var a = p.bodyA, b = p.bodyB;
                     var bmp = null, bl = null;
-                    if ((a.label === 'bumper' || a.label === 'sm_bumper') && activeBall && b === activeBall.body) { bmp = a; bl = b; }
-                    if ((b.label === 'bumper' || b.label === 'sm_bumper') && activeBall && a === activeBall.body) { bmp = b; bl = a; }
+                    if (isBumper(a) && activeBall && b === activeBall.body) { bmp = a; bl = b; }
+                    if (isBumper(b) && activeBall && a === activeBall.body) { bmp = b; bl = a; }
                     if (!bmp || !bl) return;
+                    var surge = bmp.label === 'surge';
                     var dx = bl.position.x - bmp.position.x;
                     var dy = bl.position.y - bmp.position.y;
                     var d = Math.hypot(dx, dy) || 1;
-                    Body.applyForce(bl, bl.position, { x: dx / d * BUMP_FORCE, y: dy / d * BUMP_FORCE });
-                    score += bmp.label === 'bumper' ? 100 : 50;
+                    var f = surge ? SURGE_FORCE : BUMP_FORCE;
+                    Body.applyForce(bl, bl.position, { x: dx / d * f, y: dy / d * f });
+
+                    var pts;
+                    if (surge) {
+                        var t = Date.now();
+                        surgeMult = (t - surgeLast < SURGE_CHAIN) ? Math.min(surgeMult + 1, SURGE_MAX) : 1;
+                        surgeLast = t;
+                        pts = SURGE_BASE * surgeMult;
+                        popup(bmp.position.x, bmp.position.y - SURGE_R - 8,
+                              (surgeMult > 1 ? '×' + surgeMult + '  ' : '') + '+' + pts, '#fbbf24');
+                    } else {
+                        pts = bmp.label === 'bumper' ? 100 : 50;
+                    }
+                    score += pts;
+                    addCharge(pts);
                     $score.textContent = score;
                     flash[bmp.id] = Date.now();
                 });
@@ -384,9 +517,15 @@
             }, 1200);
         }
 
+        function isBumper(body) {
+            return body.label === 'bumper' || body.label === 'sm_bumper' || body.label === 'surge';
+        }
+
         // ── Game Over ──
         function gameOver() {
             dead = true;
+            endBoost(true);
+            $boost.style.display = 'none';
             $over.style.display = 'block';
             $final.textContent = 'Score: ' + score;
             $score.textContent = '';
@@ -404,6 +543,10 @@
 
             Ev.off(engine, 'beforeUpdate', updateH);
             Ev.off(engine, 'collisionStart', collisionH);
+
+            endBoost(true);
+            popups = [];
+            surgeMult = 0; surgeLast = 0; boostCharge = 0;
 
             // Remove table
             tableCons.forEach(function (c) { Comp.remove(engine.world, c); });
@@ -436,6 +579,7 @@
 
             ui.style.display = 'none';
             $over.style.display = 'none';
+            $boost.style.display = 'none';
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (raf) { cancelAnimationFrame(raf); raf = null; }
         }
@@ -474,25 +618,46 @@
 
             // Bumpers
             var now = Date.now();
+            var chained = surgeMult > 1 && now - surgeLast < SURGE_CHAIN;
             for (var i = 0; i < bumps.length; i++) {
                 var bm = bumps[i];
                 var hit = flash[bm.id] && now - flash[bm.id] < 150;
-                var r = bm.label === 'bumper' ? BUMP_R : SM_BUMP_R;
+                var surge = bm.label === 'surge';
+                var r = bm.circleRadius;
+
+                // Ring around a corner bumper while its chain is still alive
+                if (surge && chained) {
+                    var pulse = 1 + 0.12 * Math.sin(now / 130);
+                    ctx.beginPath();
+                    ctx.arc(bm.position.x, bm.position.y, r * 1.35 * pulse, 0, Math.PI * 2);
+                    ctx.strokeStyle = 'rgba(251,191,36,0.35)';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
 
                 ctx.beginPath();
                 ctx.arc(bm.position.x, bm.position.y, r, 0, Math.PI * 2);
                 if (hit) {
-                    ctx.fillStyle = 'rgba(96,165,250,0.8)';
-                    ctx.shadowColor = '#3b82f6';
-                    ctx.shadowBlur = 18;
+                    ctx.fillStyle = surge ? 'rgba(251,191,36,0.85)' : 'rgba(96,165,250,0.8)';
+                    ctx.shadowColor = surge ? '#f59e0b' : '#3b82f6';
+                    ctx.shadowBlur = surge ? 26 : 18;
                 } else {
-                    ctx.fillStyle = 'rgba(59,130,246,0.2)';
+                    ctx.fillStyle = surge ? 'rgba(245,158,11,0.22)' : 'rgba(59,130,246,0.2)';
                 }
                 ctx.fill();
                 ctx.shadowBlur = 0;
-                ctx.strokeStyle = hit ? '#93c5fd' : 'rgba(59,130,246,0.5)';
+                if (surge) ctx.strokeStyle = hit ? '#fde68a' : 'rgba(245,158,11,0.6)';
+                else       ctx.strokeStyle = hit ? '#93c5fd' : 'rgba(59,130,246,0.5)';
                 ctx.lineWidth = 1.5;
                 ctx.stroke();
+
+                if (surge && chained) {
+                    ctx.fillStyle = '#fde68a';
+                    ctx.font = '700 ' + Math.round(r * 0.85) + 'px ' + FONT;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText('×' + surgeMult, bm.position.x, bm.position.y + 1);
+                }
 
                 if (flash[bm.id] && now - flash[bm.id] > 150) delete flash[bm.id];
             }
@@ -511,8 +676,53 @@
                 ctx.fill();
             }
 
+            // Boost trail (canvas sits behind the ball elements)
+            for (var ti = 0; ti < boostTrail.length; ti++) {
+                var pt = boostTrail[ti];
+                var k = (ti + 1) / boostTrail.length;
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, R * 0.75 * k, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(147,197,253,' + (0.28 * k * k).toFixed(3) + ')';
+                ctx.fill();
+            }
+
+            // Floating score text
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            for (var pi = popups.length - 1; pi >= 0; pi--) {
+                var pu = popups[pi];
+                var age = (now - pu.t0) / POPUP_MS;
+                if (age >= 1) { popups.splice(pi, 1); continue; }
+                ctx.globalAlpha = tableAlpha * (1 - age);
+                ctx.fillStyle = pu.color;
+                ctx.font = '700 ' + Math.round(R * 0.45) + 'px ' + FONT;
+                ctx.fillText(pu.text, pu.x, pu.y - age * R * 1.2);
+            }
+
             ctx.restore();
+            drawBoostMeter(now);
             raf = requestAnimationFrame(draw);
+        }
+
+        // ── Boost meter (DOM, only written when it actually changes) ──
+        function drawBoostMeter(now) {
+            if (!gameStarted || dead) return;
+            var pct = Math.round(boostCharge / BOOST_COST * 100);
+            if (pct !== boostPct) {
+                boostPct = pct;
+                $boostFill.style.width = pct + '%';
+            }
+            var ready = boostCharge >= BOOST_COST;
+            if (ready !== boostWasReady) {
+                boostWasReady = ready;
+                $boostFill.style.background = ready ? '#fbbf24' : '#3b82f6';
+                $boostLabel.style.color = ready ? '#fbbf24' : 'rgba(255,255,255,0.3)';
+                $boostLabel.textContent = ready
+                    ? (canTouch ? 'BOOST READY — TAP' : 'BOOST READY — SPACE')
+                    : 'BOOST';
+                if (!ready) $boostLabel.style.opacity = '1';
+            }
+            if (ready) $boostLabel.style.opacity = (0.55 + 0.45 * Math.sin(now / 220)).toFixed(2);
         }
 
         // ── Scroll ──
@@ -540,6 +750,10 @@
             if (!on) return;
             if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') { keyL = true; e.preventDefault(); }
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { keyR = true; e.preventDefault(); }
+            if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+                if (!e.repeat) fireBoost();
+                e.preventDefault();
+            }
         });
         window.addEventListener('keyup', function (e) {
             if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') keyL = false;
