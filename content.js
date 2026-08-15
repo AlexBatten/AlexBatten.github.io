@@ -21,16 +21,16 @@ const CONTENT = {
             <div class="entry">
                 <div class="entry-header">
                     <h3>Senior Software Engineer, AI Infrastructure — Alignerr (Contract)</h3>
-                    <span class="entry-date">2026 — Present</span>
+                    <span class="entry-date">Signed 2026, not yet started</span>
                 </div>
-                <p>Designing, building, and scaling the production infrastructure behind AI
-                training, evaluation, and deployment pipelines used by millions. Working
-                primarily in Python and TypeScript across backend services, APIs, and data
-                pipelines, architecting for reliability and long term maintainability at scale
-                on cloud and containerized environments. Collaborating asynchronously with ML
-                engineers, researchers, and product managers across a global distributed team,
-                covering system design, code reviews, debugging across distributed systems,
-                and contributing to engineering best practices.</p>
+                <p>Signed contract, first assignment still pending. The agreed scope is
+                designing, building, and scaling the production infrastructure behind AI
+                training, evaluation, and deployment pipelines: Python and TypeScript across
+                backend services, APIs, and data pipelines, architected for reliability and
+                long term maintainability at scale on cloud and containerized environments.
+                The role also covers system design, code reviews, and debugging across
+                distributed systems, working asynchronously with ML engineers, researchers,
+                and product managers on a global distributed team.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Python</span>
                     <span class="tag">TypeScript</span>
@@ -64,6 +64,24 @@ const CONTENT = {
                     <span class="tag">Microservices</span>
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Generalist Expert, AI Evaluation — Mercor (Contract)</h3>
+                    <span class="entry-date">2026 — Present</span>
+                </div>
+                <p>Evaluating AI model outputs against structured evaluation guidelines and
+                writing the rationale behind every judgment. The work is close reading: checking
+                a response for factual accuracy, sound reasoning, instruction following, and
+                tone, then stating precisely where it holds up and where it breaks down, with
+                evidence. Applying the same standard consistently across a wide range of subject
+                areas so that assessments stay comparable between reviewers.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">AI Evaluation</span>
+                    <span class="tag">LLM Outputs</span>
+                    <span class="tag">Structured Feedback</span>
+                    <span class="tag">Technical Writing</span>
                 </div>
             </div>
             <div class="entry">
@@ -273,7 +291,6 @@ const CONTENT = {
             <div style="margin-bottom:16px">
                 <span class="tag">C#</span>
                 <span class="tag">C++</span>
-                <span class="tag">Python</span>
                 <span class="tag">Java</span>
                 <span class="tag">TypeScript</span>
                 <span class="tag">JavaScript</span>
@@ -286,6 +303,8 @@ const CONTENT = {
                 <span class="tag">Entity Framework</span>
                 <span class="tag">Angular</span>
                 <span class="tag">.NET</span>
+                <span class="tag">.NET Aspire</span>
+                <span class="tag">Next.js</span>
                 <span class="tag">React Native</span>
                 <span class="tag">Bootstrap</span>
                 <span class="tag">JUCE</span>
@@ -303,8 +322,10 @@ const CONTENT = {
             <h3>Other</h3>
             <div>
                 <span class="tag">Git</span>
+                <span class="tag">Claude Code</span>
                 <span class="tag">ERP Systems</span>
                 <span class="tag">Multi-tenant SaaS</span>
+                <span class="tag">SAF-T</span>
                 <span class="tag">Audio Engineering</span>
             </div>
         `
