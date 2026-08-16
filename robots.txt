@@ -3,3 +3,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://alexbatten.dk/sitemap.xml
+
+# Structured summary for LLM crawlers: https://alexbatten.dk/llms.txt

@@ -1,0 +1,75 @@
+# Alex Batten
+
+> Freelance .NET and full-stack software engineer based in Denmark. Available for
+> contract work on backend services, REST APIs, enterprise and tax-authority
+> integrations, multi-tenant SaaS, and AI features. Remote across the EU on CET.
+
+Alex Batten holds a BEng in Software Technology from the Technical University of
+Denmark (DTU). Most of his work is in C# and .NET with full-stack web, API and
+enterprise integrations, and AI/ML data work. He publishes two .NET libraries on
+NuGet under the Invarix name and speaks English and Danish.
+
+Contact: alex.batten1234@gmail.com
+
+## Pages
+
+- [Portfolio](https://alexbatten.dk/): Interactive homepage. The full CV is also
+  present in the markup, alongside a project-request form and live chat.
+- [Full CV](https://alexbatten.dk/cv): Complete experience, projects, skills,
+  education, recommendations, and a frequently-asked-questions section.
+- [Invarix](https://invarix.dk): Product site for the Invarix .NET libraries.
+
+## Current work
+
+- **Senior Software Engineer, AI Infrastructure at Alignerr** (contract signed
+  2026, first assignment pending): production infrastructure behind AI training,
+  evaluation, and deployment pipelines. Python and TypeScript across backend
+  services, APIs, and data pipelines on cloud and containerized environments.
+- **Backend Developer at Acconta** (2026 to present): production microservices on
+  a multi-tenant SaaS platform in .NET Aspire, ASP.NET Core, and EF Core. Owns
+  Stripe billing end to end (subscriptions, seat logic, proration, credits, plan
+  switching, webhooks). Implemented Danish VAT reporting to SKAT via the
+  NemVirksomhed service (SOAP with WS-Security signing, all 17 VAT return fields)
+  and SAF-T import with schema validation.
+- **Generalist Expert, AI Evaluation at Mercor** (2026 to present): evaluating AI
+  model outputs against structured guidelines and writing the rationale behind
+  each judgment.
+- **AI Data Annotator at Outlier** (2025 to present): data annotation, prompt
+  engineering, agentic trajectory design, and QA across 50+ risk categories.
+
+## Published software
+
+- [Invarix.Guard](https://www.nuget.org/packages/Invarix.Guard): A plug-and-play
+  AI safety library for .NET. Covers prompt injection, PII, and content safety so
+  applications can add guardrails in a few lines of code.
+- [Invarix.Guard.Evidence](https://www.nuget.org/packages/Invarix.Guard.Evidence):
+  A tamper-evident audit trail for AI decisions in .NET, free under Elastic
+  License 2.0. Records decisions as CloudEvents keyed on SHA-256 hashes, seals
+  batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key,
+  and runs fully in process with no outbound calls.
+
+## Skills
+
+- **Languages**: C#, C++, Java, TypeScript, JavaScript, Kotlin, Python, SQL
+- **Frameworks**: ASP.NET Core, .NET Aspire, Entity Framework Core, Angular,
+  Next.js, React Native, Bootstrap, JUCE
+- **Practices**: REST API design, system design, distributed systems, CI/CD,
+  Docker, JWT auth, multi-tenant SaaS, Agile/Scrum
+- **Domains**: enterprise and ERP integrations, Danish tax compliance (SKAT,
+  SAF-T, CVR, VIES), Stripe billing, AI safety and evaluation
+
+## Profiles
+
+- [GitHub](https://github.com/AlexBatten)
+- [LinkedIn](https://www.linkedin.com/in/alex-batten-48b28b2a2/)
+
+## Hiring
+
+Available for freelance and contract work: .NET and full-stack web applications,
+REST APIs and enterprise integrations, and AI/ML features. Project requests can be
+sent through the form at https://alexbatten.dk/ or by email to
+alex.batten1234@gmail.com, and get a reply within a couple of days.
+
+## Optional
+
+- [Privacy policy](https://alexbatten.dk/privacypolicy)

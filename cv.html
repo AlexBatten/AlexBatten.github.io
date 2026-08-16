@@ -29,14 +29,110 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfilePage",
-      "@id": "https://alexbatten.dk/cv#webpage",
-      "url": "https://alexbatten.dk/cv",
-      "name": "CV | Alex Batten, Freelance .NET & Full-Stack Engineer in Denmark",
-      "inLanguage": "en",
-      "dateModified": "2026-08-15",
-      "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
-      "isPartOf": { "@id": "https://alexbatten.dk/#website" }
+      "@graph": [
+        {
+          "@type": "ProfilePage",
+          "@id": "https://alexbatten.dk/cv#webpage",
+          "url": "https://alexbatten.dk/cv",
+          "name": "CV | Alex Batten, Freelance .NET & Full-Stack Engineer in Denmark",
+          "inLanguage": "en",
+          "dateModified": "2026-08-16",
+          "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "isPartOf": { "@id": "https://alexbatten.dk/#website" },
+          "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://alexbatten.dk/cv#faq",
+          "url": "https://alexbatten.dk/cv",
+          "name": "Frequently Asked Questions about Alex Batten",
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://alexbatten.dk/#website" },
+          "about": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is Alex Batten available for freelance or contract work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Alex Batten is available for freelance and contract work, remotely across the EU on CET. Typical engagements are .NET and full-stack web applications, REST APIs and enterprise integrations, and AI/ML features. Requests can be sent through the project form at alexbatten.dk or by email to alex.batten1234@gmail.com."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Where is Alex Batten based, and does he work remotely?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Alex Batten is based in Denmark and works remotely across the EU on Central European Time. He speaks English and Danish."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is Alex Batten's main tech stack?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Primarily C# and .NET, including ASP.NET Core, .NET Aspire, and Entity Framework Core. On the frontend, Angular, Next.js, and TypeScript. He also works in C++, Java, Kotlin, Python, and SQL, with Docker, CI/CD, REST API design, distributed systems, and multi-tenant SaaS."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What kinds of projects does Alex Batten take on?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": ".NET backend and full-stack web applications, REST API design, integrations between enterprise systems such as ERP, PSA, accounting, and tax-authority platforms, multi-tenant SaaS features, and AI/ML features including guardrails and evaluation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Does Alex Batten have experience with Danish tax and accounting integrations?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. At Acconta he implemented VAT reporting to SKAT through the NemVirksomhed service (SOAP with WS-Security signing), computing all 17 VAT return fields, plus SAF-T import with schema validation. He has also built integrations for CVR company data from the Danish Business Authority, daily currency rates from the Danish National Bank, and the EU VIES API for VAT number validation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Has Alex Batten worked with Stripe billing?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. He owned Stripe billing end to end at Acconta: subscriptions and seat logic covering proration, credits, plan switching, and yearly plans, along with webhooks, secret hardening, and a working subscription flow prototype in the Next.js client."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What AI and machine learning experience does Alex Batten have?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "AI infrastructure work for Alignerr on the pipelines behind AI training, evaluation, and deployment. AI evaluation for Mercor, assessing model outputs against structured guidelines. Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He also publishes two AI-related .NET libraries, Invarix.Guard and Invarix.Guard.Evidence."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What software has Alex Batten published?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Two NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is Alex Batten's education?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025, with electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics. His bachelor's project was an integration between two ERP systems built from scratch. GPA: 7.62 on the Danish 7-point scale."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do you get in touch with Alex Batten?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "By email at alex.batten1234@gmail.com, or by sending a project brief through the request form at alexbatten.dk, which also has live chat. He is on GitHub at github.com/AlexBatten and on LinkedIn. Project requests get a reply within a couple of days."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
 </head>
@@ -200,6 +296,68 @@
 
     <h3>Erik Seifert</h3>
     <p>Endorsed Alex Batten for C#, .NET Framework, and Entity Framework (EF) Core.</p>
+
+    <h2 id="faq">Frequently Asked Questions</h2>
+
+    <h3>Is Alex Batten available for freelance or contract work?</h3>
+    <p>Yes. Alex Batten is available for freelance and contract work, remotely across the EU on
+    CET. Typical engagements are .NET and full-stack web applications, REST APIs and enterprise
+    integrations, and AI/ML features. Requests can be sent through the project form at
+    <a href="/">alexbatten.dk</a> or by email to
+    <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.</p>
+
+    <h3>Where is Alex Batten based, and does he work remotely?</h3>
+    <p>Alex Batten is based in Denmark and works remotely across the EU on Central European Time.
+    He speaks English and Danish.</p>
+
+    <h3>What is Alex Batten's main tech stack?</h3>
+    <p>Primarily C# and .NET, including ASP.NET Core, .NET Aspire, and Entity Framework Core. On
+    the frontend, Angular, Next.js, and TypeScript. He also works in C++, Java, Kotlin, Python,
+    and SQL, with Docker, CI/CD, REST API design, distributed systems, and multi-tenant SaaS.</p>
+
+    <h3>What kinds of projects does Alex Batten take on?</h3>
+    <p>.NET backend and full-stack web applications, REST API design, integrations between
+    enterprise systems such as ERP, PSA, accounting, and tax-authority platforms, multi-tenant
+    SaaS features, and AI/ML features including guardrails and evaluation.</p>
+
+    <h3>Does Alex Batten have experience with Danish tax and accounting integrations?</h3>
+    <p>Yes. At Acconta he implemented VAT reporting to SKAT through the NemVirksomhed service
+    (SOAP with WS-Security signing), computing all 17 VAT return fields, plus SAF-T import with
+    schema validation. He has also built integrations for CVR company data from the Danish
+    Business Authority, daily currency rates from the Danish National Bank, and the EU VIES API
+    for VAT number validation.</p>
+
+    <h3>Has Alex Batten worked with Stripe billing?</h3>
+    <p>Yes. He owned Stripe billing end to end at Acconta: subscriptions and seat logic covering
+    proration, credits, plan switching, and yearly plans, along with webhooks, secret hardening,
+    and a working subscription flow prototype in the Next.js client.</p>
+
+    <h3>What AI and machine learning experience does Alex Batten have?</h3>
+    <p>AI infrastructure work for Alignerr on the pipelines behind AI training, evaluation, and
+    deployment. AI evaluation for Mercor, assessing model outputs against structured guidelines.
+    Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk
+    categories. He also publishes two AI-related .NET libraries, Invarix.Guard and
+    Invarix.Guard.Evidence.</p>
+
+    <h3>What software has Alex Batten published?</h3>
+    <p>Two NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering
+    prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit
+    trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals
+    batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.</p>
+
+    <h3>What is Alex Batten's education?</h3>
+    <p>A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025,
+    with electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
+    His bachelor's project was an integration between two ERP systems built from scratch. GPA:
+    7.62 on the Danish 7-point scale.</p>
+
+    <h3>How do you get in touch with Alex Batten?</h3>
+    <p>By email at <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>, or by
+    sending a project brief through the request form at <a href="/">alexbatten.dk</a>, which also
+    has live chat. He is on GitHub at
+    <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a> and on
+    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">LinkedIn</a>.
+    Project requests get a reply within a couple of days.</p>
 
     <h2>Contact</h2>
     <p>Email: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
