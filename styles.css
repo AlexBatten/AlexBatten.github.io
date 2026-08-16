@@ -562,15 +562,25 @@ body {
 }
 
 /* ── Privacy Link ── */
-.privacy-link {
+/* ── Top-right chrome ──
+   Holds the language switch and, on the front page, the privacy link. A flex
+   row rather than two separately positioned elements, so neither has to know
+   how wide the other renders. */
+.top-right-nav {
     position: fixed;
     top: 16px;
     right: 20px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.privacy-link {
     font-family: var(--mono);
     font-size: 0.75rem;
     color: var(--text-dim);
     text-decoration: none;
-    z-index: 10;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     transition: color 0.2s;
@@ -578,6 +588,40 @@ body {
 
 .privacy-link:hover {
     color: var(--accent);
+}
+
+/* ── Language switch ──
+   Both languages are always rendered; the inactive one is a real link to the
+   translated URL so crawlers follow it. Never redirect on navigator.language:
+   Googlebot crawls with Accept-Language: en and would never reach /da. */
+.lang-switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.lang-switch a {
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.lang-switch a:hover {
+    color: var(--accent);
+}
+
+.lang-switch .lang-active {
+    color: var(--text);
+    font-weight: 600;
+}
+
+.lang-switch .lang-sep {
+    color: var(--text-dim);
+    opacity: 0.45;
 }
 
 /* ── Hints Button ── */

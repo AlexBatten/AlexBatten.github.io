@@ -9,6 +9,28 @@
 const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
 
 (function () {
+    // Status and button text, matched to the language of the page the form was
+    // opened from. The form markup itself is translated in content.js.
+    const STRINGS = {
+        en: {
+            incomplete: 'Please fill in your name, email, and a few details.',
+            sending: 'Sending…',
+            submit: 'Send project request',
+            failed: "Couldn't send right now. Email me directly at alex.batten1234@gmail.com.",
+            successTitle: 'Request sent',
+            successBody: "Thanks for reaching out. I'll get back to you within a couple of days."
+        },
+        da: {
+            incomplete: 'Udfyld venligst navn, e-mail og et par detaljer.',
+            sending: 'Sender…',
+            submit: 'Send projektforespørgsel',
+            failed: 'Kunne ikke sende lige nu. Skriv direkte til alex.batten1234@gmail.com.',
+            successTitle: 'Forespørgsel sendt',
+            successBody: 'Tak fordi du skrev. Jeg vender tilbage inden for et par dage.'
+        }
+    };
+    const T = document.documentElement.lang === 'da' ? STRINGS.da : STRINGS.en;
+
     // The form is injected into the modal via innerHTML when the ball is
     // clicked, so we delegate from the document rather than binding directly.
 
@@ -49,7 +71,7 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         const email = form.querySelector('[name="email"]');
         const message = form.querySelector('[name="message"]');
         if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
-            showStatus(status, 'Please fill in your name, email, and a few details.', 'error');
+            showStatus(status, T.incomplete, 'error');
             return;
         }
 
@@ -57,7 +79,7 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         form.querySelector('input[name="access_key"]').value = WEB3FORMS_ACCESS_KEY;
 
         btn.disabled = true;
-        btn.textContent = 'Sending…';
+        btn.textContent = T.sending;
         showStatus(status, '', '');
 
         try {
@@ -73,10 +95,8 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
             }
         } catch (err) {
             btn.disabled = false;
-            btn.textContent = 'Send project request';
-            showStatus(status,
-                "Couldn't send right now. Email me directly at alex.batten1234@gmail.com.",
-                'error');
+            btn.textContent = T.submit;
+            showStatus(status, T.failed, 'error');
         }
     }
 
@@ -91,8 +111,8 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         form.innerHTML =
             '<div class="brief-success">' +
                 '<div class="brief-success-icon">&#10003;</div>' +
-                '<h3>Request sent</h3>' +
-                "<p>Thanks for reaching out. I'll get back to you within a couple of days.</p>" +
+                '<h3>' + T.successTitle + '</h3>' +
+                '<p>' + T.successBody + '</p>' +
             '</div>';
     }
 })();

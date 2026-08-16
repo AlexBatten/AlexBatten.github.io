@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ── Primary meta / SEO ── -->
+    <title>Alex Batten | Freelance softwareudvikler i Danmark, .NET og fullstack</title>
+    <meta name="description" content="Alex Batten er freelance softwareudvikler i Danmark. .NET, ASP.NET Core og fullstack-webapplikationer, REST-API'er, virksomhedsintegrationer og AI-infrastruktur.">
+    <meta name="author" content="Alex Batten">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="canonical" href="https://alexbatten.dk/da/">
+
+    <!-- ── Language alternates ──
+         Bidirectional: / points back here, or Google ignores the pair. -->
+    <link rel="alternate" hreflang="da" href="https://alexbatten.dk/da/">
+    <link rel="alternate" hreflang="en" href="https://alexbatten.dk/">
+    <link rel="alternate" hreflang="x-default" href="https://alexbatten.dk/">
+
+    <!-- ── Open Graph (LinkedIn, Facebook, Slack, iMessage) ── -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Alex Batten">
+    <meta property="og:title" content="Alex Batten | Freelance softwareudvikler i Danmark, .NET og fullstack">
+    <meta property="og:description" content="Alex Batten er freelance softwareudvikler i Danmark. .NET, ASP.NET Core og fullstack-webapplikationer, REST-API'er, virksomhedsintegrationer og AI-infrastruktur.">
+    <meta property="og:url" content="https://alexbatten.dk/da/">
+    <meta property="og:image" content="https://alexbatten.dk/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Alex Batten, softwareudvikler">
+    <meta property="og:locale" content="da_DK">
+    <meta property="og:locale:alternate" content="en_DK">
+
+    <!-- ── Twitter / X ── -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Alex Batten | Freelance softwareudvikler i Danmark, .NET og fullstack">
+    <meta name="twitter:description" content="Alex Batten er freelance softwareudvikler i Danmark. .NET, ASP.NET Core og fullstack-webapplikationer, REST-API'er, virksomhedsintegrationer og AI-infrastruktur.">
+    <meta name="twitter:image" content="https://alexbatten.dk/images/og-image.png">
+
+    <link rel="icon" href="/images/portfolio.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css?v=16">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+
+    <!-- ── Structured data ──
+         The WebSite and Person nodes share their @id with the English pages, so
+         both language versions describe one entity rather than two. The WebSite
+         node here carries no inLanguage: that property belongs to the page, and
+         declaring it per language would contradict the English copy. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://alexbatten.dk/#website",
+          "url": "https://alexbatten.dk/",
+          "name": "Alex Batten",
+          "alternateName": "alexbatten.dk",
+          "publisher": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://alexbatten.dk/da/#webpage",
+          "url": "https://alexbatten.dk/da/",
+          "name": "Alex Batten | Freelance softwareudvikler i Danmark, .NET og fullstack",
+          "isPartOf": { "@id": "https://alexbatten.dk/#website" },
+          "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "about": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "inLanguage": "da",
+          "dateModified": "2026-08-17T12:00:00+02:00",
+          "relatedLink": "https://alexbatten.dk/da/cv"
+        },
+        {
+          "@type": "Person",
+          "@id": "https://alexbatten.dk/#alex-batten",
+          "name": "Alex Batten",
+          "url": "https://alexbatten.dk/",
+          "image": "https://alexbatten.dk/images/og-image.png",
+          "jobTitle": "Softwareudvikler",
+          "email": "alex.batten1234@gmail.com",
+          "description": "Freelance softwareudvikler i Danmark, der arbejder med .NET, ASP.NET Core, fullstack-webudvikling, REST-API'er, virksomhedsintegrationer og AI-infrastruktur.",
+          "address": { "@type": "PostalAddress", "addressCountry": "DK" },
+          "homeLocation": { "@type": "Country", "name": "Danmark" },
+          "knowsLanguage": ["da", "en"],
+          "alumniOf": {
+            "@type": "CollegeOrUniversity",
+            "name": "Danmarks Tekniske Universitet (DTU)",
+            "url": "https://www.dtu.dk/"
+          },
+          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Fullstack-udvikling", "AI-infrastruktur", "AI/ML", "AI-evaluering", "Prompt engineering", "Distribuerede systemer", "Systemdesign", "REST-API'er", "Virksomhedsintegrationer", "Multi-tenant SaaS", "Momsindberetning", "SKAT", "SAF-T", "Docker"],
+          "sameAs": [
+            "https://github.com/AlexBatten",
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+          ]
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-guard",
+          "name": "Invarix.Guard",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "url": "https://invarix.dk",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard",
+          "description": "Et plug and play-AI-sikkerhedsbibliotek til .NET, udgivet som NuGet-pakke. Dækker prompt injection, persondata (PII) og indholdssikkerhed, så applikationer kan tilføje guardrails med få linjers kode.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-guard-evidence",
+          "name": "Invarix.Guard.Evidence",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "url": "https://invarix.dk/products/invarix-guard-evidence",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
+          "license": "https://www.elastic.co/licensing/elastic-license",
+          "description": "Et revisionsspor til AI-beslutninger i .NET, hvor enhver efterfølgende ændring kan påvises. Beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+
+    <!-- ── Portfolioindhold ──
+         Hele CV'et i almindelig markup, holdt synkront med modalindholdet i
+         content.js. Også udgivet som fuldt synlig side på /da/cv. -->
+    <main class="cv-content" aria-label="Alex Batten, portfolio for softwareudvikler">
+        <h1>Alex Batten, freelance softwareudvikler i Danmark</h1>
+        <p>Alex Batten er softwareudvikler med base i Danmark og diplomingeniør (BEng)
+        i softwareteknologi fra Danmarks Tekniske Universitet (DTU). Størstedelen af mit
+        arbejde ligger inden for .NET og fullstack-web, med integrationer til API'er og virksomhedssystemer
+        samt noget AI/ML-dataarbejde. Jeg går op i ren, funktionel kode, solid arkitektur og
+        at bygge ting, der rent faktisk virker. Uden for koden går der styrketræning og
+        musikproduktion i den, fra lydteknik til komposition.</p>
+        <p>Ledig for freelanceopgaver og kontraktopgaver. Skriv til
+        <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
+        (alex.batten1234@gmail.com), eller se det
+        <a href="/da/cv">fulde CV</a>, som også besvarer
+        <a href="/da/cv#faq">ofte stillede spørgsmål</a> om ledighed, teknologier og
+        hvordan et projekt sættes i gang.</p>
+
+        <section aria-labelledby="seo-exp">
+            <h2 id="seo-exp">Erfaring</h2>
+            <article>
+                <h3>Senior Software Engineer, AI-infrastruktur — Alignerr (kontrakt, underskrevet 2026, ikke påbegyndt)</h3>
+                <p>Kontrakten er underskrevet, men første opgave er endnu ikke gået i gang.
+                Det aftalte omfang er at designe, bygge og skalere den produktionsinfrastruktur,
+                der ligger bag pipelines til træning, evaluering og udrulning af AI: Python og
+                TypeScript på tværs af backendservices, API'er og datapipelines, arkitekteret
+                til driftssikkerhed og langsigtet vedligeholdelse i stor skala i cloudmiljøer og containere. Rollen dækker også systemdesign, code reviews og fejlfinding
+                på tværs af distribuerede systemer, med asynkront samarbejde med ML-ingeniører,
+                forskere og produktchefer i et globalt distribueret team. Teknologier: Python,
+                TypeScript, AI-infrastruktur, distribuerede systemer, datapipelines, cloud,
+                containere.</p>
+            </article>
+            <article>
+                <h3>Backendudvikler — Acconta (2026–nu)</h3>
+                <p>Designede og leverede mikroservices i produktion på en multi-tenant
+                SaaS-platform (.NET Aspire, ASP.NET Core, EF Core), hver især taget fra prototype
+                til udrullet service med typede klienter genereret via OpenAPI/NSwag. Havde det
+                fulde ansvar for Stripe-betalinger: abonnementer og licenslogik pr. bruger
+                (proration, kreditter, planskift, årsabonnementer, webhooks, hærdning af
+                hemmeligheder) samt en fungerende prototype af abonnementsflowet i
+                Next.js-klienten. Implementerede dansk skattecompliance: momsindberetning til
+                SKAT via NemVirksomhed (SOAP med WS-signering) med beregning af alle 17 felter
+                i momsangivelsen, samt SAF-T-import med skemavalidering. Byggede desuden
+                selvstændige integrationer til daglige valutakurser (Nationalbanken) og
+                virksomhedsdata via CVR (Erhvervsstyrelsen). Teknologier: C#, .NET Aspire,
+                ASP.NET Core, Entity Framework, mikroservices, Stripe, Next.js.</p>
+            </article>
+            <article>
+                <h3>Generalist Expert, AI-evaluering — Mercor (kontrakt, 2026–nu)</h3>
+                <p>Evaluerer AI-modellers output mod strukturerede evalueringsretningslinjer og
+                skriver begrundelsen bag hver enkelt bedømmelse. Arbejdet er nærlæsning: at
+                kontrollere et svar for faktuel korrekthed, holdbar argumentation, efterlevelse
+                af instruktioner og tone, og derefter præcist angive, hvor det holder, og hvor
+                det falder fra hinanden, med belæg. Den samme standard anvendes konsistent på
+                tværs af mange fagområder, så vurderinger forbliver sammenlignelige mellem
+                bedømmere. Kompetencer: AI-evaluering, LLM-output, struktureret feedback,
+                teknisk skrivning.</p>
+            </article>
+            <article>
+                <h3>AI-dataannotator — Outlier (2025–nu)</h3>
+                <p>Bidrog til udvikling af avancerede AI-modeller gennem dataannotering, prompt
+                engineering, forfining af trajektorier og QA på tværs af projekterne Clutch Zayu,
+                Maraca Camera, Mechanic Astrologer og Meter Pavilion (OpenClaw). Udformede
+                systemprompts, der definerer modellens adfærd og begrænsninger, og designede
+                datasæt til samtaler og agenter, både med én tur og flere ture på tværs af 50+
+                risikokategorier, heriblandt bias, misinformation, privatliv og sikkerhed.
+                Byggede autonome agenttrajektorier, der afprøver skill discovery, hukommelse,
+                kontekst over lange forløb og indbyggede værktøjer (cron, delegering til
+                underagenter), og forfinede Golden Trajectories med fokus på effektivitet og
+                forankring i kilder. Fungerede både som forfatter og reviewer på Mechanic
+                Astrologer. Kompetencer: AI/ML, prompt engineering, agentisk AI, dataannotering.</p>
+            </article>
+            <article>
+                <h3>Softwareudviklerpraktikant — IT Operators / Simple Agency Group (2024)</h3>
+                <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning.
+                Byggede fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder
+                JWT-autentificering, realtidsdashboards og automatiseret rapportering.
+                Vedligeholdt og optimerede ERP-systemer i produktion.</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-proj">
+            <h2 id="seo-proj">Projekter</h2>
+            <article>
+                <h3>Accelo → Business Central-integration (bachelorprojekt)</h3>
+                <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og
+                gennemgår tidsregistreringer fra Accelo (PSA) til Microsoft Business Central
+                (ERP). Skræddersyet brugerflade til gennemgang, datamodel i MSSQL, multi-tenant-
+                autentificering via Microsoft Entra ID, containeriseret med Docker i en Jenkins
+                CI/CD-pipeline, med unit tests og Selenium-integrationstests.</p>
+            </article>
+            <article>
+                <h3>Uno X — skræddersyet REST-API (kunde: ISTOBAL)</h3>
+                <p>Skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer
+                driftsdata til Uno X (nordisk tankstationskæde), med tokenbaseret autentificering
+                og rate limiting med automatiske e-mailadvarsler.</p>
+            </article>
+            <article>
+                <h3>Eye4u — automatisk SMS-alarmsystem</h3>
+                <p>Udvidede en kundeportal til overvågning med automatiske SMS-notifikationer
+                udløst af temperaturafvigelser i medicinkølere på tværs af et sensornetværk.
+                Bygget som et multi-tenant SaaS-modul.</p>
+            </article>
+            <article>
+                <h3>Interne overvågningsdashboards (IT Operators)</h3>
+                <p>Realtidsdashboards udrullet på Raspberry Pi'er til kontorets TV-skærme, som
+                overvåger tidsregistreringer og sundheden af cron-jobs.</p>
+            </article>
+            <article>
+                <h3>TIMEVAT — eksterne API-integrationer</h3>
+                <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API
+                til valutakurser i en momscompliance-platform.</p>
+            </article>
+            <article>
+                <h3>Invarix Guard — AI-sikkerhedsbibliotek til .NET</h3>
+                <p>Et plug and play-AI-sikkerhedsbibliotek til .NET, udgivet som NuGet-pakke
+                (Invarix.Guard). Dækker prompt injection, persondata (PII) og indholdssikkerhed,
+                så applikationer kan tilføje guardrails med få linjers kode.
+                Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
+            </article>
+            <article>
+                <h3>Invarix Guard Evidence — revisionsspor til AI-beslutninger i .NET</h3>
+                <p>Et gratis .NET-bibliotek (Invarix.Guard.Evidence) under Elastic License 2.0,
+                som registrerer AI-beslutninger i et append-only revisionsspor, hvor enhver
+                efterfølgende ændring kan påvises. Hver beslutning gemmes som en
+                CloudEvents-hændelse nøglet på SHA-256-hashes frem for selve prompteksten.
+                Batches forsegles i et RFC 6962 Merkle-træ signeret med kundens egen
+                Ed25519-nøgle, så en revisor kan bevise med standardværktøjer fra Certificate
+                Transparency, at ingen post er ændret efter forseglingen. Indeholder desuden
+                opbevaringspolitikker med legal hold, signerede sletteattester og et endpoint
+                til streaming-eksport. Kører fuldt ud in-process uden udgående kald.
+                Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
+            </article>
+            <article>
+                <h3>Hemi-Sync guidet meditations-app</h3>
+                <p>En konceptapp til at generere tilpassede guidede meditationer med AI-drevet
+                tekst-til-tale lagt sammen med Hemi-Sync binaurale beats, bygget i React Native
+                til iOS og Android.</p>
+            </article>
+            <article>
+                <h3>Distortion VST-plugin</h3>
+                <p>Et distortion-plugin med bitcrushing bygget med JUCE-frameworket (C++),
+                kompatibelt med de fleste DAW'er som VST.</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-skills">
+            <h2 id="seo-skills">Kompetencer &amp; værktøjer</h2>
+            <p><strong>Sprog:</strong> C#, C++, Java, TypeScript, JavaScript, Kotlin, SQL.</p>
+            <p><strong>Frameworks &amp; biblioteker:</strong> ASP.NET Core, Entity Framework,
+            Angular, .NET, .NET Aspire, Next.js, React Native, Bootstrap, JUCE.</p>
+            <p><strong>Metoder &amp; praksis:</strong> REST-API'er, systemdesign,
+            distribuerede systemer, Agile/Scrum, CI/CD, JWT-autentificering, Docker.</p>
+            <p><strong>Andet:</strong> Git, Claude Code, ERP-systemer, multi-tenant SaaS, SAF-T,
+            lydteknik.</p>
+        </section>
+
+        <section aria-labelledby="seo-edu">
+            <h2 id="seo-edu">Uddannelse</h2>
+            <article>
+                <h3>Diplomingeniør (BEng) i softwareteknologi — Danmarks Tekniske Universitet (DTU), 2021–2025</h3>
+                <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
+                Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
+                Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-recs">
+            <h2 id="seo-recs">Anbefalinger</h2>
+            <article>
+                <h3>Mike Valencia — CEO hos Simple Agency Group</h3>
+                <p>Har anbefalet Alex Batten på LinkedIn for hans arbejde med udvikling, software
+                og integrationer.
+                <a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" rel="noopener">Se anbefalingen på LinkedIn</a>.</p>
+            </article>
+            <article>
+                <h3>Erik Seifert</h3>
+                <p>Har anbefalet Alex Batten for C#, .NET Framework og Entity Framework (EF) Core.</p>
+            </article>
+        </section>
+
+        <section aria-labelledby="seo-hire">
+            <h2 id="seo-hire">Freelance &amp; projektforespørgsler</h2>
+            <p>Ledig for freelanceopgaver og kontraktopgaver: .NET og fullstack-webapplikationer,
+            REST-API'er og virksomhedsintegrationer samt AI/ML-funktionalitet. Har du et projekt
+            i tankerne? Send en forespørgsel via siden eller skriv til
+            <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.</p>
+        </section>
+
+        <section aria-labelledby="seo-contact">
+            <h2 id="seo-contact">Kontakt</h2>
+            <p>E-mail: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.
+            GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.
+            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.
+            Der er også livechat på siden.</p>
+        </section>
+    </main>
+
+    <div class="top-right-nav">
+        <nav class="lang-switch" aria-label="Sprog">
+            <a href="/" hreflang="en" lang="en">EN</a>
+            <span class="lang-sep" aria-hidden="true">/</span>
+            <span class="lang-active" aria-current="true">DA</span>
+        </nav>
+        <a href="/da/privacypolicy" class="privacy-link">Privatliv</a>
+    </div>
+    <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
+
+    <!-- Hints overlay -->
+    <div class="hints-overlay" id="hints-overlay">
+        <div class="hints-panel" id="hints-panel">
+            <button class="hints-close" id="hints-close">&times;</button>
+            <h3 class="hints-title">hemmeligheder</h3>
+            <div class="hints-list">
+                <div class="hint-item">
+                    <span class="hint-symbol">&#8595;</span>
+                    <p>der er mere under overfladen. siden slutter ikke, hvor du tror.</p>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-symbol">~</span>
+                    <p>det, der går ned, behøver ikke blive nede. nogle gange ændrer ét enkelt bogstav alt.</p>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-symbol">&#9742;&#xFE0E;</span>
+                    <p>på en lille skærm bøjer verden sig efter din hånd. prøv at skifte perspektiv — helt bogstaveligt.</p>
+                </div>
+            </div>
+            <p class="hints-footer">nogle ting opdages bedst ved et tilfælde.</p>
+        </div>
+    </div>
+
+    <!-- ASCII background -->
+    <div id="ascii-bg"></div>
+
+    <!-- Physics playground -->
+    <section class="playground" id="playground">
+        <p class="hint" id="hint">klik på en kugle for at udforske — træk for at lege</p>
+        <canvas id="physics-canvas"></canvas>
+
+        <!-- DOM icons synced to physics bodies -->
+        <div class="ball" data-id="about">
+            <span class="ball-icon">01</span>
+            <span class="ball-label">Om</span>
+        </div>
+        <div class="ball" data-id="experience">
+            <span class="ball-icon">02</span>
+            <span class="ball-label">Erfaring</span>
+        </div>
+        <div class="ball" data-id="projects">
+            <span class="ball-icon">03</span>
+            <span class="ball-label">Projekter</span>
+        </div>
+        <div class="ball" data-id="skills">
+            <span class="ball-icon">04</span>
+            <span class="ball-label">Kompetencer</span>
+        </div>
+        <div class="ball" data-id="education">
+            <span class="ball-icon">05</span>
+            <span class="ball-label">Uddannelse</span>
+        </div>
+        <div class="ball" data-id="recommendations">
+            <span class="ball-icon">06</span>
+            <span class="ball-label">Anbef.</span>
+        </div>
+        <div class="ball ball-cta" data-id="hire">
+            <span class="ball-icon">07</span>
+            <span class="ball-label">Hyr</span>
+        </div>
+        <div class="ball ball-chat" data-id="chat" data-action="chat">
+            <svg class="ball-chat-glyph" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.25 11.5a8.25 8.25 0 0 1-11.9 7.4L3.75 20.25l1.35-4.6A8.25 8.25 0 1 1 20.25 11.5z"/>
+            </svg>
+            <span class="ball-label">Chat</span>
+        </div>
+        <div class="ball ball-link" data-id="linkedin" data-href="https://www.linkedin.com/in/alex-batten-48b28b2a2/">
+            <img src="/images/linkedin.png" alt="LinkedIn" class="ball-img">
+        </div>
+        <div class="ball ball-link" data-id="email" data-href="mailto:alex.batten1234@gmail.com">
+            <img src="/images/email.png" alt="E-mail" class="ball-img">
+        </div>
+        <div class="ball ball-link" data-id="github" data-href="https://github.com/AlexBatten">
+            <img src="/images/github.png" alt="GitHub" class="ball-img">
+        </div>
+    </section>
+
+    <!-- Modal overlay -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Alex Batten</p>
+    </footer>
+
+    <script src="/content.js?v=12"></script>
+    <script src="/freelance.js?v=2"></script>
+    <script src="/chat.js?v=2"></script>
+    <script src="/ascii-bg.js?v=10"></script>
+    <script src="/physics.js?v=15"></script>
+    <script src="/pinball.js?v=11"></script>
+</body>
+</html>

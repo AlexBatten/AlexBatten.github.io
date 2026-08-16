@@ -19,6 +19,12 @@ Contact: alex.batten1234@gmail.com
   education, recommendations, and a frequently-asked-questions section.
 - [Invarix](https://invarix.dk): Product site for the Invarix .NET libraries.
 
+Every page has a Danish translation under `/da/`, linked with hreflang. English
+is the default (x-default).
+
+- [Portfolio, Danish](https://alexbatten.dk/da/)
+- [Full CV, Danish](https://alexbatten.dk/da/cv)
+
 ## Current work
 
 - **Senior Software Engineer, AI Infrastructure at Alignerr** (contract signed

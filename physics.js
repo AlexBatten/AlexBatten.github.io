@@ -131,7 +131,9 @@
     let activeSources = 0;
     let lastGlobalBounce = 0;
 
-    fetch('audio/ballsound.mp3')
+    // Root-absolute: this script also runs from /da/, where a relative path
+    // would resolve to /da/audio/ and 404.
+    fetch('/audio/ballsound.mp3')
         .then(r => r.arrayBuffer())
         .then(buf => bounceCtx.decodeAudioData(buf))
         .then(decoded => { bounceBuffer = decoded; });

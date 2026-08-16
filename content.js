@@ -1,6 +1,11 @@
 // ── Modal content for each ball ──
+//
+// Both language versions live here and the page picks one via <html lang>, set
+// by /index.html (en) and /da/index.html (da). One file keeps the structure in
+// a single place, so a new entry can't be added to one language and forgotten
+// in the other. Shipping both costs a few KB gzipped.
 
-const CONTENT = {
+const CONTENT_EN = {
     about: {
         number: '01',
         title: 'About',
@@ -465,3 +470,480 @@ const CONTENT = {
         `
     }
 };
+
+const CONTENT_DA = {
+    about: {
+        number: '01',
+        title: 'Om mig',
+        html: `
+            <p>Hej, jeg hedder <strong>Alex</strong>. Jeg er softwareudvikler med base i Danmark
+            og diplomingeniør (BEng) i softwareteknologi fra DTU. Jeg går op i ren, funktionel
+            kode, solid arkitektur og at bygge ting, der rent faktisk virker.</p>
+            <p style="margin-top:12px">Jeg arbejder helst med systemdesign, performanceoptimering
+            og software, der kan vedligeholdes over tid. Uden for koden går der styrketræning og
+            musikproduktion i den, fra lydteknik til komposition.</p>
+        `
+    },
+
+    experience: {
+        number: '02',
+        title: 'Erfaring',
+        html: `
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Senior Software Engineer, AI-infrastruktur — Alignerr (kontrakt)</h3>
+                    <span class="entry-date">Underskrevet 2026, ikke påbegyndt</span>
+                </div>
+                <p>Kontrakten er underskrevet, men første opgave er endnu ikke gået i gang. Det
+                aftalte omfang er at designe, bygge og skalere den produktionsinfrastruktur, der
+                ligger bag pipelines til træning, evaluering og udrulning af AI: Python og TypeScript
+                på tværs af backendservices, API'er og datapipelines, arkitekteret til driftssikkerhed
+                og langsigtet vedligeholdelse i stor skala i cloudmiljøer og containere. Rollen dækker
+                også systemdesign, code reviews og fejlfinding på tværs af distribuerede systemer, med
+                asynkront samarbejde med ML-ingeniører, forskere og produktchefer i et globalt
+                distribueret team.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Python</span>
+                    <span class="tag">TypeScript</span>
+                    <span class="tag">AI-infrastruktur</span>
+                    <span class="tag">Distribuerede systemer</span>
+                    <span class="tag">Datapipelines</span>
+                    <span class="tag">Cloud</span>
+                    <span class="tag">Containere</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Backendudvikler — Acconta (startup)</h3>
+                    <span class="entry-date">2026 — nu</span>
+                </div>
+                <p>Designede og leverede mikroservices i produktion på en multi-tenant SaaS-platform
+                (.NET Aspire, ASP.NET Core, EF Core), hver især taget fra prototype til udrullet
+                service med typede klienter genereret via OpenAPI/NSwag. Havde det fulde ansvar for
+                Stripe-betalinger: abonnementer og licenslogik pr. bruger (proration, kreditter,
+                planskift, årsabonnementer, webhooks, hærdning af hemmeligheder) samt en fungerende
+                prototype af abonnementsflowet i Next.js-klienten. Implementerede dansk
+                skattecompliance: momsindberetning til SKAT via NemVirksomhed (SOAP med WS-signering)
+                med beregning af alle 17 felter i momsangivelsen, samt SAF-T-import med skemavalidering.
+                Byggede desuden selvstændige integrationer til daglige valutakurser (Nationalbanken)
+                og virksomhedsdata via CVR (Erhvervsstyrelsen).</p>
+                <div style="margin-top:8px">
+                    <span class="tag">C#</span>
+                    <span class="tag">.NET Aspire</span>
+                    <span class="tag">ASP.NET Core</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">Mikroservices</span>
+                    <span class="tag">Stripe</span>
+                    <span class="tag">Next.js</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Generalist Expert, AI-evaluering — Mercor (kontrakt)</h3>
+                    <span class="entry-date">2026 — nu</span>
+                </div>
+                <p>Evaluerer AI-modellers output mod strukturerede evalueringsretningslinjer og
+                skriver begrundelsen bag hver enkelt bedømmelse. Arbejdet er nærlæsning: at
+                kontrollere et svar for faktuel korrekthed, holdbar argumentation, efterlevelse af
+                instruktioner og tone, og derefter præcist angive, hvor det holder, og hvor det
+                falder fra hinanden, med belæg. Den samme standard anvendes konsistent på tværs af
+                mange fagområder, så vurderinger forbliver sammenlignelige mellem bedømmere.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">AI-evaluering</span>
+                    <span class="tag">LLM-output</span>
+                    <span class="tag">Struktureret feedback</span>
+                    <span class="tag">Teknisk skrivning</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>AI-dataannotator — Outlier</h3>
+                    <span class="entry-date">2025 — nu</span>
+                </div>
+                <p>Bidrog til udvikling af avancerede AI-modeller gennem dataannotering, prompt
+                engineering, forfining af trajektorier og QA på tværs af projekterne Clutch Zayu,
+                Maraca Camera, Mechanic Astrologer og Meter Pavilion (OpenClaw). Udformede
+                systemprompts, der definerer modellens adfærd og begrænsninger, og designede
+                datasæt til samtaler og agenter, både med én tur og flere ture på tværs af 50+
+                risikokategorier, heriblandt bias, misinformation, privatliv og sikkerhed. Byggede
+                autonome agenttrajektorier, der afprøver skill discovery, hukommelse, kontekst over
+                lange forløb og indbyggede værktøjer (cron, delegering til underagenter), og
+                forfinede Golden Trajectories med fokus på effektivitet og forankring i kilder.
+                Fungerede både som forfatter og reviewer på Mechanic Astrologer, hvor jeg auditerede
+                kollegers Task Blueprints mod strukturerede rubrikker, verificerede ground truth og
+                skrev vejledende feedback.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">AI/ML</span>
+                    <span class="tag">Prompt engineering</span>
+                    <span class="tag">Agentisk AI</span>
+                    <span class="tag">Dataannotering</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Softwareudviklerpraktikant — IT Operators / Simple Agency Group</h3>
+                    <span class="entry-date">2024</span>
+                </div>
+                <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning. Byggede
+                fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder JWT-autentificering,
+                realtidsdashboards og automatiseret rapportering. Vedligeholdt og optimerede
+                ERP-systemer i produktion.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Angular</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">REST-API'er</span>
+                    <span class="tag">SQL</span>
+                </div>
+            </div>
+        `
+    },
+
+    projects: {
+        number: '03',
+        title: 'Projekter',
+        html: `
+            <p style="opacity:0.5; font-size:0.78rem; margin-bottom:16px; letter-spacing:0.02em;">
+                Professionelt arbejde udført hos IT Operators / Simple Agency
+            </p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Accelo → Business Central-integration</h3>
+                    <span class="entry-date">Bachelorprojekt</span>
+                </div>
+                <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og
+                gennemgår tidsregistreringer fra Accelo (PSA) til Microsoft Business Central (ERP).
+                Byggede en brugerflade til at gennemgå og justere timer inden synkronisering.
+                Designede datamodellen i MSSQL, implementerede multi-tenant-autentificering via
+                Microsoft Entra ID og containeriserede hele stakken med Docker i en Jenkins
+                CI/CD-pipeline. Fuldt testet med unit tests i begge lag samt integrationstests med
+                Selenium og WebApplicationFactory.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Angular</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">MSSQL</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Jenkins</span>
+                    <span class="tag">Selenium</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Uno X — skræddersyet REST-API</h3>
+                    <span class="entry-date">Kunde: ISTOBAL</span>
+                </div>
+                <p>Byggede et skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer
+                driftsdata til deres kunde Uno X (nordisk tankstationskæde). Implementerede et
+                tokenbaseret autentificeringssystem og rate limiting med automatiske e-mailadvarsler,
+                når en grænseværdi overskrides.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">REST-API</span>
+                    <span class="tag">Autentificering</span>
+                    <span class="tag">Rate limiting</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Eye4u — automatisk SMS-alarmsystem</h3>
+                    <span class="entry-date">Kunde: Eye4u</span>
+                </div>
+                <p>Udvidede en kundeportal til overvågning med automatiske SMS-notifikationer udløst
+                af temperaturafvigelser i medicinkølere, målt på tværs af et sensornetværk. Reducerede
+                risikoen for uopdagede fejl i el eller hos personalet. Bygget som et multi-tenant SaaS-modul,
+                hvor hver kunde har sin egen sensoropsætning og sine egne alarmgrænser.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">IoT / sensorer</span>
+                    <span class="tag">Multi-tenant SaaS</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Interne overvågningsdashboards</h3>
+                    <span class="entry-date">IT Operators</span>
+                </div>
+                <p>Realtidsdashboards udrullet på Raspberry Pi'er til kontorets TV-skærme, som
+                overvåger tidsregistreringer og sundheden af cron-jobs, så arbejdseffektiviteten kan
+                følges og fejlede jobs opdages tidligt.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Realtid</span>
+                    <span class="tag">Raspberry Pi</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>TIMEVAT — eksterne API-integrationer</h3>
+                    <span class="entry-date">Kunde: TIMEVAT</span>
+                </div>
+                <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API til
+                daglige valutakurser i en momscompliance-platform.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">VIES-API</span>
+                    <span class="tag">API-integration</span>
+                </div>
+            </div>
+
+            <p style="opacity:0.5; font-size:0.78rem; margin:24px 0 16px; letter-spacing:0.02em;">
+                Personlige projekter
+            </p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Invarix Guard</h3>
+                    <span class="entry-date"><a href="https://invarix.dk" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Guard" target="_blank" rel="noopener">NuGet</a></span>
+                </div>
+                <p>Et plug and play-AI-sikkerhedsbibliotek til .NET, udgivet som NuGet-pakke. Dækker
+                flere AI-sikkerhedskategorier ud af boksen: prompt injection, persondata (PII) og
+                indholdssikkerhed, så applikationer kan tilføje guardrails med få linjers kode.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">NuGet</span>
+                    <span class="tag">AI-sikkerhed</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Invarix Guard Evidence</h3>
+                    <span class="entry-date"><a href="https://invarix.dk/products/invarix-guard-evidence" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" target="_blank" rel="noopener">NuGet</a></span>
+                </div>
+                <p>Et revisionsspor til AI-beslutninger i .NET, hvor enhver efterfølgende ændring kan
+                påvises. Gratis under Elastic License 2.0. Hver beslutning registreres som en
+                CloudEvents-hændelse nøglet på SHA-256-hashes frem for selve prompteksten, og batches
+                forsegles derefter i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle,
+                så en revisor kan verificere med standardværktøjer fra Certificate Transparency, at en
+                post aldrig er blevet ændret. Leveres desuden med opbevaringspolitikker med legal hold,
+                signerede sletteattester og et endpoint til streaming-eksport. Kører fuldt ud
+                in-process uden udgående kald.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">NuGet</span>
+                    <span class="tag">Kryptografi</span>
+                    <span class="tag">Revisionslogning</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Hemi-Sync guidet meditations-app</h3>
+                    <span class="entry-date">Undervejs</span>
+                </div>
+                <p>En konceptapp til at generere tilpassede guidede meditationer med AI-drevet
+                tekst-til-tale, lagt sammen med Hemi-Sync binaurale beats til hjernebølge-entrainment.
+                Bygget i React Native til både iOS og Android. Sat på pause i øjeblikket.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">React Native</span>
+                    <span class="tag">OpenAI API</span>
+                    <span class="tag">iOS / Android</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Distortion VST-plugin</h3>
+                    <span class="entry-date"><a href="https://github.com/AlexBatten" target="_blank" rel="noopener">GitHub</a></span>
+                </div>
+                <p>Et simpelt distortion-plugin med bitcrushing bygget med JUCE-frameworket.
+                Kompatibelt med de fleste DAW'er som VST.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">C++</span>
+                    <span class="tag">JUCE</span>
+                    <span class="tag">Lyd / DSP</span>
+                </div>
+            </div>
+        `
+    },
+
+    skills: {
+        number: '04',
+        title: 'Kompetencer & værktøjer',
+        html: `
+            <h3>Sprog</h3>
+            <div style="margin-bottom:16px">
+                <span class="tag">C#</span>
+                <span class="tag">C++</span>
+                <span class="tag">Java</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Kotlin</span>
+                <span class="tag">SQL</span>
+            </div>
+            <h3>Frameworks & biblioteker</h3>
+            <div style="margin-bottom:16px">
+                <span class="tag">ASP.NET Core</span>
+                <span class="tag">Entity Framework</span>
+                <span class="tag">Angular</span>
+                <span class="tag">.NET</span>
+                <span class="tag">.NET Aspire</span>
+                <span class="tag">Next.js</span>
+                <span class="tag">React Native</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">JUCE</span>
+            </div>
+            <h3>Metoder & praksis</h3>
+            <div style="margin-bottom:16px">
+                <span class="tag">REST-API'er</span>
+                <span class="tag">Systemdesign</span>
+                <span class="tag">Distribuerede systemer</span>
+                <span class="tag">Agile / Scrum</span>
+                <span class="tag">CI/CD</span>
+                <span class="tag">JWT-autentificering</span>
+                <span class="tag">Docker</span>
+            </div>
+            <h3>Andet</h3>
+            <div>
+                <span class="tag">Git</span>
+                <span class="tag">Claude Code</span>
+                <span class="tag">ERP-systemer</span>
+                <span class="tag">Multi-tenant SaaS</span>
+                <span class="tag">SAF-T</span>
+                <span class="tag">Lydteknik</span>
+            </div>
+        `
+    },
+
+    education: {
+        number: '05',
+        title: 'Uddannelse',
+        html: `
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Diplomingeniør (BEng) i softwareteknologi — Danmarks Tekniske Universitet (DTU)</h3>
+                    <span class="entry-date">2021 — 2025</span>
+                </div>
+                <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
+                Bachelorprojektet handlede om at bygge en integration mellem to ERP-systemer fra
+                bunden. Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+            </div>
+        `
+    },
+
+    recommendations: {
+        number: '06',
+        title: 'Anbefalinger',
+        html: `
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Mike Valencia — Simple Agency Group</h3>
+                </div>
+                <p>CEO hos Simple Agency Group</p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se anbefalingen på LinkedIn &rarr;</a></p>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Erik Seifert</h3>
+                </div>
+                <p>Har anbefalet følgende kompetencer:</p>
+                <div style="margin-top:8px">
+                    <span class="tag">C#</span>
+                    <span class="tag">.NET Framework</span>
+                    <span class="tag">Entity Framework (EF) Core</span>
+                </div>
+            </div>
+        `
+    },
+
+    hire: {
+        number: '07',
+        title: 'Start et projekt',
+        html: `
+            <p class="brief-intro">Har du noget, du gerne vil have bygget? Fortæl mig om
+            det, så vender jeg tilbage inden for et par dage.</p>
+
+            <form class="brief-form" id="brief-form" novalidate>
+                <input type="hidden" name="access_key" value="">
+                <input type="hidden" name="subject" value="New project request from your portfolio (DA)">
+                <input type="hidden" name="from_name" value="alexbatten.dk — Project Request">
+                <input type="hidden" name="project_type" value="">
+                <input type="checkbox" name="botcheck" class="brief-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+                <div class="brief-row">
+                    <label class="brief-field">
+                        <span class="brief-label">Navn</span>
+                        <input type="text" name="name" required autocomplete="name">
+                    </label>
+                    <label class="brief-field">
+                        <span class="brief-label">E-mail</span>
+                        <input type="email" name="email" required autocomplete="email">
+                    </label>
+                </div>
+
+                <div class="brief-field">
+                    <span class="brief-label">Projekttype</span>
+                    <div class="brief-pills">
+                        <button type="button" class="brief-pill" data-value="Webapplikation">Webapplikation</button>
+                        <button type="button" class="brief-pill" data-value="API / integration">API / integration</button>
+                        <button type="button" class="brief-pill" data-value="AI / ML">AI / ML</button>
+                        <button type="button" class="brief-pill" data-value="Mobil">Mobil</button>
+                        <button type="button" class="brief-pill" data-value="Andet">Andet</button>
+                    </div>
+                </div>
+
+                <div class="brief-row">
+                    <label class="brief-field">
+                        <span class="brief-label">Budget <em>(valgfrit)</em></span>
+                        <select name="budget">
+                            <option value="">Ingen præference</option>
+                            <option>Under €2k</option>
+                            <option>€2k – €5k</option>
+                            <option>€5k – €10k</option>
+                            <option>€10k+</option>
+                            <option>Ved ikke endnu</option>
+                        </select>
+                    </label>
+                    <label class="brief-field">
+                        <span class="brief-label">Tidshorisont <em>(valgfrit)</em></span>
+                        <select name="timeline">
+                            <option value="">Ingen præference</option>
+                            <option>Hurtigst muligt</option>
+                            <option>Inden for 1 måned</option>
+                            <option>1 – 2 måneder</option>
+                            <option>2 – 3 måneder</option>
+                            <option>Fleksibel</option>
+                        </select>
+                    </label>
+                </div>
+
+                <label class="brief-field">
+                    <span class="brief-label">Projektdetaljer</span>
+                    <textarea name="message" rows="4" required
+                        placeholder="Hvad prøver du at bygge, og hvordan ser succes ud?"></textarea>
+                </label>
+
+                <button type="submit" class="brief-submit">Send projektforespørgsel</button>
+                <p class="brief-status" id="brief-status" role="status" aria-live="polite"></p>
+                <p class="brief-note">Ingen konto nødvendig. Går direkte til min indbakke.</p>
+            </form>
+        `
+    },
+
+    contact: {
+        title: 'Kontakt',
+        html: `
+            <p>Jeg er altid åben for interessante samtaler og muligheder.</p>
+            <ul style="list-style:none;padding:0;margin-top:16px">
+                <li style="margin-bottom:10px">
+                    <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
+                </li>
+                <li style="margin-bottom:10px">
+                    <a href="https://github.com/AlexBatten" target="_blank" rel="noopener">GitHub</a>
+                </li>
+                <li style="margin-bottom:10px">
+                    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" target="_blank" rel="noopener">LinkedIn</a>
+                </li>
+            </ul>
+        `
+    }
+};
+
+// physics.js reads CONTENT[id] directly, so resolve the language here and leave
+// that call site untouched.
+const CONTENT = document.documentElement.lang === 'da' ? CONTENT_DA : CONTENT_EN;

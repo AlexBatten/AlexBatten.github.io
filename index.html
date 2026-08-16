@@ -12,6 +12,12 @@
     <meta name="theme-color" content="#3b82f6">
     <link rel="canonical" href="https://alexbatten.dk/">
 
+    <!-- ── Language alternates ──
+         Bidirectional: /da/ points back here, or Google ignores the pair. -->
+    <link rel="alternate" hreflang="en" href="https://alexbatten.dk/">
+    <link rel="alternate" hreflang="da" href="https://alexbatten.dk/da/">
+    <link rel="alternate" hreflang="x-default" href="https://alexbatten.dk/">
+
     <!-- ── Open Graph (LinkedIn, Facebook, Slack, iMessage) ── -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Alex Batten">
@@ -34,7 +40,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=15">
+    <link rel="stylesheet" href="styles.css?v=16">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
 
     <!-- ── Structured data (linked graph: WebSite / ProfilePage / Person / packages) ── -->
@@ -50,7 +56,11 @@
           "alternateName": "alexbatten.dk",
           "inLanguage": "en",
           "publisher": { "@id": "https://alexbatten.dk/#alex-batten" },
-          "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
+          "hasPart": {
+            "@type": "FAQPage",
+            "@id": "https://alexbatten.dk/cv#faq",
+            "url": "https://alexbatten.dk/cv"
+          }
         },
         {
           "@type": "ProfilePage",
@@ -344,7 +354,14 @@
         </section>
     </main>
 
-    <a href="privacypolicy" class="privacy-link">Privacy</a>
+    <div class="top-right-nav">
+        <nav class="lang-switch" aria-label="Language">
+            <span class="lang-active" aria-current="true">EN</span>
+            <span class="lang-sep" aria-hidden="true">/</span>
+            <a href="/da/" hreflang="da" lang="da">DA</a>
+        </nav>
+        <a href="privacypolicy" class="privacy-link">Privacy</a>
+    </div>
     <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
 
     <!-- Hints overlay -->
@@ -436,11 +453,11 @@
         <p>&copy; 2026 Alex Batten</p>
     </footer>
 
-    <script src="content.js?v=11"></script>
-    <script src="freelance.js?v=1"></script>
+    <script src="content.js?v=12"></script>
+    <script src="freelance.js?v=2"></script>
     <script src="chat.js?v=2"></script>
     <script src="ascii-bg.js?v=10"></script>
-    <script src="physics.js?v=14"></script>
+    <script src="physics.js?v=15"></script>
     <script src="pinball.js?v=11"></script>
 </body>
 </html>
