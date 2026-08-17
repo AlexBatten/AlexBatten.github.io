@@ -1,9 +1,9 @@
 // ── Lab index (the "08 Lab" ball) ──
 //
 // Single source of truth for everything published under /lab. The modal index,
-// the /lab page, feed.xml and the sitemap are all built from this list, so a new
-// entry only ever gets added in one place. Run `node tools/build-lab.js` after
-// editing to regenerate the generated files.
+// the /lab page and the sitemap are all built from this list, so a new entry only
+// ever gets added in one place. Run `node tools/build-lab.js` after editing to
+// regenerate the generated files.
 //
 // Each entry:
 //   slug   file at /lab/<slug>.html

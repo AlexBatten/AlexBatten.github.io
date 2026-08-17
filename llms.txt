@@ -19,7 +19,7 @@ Contact: alex.batten1234@gmail.com
   education, recommendations, and a frequently-asked-questions section.
 - [Lab](https://alexbatten.dk/lab/): Writing. Notes and longer posts on .NET, AI agent
   safety, enterprise integrations, and ideas worth someone else picking up. Articles are
-  in English. RSS at https://alexbatten.dk/feed.xml
+  in English.
 - [Invarix](https://invarix.dk): Product site for the Invarix .NET libraries.
 
 Every page has a Danish translation under `/da/`, linked with hreflang. English

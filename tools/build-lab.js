@@ -3,7 +3,6 @@
 // Regenerates everything derived from posts.js:
 //
 //   lab/index.html   the crawlable Lab index
-//   feed.xml         RSS, which is how developers follow developers
 //   sitemap.xml      static pages plus one entry per article
 //
 // Article bodies are hand-written at lab/<slug>.html; this only ever owns the
@@ -49,17 +48,6 @@ const longDate = iso => {
     return d + ' ' + months[m - 1] + ' ' + y;
 };
 
-// RFC 822, required by RSS. Fixed 10:00 +02:00 so reruns don't churn the feed.
-const rfc822 = iso => {
-    const d = new Date(iso + 'T10:00:00+02:00');
-    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const p = n => String(n).padStart(2, '0');
-    return days[d.getUTCDay()] + ', ' + p(d.getUTCDate()) + ' ' + months[d.getUTCMonth()] + ' ' +
-        d.getUTCFullYear() + ' ' + p(d.getUTCHours()) + ':' + p(d.getUTCMinutes()) + ':' +
-        p(d.getUTCSeconds()) + ' GMT';
-};
-
 // ── Guard: every slug must have an article on disk ──
 const missing = sorted.filter(p => !fs.existsSync(path.join(ROOT, 'lab', p.slug + '.html')));
 if (missing.length) {
@@ -97,7 +85,6 @@ const indexHtml = `<!DOCTYPE html>
     <meta property="og:image" content="${ORIGIN}/images/og-image.png">
 
     <link rel="icon" href="/images/portfolio.png" type="image/png">
-    <link rel="alternate" type="application/rss+xml" title="Alex Batten — Lab" href="${ORIGIN}/feed.xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -162,10 +149,9 @@ ${JSON.stringify({
     <p>Findings, unfinished ideas, and things I wish someone had written down before I
     needed them. Notes are short and about one thing. Posts are longer. Some of it is
     meant for you to take and build.</p>
-    <p><a href="/feed.xml">RSS</a> &middot; <a href="mailto:alex.batten1234@gmail.com">Tell me I'm wrong</a></p>
+    <p><a href="mailto:alex.batten1234@gmail.com">Tell me I'm wrong</a></p>
 ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty">
         <p>nothing here yet. turns out the ideas were the easy part.</p>
-        <p class="lab-empty-sub">the <a href="/feed.xml">feed</a> already works, if you'd like the first one to find you.</p>
     </div>`}
 </main>
 
@@ -176,26 +162,6 @@ ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty"
 <script src="/ascii-bg.js?v=10"></script>
 </body>
 </html>
-`;
-
-// ── feed.xml ──
-const feedXml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Alex Batten — Lab</title>
-    <link>${ORIGIN}/lab/</link>
-    <description>Notes and writeups on .NET, AI agent safety, enterprise integrations, and ideas worth someone else picking up.</description>
-    <language>en</language>
-    <atom:link href="${ORIGIN}/feed.xml" rel="self" type="application/rss+xml"/>${sorted.length ? '\n' : ''}${sorted.map(p => `    <item>
-      <title>${esc(p.title)}</title>
-      <link>${ORIGIN}/lab/${p.slug}</link>
-      <guid isPermaLink="true">${ORIGIN}/lab/${p.slug}</guid>
-      <pubDate>${rfc822(p.date)}</pubDate>
-      <description>${esc(p.hook)}</description>
-${p.tags.map(t => `      <category>${esc(t)}</category>`).join('\n')}
-    </item>`).join('\n')}
-  </channel>
-</rss>
 `;
 
 // ── sitemap.xml ──
@@ -220,9 +186,7 @@ ${sorted.map(p => `  <url>
 `;
 
 fs.writeFileSync(path.join(ROOT, 'lab', 'index.html'), indexHtml);
-fs.writeFileSync(path.join(ROOT, 'feed.xml'), feedXml);
 fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), sitemapXml);
 
 console.log('lab/index.html  ' + sorted.length + ' entr' + (sorted.length === 1 ? 'y' : 'ies'));
-console.log('feed.xml        ' + sorted.length + ' item' + (sorted.length === 1 ? '' : 's'));
 console.log('sitemap.xml     ' + (STATIC_PAGES.length + sorted.length) + ' urls');

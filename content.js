@@ -34,12 +34,11 @@ function labHtml(t) {
     const body = rows || `
             <div class="lab-empty">
                 <p>${t.emptyLead}</p>
-                <p class="lab-empty-sub">${t.emptySub}</p>
             </div>`;
 
     return `<p class="brief-intro">${t.intro}</p>${body}
             <p style="margin-top:20px; font-size:0.85rem; opacity:0.7">
-                <a href="/lab/">${t.all}</a> &middot; <a href="/feed.xml">RSS</a>
+                <a href="/lab/">${t.all}</a>
             </p>`;
 }
 
@@ -527,9 +526,7 @@ const CONTENT_EN = {
             intro: `Findings, unfinished ideas, and things I wish someone had written down
                 before I needed them. Notes are short and about one thing. Posts are longer.
                 Some of it is meant for you to take and build.`,
-            emptyLead: `nothing here yet. turns out the ideas were the easy part.`,
-            emptySub: `the <a href="/feed.xml">feed</a> already works, if you'd like the
-                first one to find you.`
+            emptyLead: `nothing here yet. turns out the ideas were the easy part.`
         })
     },
 
@@ -1045,9 +1042,7 @@ const CONTENT_DA = {
                 før jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
                 længere. Noget af det er ment til, at du tager det og bygger videre.
                 Indlæggene er skrevet på engelsk.`,
-            emptyLead: `her er tomt endnu. det viser sig, at idéerne var den nemme del.`,
-            emptySub: `<a href="/feed.xml">feedet</a> virker allerede, hvis du vil have den
-                første til at finde dig.`
+            emptyLead: `her er tomt endnu. det viser sig, at idéerne var den nemme del.`
         })
     },
 
