@@ -38,10 +38,11 @@
     <meta name="twitter:image" content="https://alexbatten.dk/images/og-image.png">
 
     <link rel="icon" href="/images/portfolio.png" type="image/png">
+    <link rel="alternate" type="application/rss+xml" title="Alex Batten — Lab" href="https://alexbatten.dk/feed.xml">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=16">
+    <link rel="stylesheet" href="/styles.css?v=18">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
 
     <!-- ── Structured data ──
@@ -303,6 +304,14 @@
             </article>
         </section>
 
+        <section aria-labelledby="seo-lab">
+            <h2 id="seo-lab">Lab &mdash; skriverier og noter</h2>
+            <p>Fund, ufærdige idéer og ting, der er værd for andre at bygge videre på, om
+            .NET, sikkerhed omkring AI-agenter og virksomhedsintegrationer. Læs dem på
+            <a href="/lab/">alexbatten.dk/lab</a>, eller abonnér via
+            <a href="/feed.xml">RSS</a>. Indlæggene er skrevet på engelsk.</p>
+        </section>
+
         <section aria-labelledby="seo-skills">
             <h2 id="seo-skills">Kompetencer &amp; værktøjer</h2>
             <p><strong>Sprog:</strong> C#, C++, Java, TypeScript, JavaScript, Kotlin, SQL.</p>
@@ -425,6 +434,10 @@
             <span class="ball-icon">07</span>
             <span class="ball-label">Hyr</span>
         </div>
+        <div class="ball" data-id="lab">
+            <span class="ball-icon">08</span>
+            <span class="ball-label">Lab</span>
+        </div>
         <div class="ball ball-chat" data-id="chat" data-action="chat">
             <svg class="ball-chat-glyph" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M20.25 11.5a8.25 8.25 0 0 1-11.9 7.4L3.75 20.25l1.35-4.6A8.25 8.25 0 1 1 20.25 11.5z"/>
@@ -454,7 +467,8 @@
         <p>&copy; 2026 Alex Batten</p>
     </footer>
 
-    <script src="/content.js?v=13"></script>
+    <script src="/posts.js?v=2"></script>
+    <script src="/content.js?v=16"></script>
     <script src="/freelance.js?v=2"></script>
     <script src="/chat.js?v=2"></script>
     <script src="/ascii-bg.js?v=10"></script>

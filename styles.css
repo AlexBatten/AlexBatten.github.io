@@ -624,6 +624,26 @@ body {
     opacity: 0.45;
 }
 
+/* ── Lab empty state ──
+   Written in the register of the hints panel: lowercase, italic mono, wry. The
+   paragraphs inherit their colour from whichever context they land in, so the
+   same markup reads correctly in the dark modal and on the light /lab page. */
+.lab-empty {
+    font-family: var(--mono);
+    font-style: italic;
+    margin: 26px 0 8px;
+}
+
+.lab-empty p {
+    line-height: 1.8;
+}
+
+.lab-empty-sub {
+    font-size: 0.8rem;
+    opacity: 0.65;
+    margin-top: 10px;
+}
+
 /* ── Hints Button ── */
 .hints-btn {
     position: fixed;

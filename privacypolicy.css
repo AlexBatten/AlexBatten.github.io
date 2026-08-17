@@ -124,3 +124,96 @@ footer {
         font-size: 1rem;
     }
 }
+
+/* ── Lab: article pages and the /lab index ──
+   Long-form reading on top of the existing .privacy-policy-content layout. */
+.article-meta {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-dim);
+    margin-bottom: 4px;
+}
+
+.article-type {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.article h1 {
+    margin-top: 0;
+}
+
+/* The CV column is 800px at 0.9rem, which is ~110 characters per line. That is
+   fine for scanning entries and too wide to read an essay in. Narrower column
+   and larger type puts an article line at roughly 70 characters. */
+.privacy-policy-content.article {
+    max-width: 640px;
+}
+
+.article p,
+.article li {
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.article .article-meta {
+    font-size: 0.72rem;
+    line-height: 1.6;
+}
+
+.privacy-policy-content code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    background: rgba(0, 0, 0, 0.06);
+    padding: 0.1em 0.35em;
+    border-radius: 4px;
+}
+
+.privacy-policy-content pre {
+    background: rgba(0, 0, 0, 0.05);
+    border-left: 2px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin: 18px 0;
+    overflow-x: auto;
+}
+
+.privacy-policy-content pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.82rem;
+    line-height: 1.6;
+}
+
+.privacy-policy-content hr {
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    margin: 32px 0 20px;
+}
+
+.article-footer {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+/* Index entries on /lab */
+.lab-entry {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.lab-entry h2 {
+    margin-top: 0;
+    margin-bottom: 6px;
+}
+
+.lab-entry h2 a {
+    text-decoration: none;
+}
+
+.lab-entry h2 a:hover {
+    text-decoration: underline;
+}

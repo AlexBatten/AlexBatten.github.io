@@ -5,6 +5,44 @@
 // a single place, so a new entry can't be added to one language and forgotten
 // in the other. Shipping both costs a few KB gzipped.
 
+// ── Lab index ──
+// Rendered from posts.js rather than written out here, so the modal list and the
+// /lab page are the same data and cannot drift apart. Articles are English; the
+// Danish modal says so rather than pretending a translation exists.
+const LAB_MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const LAB_MONTHS_DA = ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun.', 'jul.', 'aug.', 'sep.', 'okt.', 'nov.', 'dec.'];
+
+function labHtml(t) {
+    const rows = [...POSTS].sort((a, b) => b.date.localeCompare(a.date)).map(function (p) {
+        const parts = p.date.split('-');
+        const month = (t.lang === 'da' ? LAB_MONTHS_DA : LAB_MONTHS_EN)[Number(parts[1]) - 1];
+        const date = t.lang === 'da'
+            ? Number(parts[2]) + '. ' + month + ' ' + parts[0]
+            : Number(parts[2]) + ' ' + month + ' ' + parts[0];
+        return `
+            <div class="entry">
+                <div class="entry-header">
+                    <h3><a href="/lab/${p.slug}">${p.title}</a></h3>
+                    <span class="entry-date">${date}</span>
+                </div>
+                <p class="article-meta"><span class="article-type">${p.type === 'note' ? t.note : t.post}</span> &middot; ${p.minutes} ${t.read}</p>
+                <p>${p.hook}</p>
+                <div style="margin-top:8px">${p.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
+            </div>`;
+    }).join('');
+
+    const body = rows || `
+            <div class="lab-empty">
+                <p>${t.emptyLead}</p>
+                <p class="lab-empty-sub">${t.emptySub}</p>
+            </div>`;
+
+    return `<p class="brief-intro">${t.intro}</p>${body}
+            <p style="margin-top:20px; font-size:0.85rem; opacity:0.7">
+                <a href="/lab/">${t.all}</a> &middot; <a href="/feed.xml">RSS</a>
+            </p>`;
+}
+
 const CONTENT_EN = {
     about: {
         number: '01',
@@ -475,6 +513,25 @@ const CONTENT_EN = {
                 <p class="brief-note">No account needed. Goes straight to my inbox.</p>
             </form>
         `
+    },
+
+    lab: {
+        number: '08',
+        title: 'Lab',
+        html: labHtml({
+            lang: 'en',
+            note: 'Note',
+            post: 'Post',
+            read: 'min read',
+            all: 'All entries',
+            intro: `Findings, unfinished ideas, and things I wish someone had written down
+                before I needed them. Notes are short and about one thing. Posts are longer.
+                Some of it is meant for you to take and build.`,
+            emptyLead: `nothing here yet. the ideas exist, they just haven't survived being
+                written down.`,
+            emptySub: `the <a href="/feed.xml">feed</a> already works, if you'd like the
+                first one to find you.`
+        })
     },
 
     contact: {
@@ -974,6 +1031,26 @@ const CONTENT_DA = {
                 <p class="brief-note">Ingen konto nødvendig. Går direkte til min indbakke.</p>
             </form>
         `
+    },
+
+    lab: {
+        number: '08',
+        title: 'Lab',
+        html: labHtml({
+            lang: 'da',
+            note: 'Note',
+            post: 'Artikel',
+            read: 'min. læsning',
+            all: 'Alle indlæg',
+            intro: `Fund, ufærdige idéer og ting, jeg ville ønske nogen havde skrevet ned,
+                før jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
+                længere. Noget af det er ment til, at du tager det og bygger videre.
+                Indlæggene er skrevet på engelsk.`,
+            emptyLead: `her er tomt endnu. idéerne findes, de har bare ikke overlevet at blive
+                skrevet ned.`,
+            emptySub: `<a href="/feed.xml">feedet</a> virker allerede, hvis du vil have den
+                første til at finde dig.`
+        })
     },
 
     contact: {
