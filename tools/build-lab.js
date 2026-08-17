@@ -164,7 +164,7 @@ ${JSON.stringify({
     meant for you to take and build.</p>
     <p><a href="/feed.xml">RSS</a> &middot; <a href="mailto:alex.batten1234@gmail.com">Tell me I'm wrong</a></p>
 ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty">
-        <p>nothing here yet. the ideas exist, they just haven't survived being written down.</p>
+        <p>nothing here yet. turns out the ideas were the easy part.</p>
         <p class="lab-empty-sub">the <a href="/feed.xml">feed</a> already works, if you'd like the first one to find you.</p>
     </div>`}
 </main>

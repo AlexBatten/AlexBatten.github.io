@@ -527,8 +527,7 @@ const CONTENT_EN = {
             intro: `Findings, unfinished ideas, and things I wish someone had written down
                 before I needed them. Notes are short and about one thing. Posts are longer.
                 Some of it is meant for you to take and build.`,
-            emptyLead: `nothing here yet. the ideas exist, they just haven't survived being
-                written down.`,
+            emptyLead: `nothing here yet. turns out the ideas were the easy part.`,
             emptySub: `the <a href="/feed.xml">feed</a> already works, if you'd like the
                 first one to find you.`
         })
@@ -1046,8 +1045,7 @@ const CONTENT_DA = {
                 før jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
                 længere. Noget af det er ment til, at du tager det og bygger videre.
                 Indlæggene er skrevet på engelsk.`,
-            emptyLead: `her er tomt endnu. idéerne findes, de har bare ikke overlevet at blive
-                skrevet ned.`,
+            emptyLead: `her er tomt endnu. det viser sig, at idéerne var den nemme del.`,
             emptySub: `<a href="/feed.xml">feedet</a> virker allerede, hvis du vil have den
                 første til at finde dig.`
         })
