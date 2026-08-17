@@ -70,7 +70,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "da",
-          "dateModified": "2026-08-17T12:00:00+02:00",
+          "dateModified": "2026-08-17T14:00:00+02:00",
           "relatedLink": "https://alexbatten.dk/da/cv"
         },
         {
@@ -90,7 +90,7 @@
             "name": "Danmarks Tekniske Universitet (DTU)",
             "url": "https://www.dtu.dk/"
           },
-          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Fullstack-udvikling", "AI-infrastruktur", "AI/ML", "AI-evaluering", "Prompt engineering", "Distribuerede systemer", "Systemdesign", "REST-API'er", "Virksomhedsintegrationer", "Multi-tenant SaaS", "Momsindberetning", "SKAT", "SAF-T", "Docker"],
+          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Fullstack-udvikling", "AI-infrastruktur", "AI/ML", "AI-evaluering", "Prompt engineering", "Distribuerede systemer", "Systemdesign", "REST-API'er", "Virksomhedsintegrationer", "Multi-tenant SaaS", "Momsindberetning", "SKAT", "AI-sikkerhed", "AI-agenter", "SAF-T", "Docker"],
           "sameAs": [
             "https://github.com/AlexBatten",
             "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
@@ -117,6 +117,19 @@
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
           "license": "https://www.elastic.co/licensing/elastic-license",
           "description": "Et revisionsspor til AI-beslutninger i .NET, hvor enhver efterfølgende ændring kan påvises. Beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-gate",
+          "name": "Invarix.Gate",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "softwareVersion": "1.0.0-rc.1",
+          "url": "https://invarix.dk/products/invarix-gate",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Gate",
+          "license": "https://www.elastic.co/licensing/elastic-license",
+          "description": "En deterministisk handlingsfirewall til AI-agenter i .NET. Vurderer agentens tool calls mod en politik, inden de udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Ti detektorer forankret i offentlige hændelser, uden kald til en model, og en afgørelse på 57 mikrosekunder i median.",
           "author": { "@id": "https://alexbatten.dk/#alex-batten" }
         }
       ]
@@ -259,6 +272,23 @@
                 til streaming-eksport. Kører fuldt ud in-process uden udgående kald.
                 Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
+            </article>
+            <article>
+                <h3>Invarix Gate — handlingsfirewall til AI-agenter i .NET</h3>
+                <p>En deterministisk handlingsfirewall til AI-agenter, udgivet som NuGet-pakke
+                (Invarix.Gate). Den ligger foran agentens tool calls og vurderer hvert kald mod en
+                politik, inden det udføres, med afgørelsen tillad, advar, eskalér, afvis eller
+                afbryd. Ti detektorer dækker destruktiv SQL, shell-kommandoer, omskrivning af
+                git-historik, nedlukning af cloud-ressourcer, lækkede hemmeligheder og løbske
+                løkker, og hver enkelt er forankret i en dateret offentlig hændelse. Matchningen er
+                ren CPU-mønstergenkendelse uden kald til en model, så en afgørelse falder på 57 µs
+                i median og er deterministisk under en given politik. Politikken skrives i YAML
+                eller flydende C#, kobles på Microsoft.Extensions.AI og Microsoft Agent Framework
+                og rapporterer de flader, den ikke kan se, frem for at vise et rent resultat.
+                Leveres med et korpus på 194 scenarier, hvor omtrent halvdelen kontrollerer, at en
+                detektor forbliver tavs.
+                Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
             </article>
             <article>
                 <h3>Hemi-Sync guidet meditations-app</h3>
@@ -424,7 +454,7 @@
         <p>&copy; 2026 Alex Batten</p>
     </footer>
 
-    <script src="/content.js?v=12"></script>
+    <script src="/content.js?v=13"></script>
     <script src="/freelance.js?v=2"></script>
     <script src="/chat.js?v=2"></script>
     <script src="/ascii-bg.js?v=10"></script>

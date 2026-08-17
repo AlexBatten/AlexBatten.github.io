@@ -6,7 +6,7 @@
 
 Alex Batten holds a BEng in Software Technology from the Technical University of
 Denmark (DTU). Most of his work is in C# and .NET with full-stack web, API and
-enterprise integrations, and AI/ML data work. He publishes two .NET libraries on
+enterprise integrations, and AI/ML data work. He publishes three .NET libraries on
 NuGet under the Invarix name and speaks English and Danish.
 
 Contact: alex.batten1234@gmail.com
@@ -53,6 +53,15 @@ is the default (x-default).
   License 2.0. Records decisions as CloudEvents keyed on SHA-256 hashes, seals
   batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key,
   and runs fully in process with no outbound calls.
+- [Invarix.Gate](https://www.nuget.org/packages/Invarix.Gate): A deterministic action
+  firewall for AI agents in .NET. Evaluates an agent's tool calls against a policy
+  before they run and returns allow, warn, escalate, deny, or terminate. Ten detectors
+  covering destructive SQL, shell commands, git history rewrites, cloud teardown,
+  credential egress, and runaway loops, each grounded in a dated public incident. Pure
+  CPU pattern matching with no model call, median verdict 57 microseconds, deterministic
+  under a given policy. Policy as YAML or fluent C#, with adapters for
+  Microsoft.Extensions.AI and Microsoft Agent Framework. Observe mode is free under
+  Elastic License 2.0. Currently 1.0.0-rc.1.
 
 ## Skills
 

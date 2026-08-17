@@ -71,7 +71,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "en",
-          "dateModified": "2026-08-16T23:37:00+02:00",
+          "dateModified": "2026-08-17T14:00:00+02:00",
           "relatedLink": "https://alexbatten.dk/cv"
         },
         {
@@ -120,7 +120,7 @@
             "occupationLocation": { "@type": "Country", "name": "Denmark" },
             "skills": "C#, .NET, .NET Aspire, ASP.NET Core, Entity Framework, Angular, Next.js, TypeScript, REST APIs, enterprise integrations, distributed systems, Docker, AI infrastructure"
           },
-          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Full-Stack Development", "AI Infrastructure", "AI/ML", "AI Evaluation", "Prompt Engineering", "Claude Code", "Distributed Systems", "System Design", "REST APIs", "Enterprise Integrations", "Multi-tenant SaaS", "SAF-T", "Docker"],
+          "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Full-Stack Development", "AI Infrastructure", "AI/ML", "AI Evaluation", "Prompt Engineering", "Claude Code", "Distributed Systems", "System Design", "REST APIs", "Enterprise Integrations", "Multi-tenant SaaS", "AI Agent Safety", "AI Guardrails", "SAF-T", "Docker"],
           "sameAs": [
             "https://github.com/AlexBatten",
             "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
@@ -147,6 +147,19 @@
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
           "license": "https://www.elastic.co/licensing/elastic-license",
           "description": "A tamper-evident audit trail for AI decisions in .NET. Records decisions as CloudEvents keyed on SHA-256 hashes, sealed into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://alexbatten.dk/#invarix-gate",
+          "name": "Invarix.Gate",
+          "applicationCategory": "DeveloperApplication",
+          "operatingSystem": "Cross-platform (.NET)",
+          "softwareVersion": "1.0.0-rc.1",
+          "url": "https://invarix.dk/products/invarix-gate",
+          "downloadUrl": "https://www.nuget.org/packages/Invarix.Gate",
+          "license": "https://www.elastic.co/licensing/elastic-license",
+          "description": "A deterministic action firewall for AI agents in .NET. Evaluates an agent's tool calls against a policy before they run, returning allow, warn, escalate, deny, or terminate. Ten incident-grounded detectors, no model call, and a median verdict of 57 microseconds.",
           "author": { "@id": "https://alexbatten.dk/#alex-batten" }
         }
       ]
@@ -288,6 +301,22 @@
                 process with no outbound calls.
                 Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
+            </article>
+            <article>
+                <h3>Invarix Gate — action firewall for AI agents in .NET</h3>
+                <p>A deterministic action firewall for AI agents, shipped as a NuGet package
+                (Invarix.Gate). It sits in front of an agent's tool calls and evaluates each one
+                against a policy before it runs, returning allow, warn, escalate, deny, or
+                terminate. Ten detectors cover destructive SQL, shell commands, git history
+                rewrites, cloud teardown, credential egress, and runaway loops, each grounded in a
+                dated public incident. Matching is pure CPU pattern work with no model call, so a
+                verdict lands in a median of 57 µs and is deterministic under a given policy.
+                Policy is authored in YAML or fluent C#, attaches through Microsoft.Extensions.AI
+                and Microsoft Agent Framework, and reports the surfaces it cannot see rather than
+                rendering a clean run. Ships with a 194 scenario policy corpus where roughly half
+                the cases assert a detector stays quiet.
+                Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
+                NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
             </article>
             <article>
                 <h3>Hemi-Sync Guided Meditation App</h3>
@@ -453,7 +482,7 @@
         <p>&copy; 2026 Alex Batten</p>
     </footer>
 
-    <script src="content.js?v=12"></script>
+    <script src="content.js?v=13"></script>
     <script src="freelance.js?v=2"></script>
     <script src="chat.js?v=2"></script>
     <script src="ascii-bg.js?v=10"></script>

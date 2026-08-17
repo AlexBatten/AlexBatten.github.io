@@ -259,6 +259,31 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
+                    <h3>Invarix Gate</h3>
+                    <span class="entry-date"><a href="https://invarix.dk/products/invarix-gate" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Gate" target="_blank" rel="noopener">NuGet</a></span>
+                </div>
+                <p>A deterministic action firewall for AI agents in .NET. Gate sits in front of
+                an agent's tool calls and evaluates each one against a policy before it runs,
+                returning one of five verdicts: allow, warn, escalate, deny, or terminate. Ten
+                detectors cover destructive SQL, shell commands, git history rewrites, cloud
+                teardown, credential egress, and runaway loops, each grounded in a dated public
+                incident. Matching is pure CPU pattern work with no model call, so a verdict
+                lands in a median of 57 µs and the same call under the same policy always decides
+                the same way. Policy is written as YAML or fluent C#, it attaches through
+                Microsoft.Extensions.AI and Microsoft Agent Framework, and it reports the surfaces
+                it cannot see rather than rendering a clean run. Ships with a 194 scenario policy
+                corpus in which roughly half the cases assert a detector stays quiet, since a
+                detector that only ever fires gets switched off in its first week.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">NuGet</span>
+                    <span class="tag">AI Agents</span>
+                    <span class="tag">Policy as Code</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
                     <h3>Hemi-Sync Guided Meditation App</h3>
                     <span class="entry-date">In progress</span>
                 </div>
@@ -727,6 +752,32 @@ const CONTENT_DA = {
                     <span class="tag">NuGet</span>
                     <span class="tag">Kryptografi</span>
                     <span class="tag">Revisionslogning</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Invarix Gate</h3>
+                    <span class="entry-date"><a href="https://invarix.dk/products/invarix-gate" target="_blank" rel="noopener">Website</a> &middot; <a href="https://www.nuget.org/packages/Invarix.Gate" target="_blank" rel="noopener">NuGet</a></span>
+                </div>
+                <p>En deterministisk handlingsfirewall til AI-agenter i .NET. Gate ligger foran
+                agentens tool calls og vurderer hvert kald mod en politik, inden det udføres, med
+                en af fem afgørelser: tillad, advar, eskalér, afvis eller afbryd. Ti detektorer
+                dækker destruktiv SQL, shell-kommandoer, omskrivning af git-historik, nedlukning
+                af cloud-ressourcer, lækkede hemmeligheder og løbske løkker, og hver enkelt er
+                forankret i en dateret offentlig hændelse. Matchningen er ren
+                CPU-mønstergenkendelse uden kald til en model, så en afgørelse falder på 57 µs i
+                median, og det samme kald under den samme politik afgøres altid ens. Politikken
+                skrives som YAML eller flydende C#, den kobles på Microsoft.Extensions.AI og
+                Microsoft Agent Framework, og den rapporterer de flader, den ikke kan se, frem for
+                at vise et rent resultat. Leveres med et korpus på 194 scenarier, hvor omtrent
+                halvdelen kontrollerer, at en detektor forbliver tavs, for en detektor, der kun
+                udløses, bliver slået fra i sin første uge.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">NuGet</span>
+                    <span class="tag">AI-agenter</span>
+                    <span class="tag">Politik som kode</span>
                 </div>
             </div>
 

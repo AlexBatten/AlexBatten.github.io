@@ -41,7 +41,7 @@
           "url": "https://alexbatten.dk/da/cv",
           "name": "CV | Alex Batten, freelance softwareudvikler i Danmark",
           "inLanguage": "da",
-          "dateModified": "2026-08-17T12:00:00+02:00",
+          "dateModified": "2026-08-17T14:00:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/da/cv#faq" }
@@ -138,7 +138,7 @@
               "name": "Hvilken erfaring har Alex Batten med AI og machine learning?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "AI-infrastruktur for Alignerr på de pipelines, der ligger bag træning, evaluering og udrulning af AI. AI-evaluering for Mercor med vurdering af modeloutput mod strukturerede retningslinjer. Dataannotering, prompt engineering og design af agenttrajektorier for Outlier på tværs af 50+ risikokategorier. Dertil to AI-relaterede .NET-biblioteker: Invarix.Guard og Invarix.Guard.Evidence."
+                "text": "AI-infrastruktur for Alignerr på de pipelines, der ligger bag træning, evaluering og udrulning af AI. AI-evaluering for Mercor med vurdering af modeloutput mod strukturerede retningslinjer. Dataannotering, prompt engineering og design af agenttrajektorier for Outlier på tværs af 50+ risikokategorier. Dertil tre AI-relaterede .NET-biblioteker: Invarix.Guard, Invarix.Guard.Evidence og Invarix.Gate."
               }
             },
             {
@@ -146,7 +146,7 @@
               "name": "Hvilken software har Alex Batten udgivet?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "To NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle."
+                "text": "Tre NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres, med ti detektorer forankret i offentlige hændelser og uden kald til en model."
               }
             },
             {
@@ -311,6 +311,21 @@
     Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
 
+    <h4>Invarix Gate &mdash; handlingsfirewall til AI-agenter i .NET</h4>
+    <p>En deterministisk handlingsfirewall til AI-agenter, udgivet som NuGet-pakke
+    (Invarix.Gate). Den ligger foran agentens tool calls og vurderer hvert kald mod en politik,
+    inden det udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Ti detektorer
+    dækker destruktiv SQL, shell-kommandoer, omskrivning af git-historik, nedlukning af
+    cloud-ressourcer, lækkede hemmeligheder og løbske løkker, og hver enkelt er forankret i en
+    dateret offentlig hændelse. Matchningen er ren CPU-mønstergenkendelse uden kald til en model,
+    så en afgørelse falder på 57 &micro;s i median og er deterministisk under en given politik.
+    Politikken skrives i YAML eller flydende C#, kobles på Microsoft.Extensions.AI og Microsoft
+    Agent Framework og rapporterer de flader, den ikke kan se, frem for at vise et rent resultat.
+    Leveres med et korpus på 194 scenarier, hvor omtrent halvdelen kontrollerer, at en detektor
+    forbliver tavs. Observe-tilstand er gratis under Elastic License 2.0.
+    Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
+    NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
+
     <h4>Hemi-Sync guidet meditations-app</h4>
     <p>En konceptapp til at generere tilpassede guidede meditationer med AI-drevet
     tekst-til-tale lagt sammen med Hemi-Sync binaurale beats til hjernebølge-entrainment. Bygget
@@ -384,15 +399,14 @@
     <h3>Hvilken erfaring har Alex Batten med AI og machine learning?</h3>
     <p>AI-infrastruktur for Alignerr på de pipelines, der ligger bag træning, evaluering og udrulning af AI. AI-evaluering for Mercor med vurdering af modeloutput mod strukturerede
     retningslinjer. Dataannotering, prompt engineering og design af agenttrajektorier for Outlier
-    på tværs af 50+ risikokategorier. Dertil to AI-relaterede .NET-biblioteker: Invarix.Guard og
-    Invarix.Guard.Evidence.</p>
+    på tværs af 50+ risikokategorier. Dertil tre AI-relaterede .NET-biblioteker: Invarix.Guard, Invarix.Guard.Evidence og Invarix.Gate.</p>
 
     <h3>Hvilken software har Alex Batten udgivet?</h3>
-    <p>To NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der
+    <p>Tre NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der
     dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et
     revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger
     registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962
-    Merkle-træ signeret med kundens egen Ed25519-nøgle.</p>
+    Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres, med ti detektorer forankret i offentlige hændelser og uden kald til en model.</p>
 
     <h3>Hvilken uddannelse har Alex Batten?</h3>
     <p>Diplomingeniør (BEng) i softwareteknologi fra Danmarks Tekniske Universitet (DTU), 2021

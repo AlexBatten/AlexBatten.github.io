@@ -40,7 +40,7 @@
           "url": "https://alexbatten.dk/cv",
           "name": "CV | Alex Batten, Freelance .NET & Full-Stack Engineer in Denmark",
           "inLanguage": "en",
-          "dateModified": "2026-08-16T23:37:00+02:00",
+          "dateModified": "2026-08-17T14:00:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
@@ -137,7 +137,7 @@
               "name": "What AI and machine learning experience does Alex Batten have?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "AI infrastructure work for Alignerr on the pipelines behind AI training, evaluation, and deployment. AI evaluation for Mercor, assessing model outputs against structured guidelines. Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He also publishes two AI-related .NET libraries, Invarix.Guard and Invarix.Guard.Evidence."
+                "text": "AI infrastructure work for Alignerr on the pipelines behind AI training, evaluation, and deployment. AI evaluation for Mercor, assessing model outputs against structured guidelines. Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He also publishes three AI-related .NET libraries: Invarix.Guard, Invarix.Guard.Evidence, and Invarix.Gate."
               }
             },
             {
@@ -145,7 +145,7 @@
               "name": "What software has Alex Batten published?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Two NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key."
+                "text": "Three NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key. Invarix.Gate is a deterministic action firewall for AI agents that evaluates tool calls against a policy before they run, with ten incident-grounded detectors and no model call."
               }
             },
             {
@@ -186,7 +186,7 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, Freelance .NET &amp; Full-Stack Engineer in Denmark</h1>
-    <p>Last updated: August 15, 2026</p>
+    <p>Last updated: August 17, 2026</p>
 
     <p>Alex Batten is a software engineer based in Denmark with a BEng in Software Technology
     from the Technical University of Denmark (DTU). Most of my work is in .NET and full-stack
@@ -305,6 +305,20 @@
     Website: <a href="https://invarix.dk/products/invarix-guard-evidence" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard.Evidence" rel="noopener">nuget.org/packages/Invarix.Guard.Evidence</a>.</p>
 
+    <h4>Invarix Gate &mdash; action firewall for AI agents in .NET</h4>
+    <p>A deterministic action firewall for AI agents, shipped as a NuGet package
+    (Invarix.Gate). It sits in front of an agent's tool calls and evaluates each one against a
+    policy before it runs, returning allow, warn, escalate, deny, or terminate. Ten detectors
+    cover destructive SQL, shell commands, git history rewrites, cloud teardown, credential
+    egress, and runaway loops, each grounded in a dated public incident. Matching is pure CPU
+    pattern work with no model call, so a verdict lands in a median of 57 &micro;s and is
+    deterministic under a given policy. Policy is authored in YAML or fluent C#, attaches through
+    Microsoft.Extensions.AI and Microsoft Agent Framework, and reports the surfaces it cannot see
+    rather than rendering a clean run. Ships with a 194 scenario policy corpus where roughly half
+    the cases assert a detector stays quiet. Observe mode is free under Elastic License 2.0.
+    Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
+    NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
+
     <h4>Hemi-Sync Guided Meditation App</h4>
     <p>A concept app for generating customizable guided meditations using AI-driven text-to-speech
     layered with Hemi-Sync binaural beat technology for brainwave entrainment. Built in React
@@ -378,11 +392,10 @@
     <p>AI infrastructure work for Alignerr on the pipelines behind AI training, evaluation, and
     deployment. AI evaluation for Mercor, assessing model outputs against structured guidelines.
     Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk
-    categories. He also publishes two AI-related .NET libraries, Invarix.Guard and
-    Invarix.Guard.Evidence.</p>
+    categories. He also publishes three AI-related .NET libraries: Invarix.Guard, Invarix.Guard.Evidence, and Invarix.Gate.</p>
 
     <h3>What software has Alex Batten published?</h3>
-    <p>Two NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering
+    <p>Three NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering
     prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit
     trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals
     batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.</p>
