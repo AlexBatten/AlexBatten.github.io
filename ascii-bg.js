@@ -88,34 +88,119 @@
         return dist;
     }
 
+    // ── Pointer warp ──
+    // The cursor bends the sampled coordinates outward (a lens) and adds an
+    // expanding ripple to the field value. Both fade to zero at REACH, so the
+    // per-frame cost is bounded by the box around the cursor, not the viewport.
+    var LENS = 7;          // peak radial displacement, in grid cells
+    var REACH = 240;       // effect radius, CSS px
+    var RIPPLE_HZ = 0.95;
+
+    var tgtX = -1e5, tgtY = -1e5, ptrX = -1e5, ptrY = -1e5;
+    var active = 0, lastMove = -1e9;
+    var originX = 0, originY = 0, cellW = CHAR_W, cellH = CHAR_H, measured = false;
+
+    window.addEventListener('pointermove', function (e) {
+        // Touch has no hover, and on mobile this competes with dragging the balls.
+        if (e.pointerType === 'touch') return;
+        tgtX = e.clientX; tgtY = e.clientY; lastMove = performance.now();
+        // Fade in where the cursor already is rather than swooping in from offscreen.
+        if (active < 0.01) { ptrX = tgtX; ptrY = tgtY; }
+    }, { passive: true });
+
+    document.documentElement.addEventListener('pointerleave', function () {
+        lastMove = -1e9;
+    }, { passive: true });
+
+    // CHAR_W/CHAR_H are mask-sampling constants, not rendered metrics: letter-spacing
+    // widens the advance and the container centres the block, so screen-to-cell
+    // mapping has to come from the laid-out text. Falls back to the constants where
+    // layout reports nothing.
+    function measure() {
+        if (!container.firstChild) return;
+        var range = document.createRange();
+        range.selectNodeContents(container);
+        var r = range.getBoundingClientRect();
+        if (r.width && r.height) {
+            originX = r.left; originY = r.top;
+            cellW = r.width / width; cellH = r.height / height;
+        }
+    }
+
+    // The advance changes when the webfont swaps in (measurably: ~8.4px with the
+    // fallback, ~8.8px with Roboto Condensed), which is enough drift to throw the
+    // cursor off by half a dozen columns at the edge of a wide screen.
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () { measured = false; });
+    }
+
     function frame(now) {
         animId = requestAnimationFrame(frame);
         if (now - lastRender < FRAME_INTERVAL) return;
         lastRender = now;
 
         var t = (now - startTime) * T_PER_MS;
+        // The ambient clock advances 0.18 units/sec, far too slow to drive a ripple
+        // that has to keep up with a moving cursor.
+        var tSec = (now - startTime) / 1000;
         var hw = width / 2, hh = height / 2;
         var erosion = (Math.sin(t * 0.4) * 0.5 + 0.5) * 4 + 0.5;
         var lines = [];
 
+        ptrX += (tgtX - ptrX) * 0.18;                                 // centre trails the cursor
+        ptrY += (tgtY - ptrY) * 0.18;
+        active += ((now - lastMove < 400 ? 1 : 0) - active) * 0.09;   // ease in, decay out
+
+        var warp = active > 0.01, mcx, mcy, R2, ASPECT, rowSpan;
+        if (warp) {
+            // Cells are taller than they are wide, so distances are worked in
+            // column-units to keep the falloff circular on screen rather than a
+            // flattened ellipse.
+            ASPECT = cellH / cellW;
+            mcx = (ptrX - originX) / cellW;
+            mcy = (ptrY - originY) / cellH;
+            var reachCols = REACH / cellW;
+            R2 = reachCols * reachCols;
+            rowSpan = reachCols / ASPECT;
+        }
+
         for (var y = 0; y < height; y++) {
+            var rowWarp = warp && Math.abs(y - mcy) < rowSpan;
+            var mdy = rowWarp ? (y - mcy) * ASPECT : 0, mdy2 = mdy * mdy;
             var row = '';
             for (var x = 0; x < width; x++) {
+                // Sampled position, displaced away from the cursor; boost rides on top
+                // of the field value. Both are identity outside the cursor's reach.
+                var sx = x, sy = y, boost = 0;
+
+                if (rowWarp) {
+                    var mdx = x - mcx, r2 = mdx * mdx + mdy2;
+                    if (r2 < R2) {
+                        var f = 1 - r2 / R2;
+                        f = f * f * active;                  // smooth to zero at the rim
+                        var r = Math.sqrt(r2);
+                        var m = LENS * f / (r + 0.5);        // +0.5 softens the singular core
+                        sx = x + mdx * m;
+                        sy = y + (mdy * m) / ASPECT;
+                        boost = Math.sin(r * 0.42 - tSec * RIPPLE_HZ * 6.283) * f * 1.2;
+                    }
+                }
+
                 if (textMask[y][x]) {
                     var d = edgeDist[y][x];
-                    if (d <= erosion) {
-                        var w = Math.sin(x * 0.15 + y * 0.1 + t * 0.8);
+                    if (d <= erosion + boost * 2.5) {
+                        var w = Math.sin(sx * 0.15 + sy * 0.1 + t * 0.8);
                         row += w > 0.2 ? '0' : w < -0.3 ? '~' : ':';
                     } else {
-                        row += Math.sin(x * 0.3 + y * 0.2 + t * 0.3) > 0.85 ? '0' : '1';
+                        row += Math.sin(sx * 0.3 + sy * 0.2 + t * 0.3) > 0.85 ? '0' : '1';
                     }
                 } else {
-                    var dx = x - hw, dy = y - hh;
+                    var dx = sx - hw, dy = sy - hh;
                     var angle = Math.atan2(dy, dx);
                     var dist = Math.sqrt(dx * dx + dy * dy);
                     var wave = Math.sin(dist * 0.07 - t * 0.5 + angle * 1.2);
-                    var flow = Math.sin(x * 0.035 + y * 0.02 + t * 0.2);
-                    var c = wave + flow;
+                    var flow = Math.sin(sx * 0.035 + sy * 0.02 + t * 0.2);
+                    var c = wave + flow + boost;
                     row += c > 0.9 ? '0' : c > 0.4 ? '.' : c < -0.7 ? '~' : ' ';
                 }
             }
@@ -143,6 +228,8 @@
         var output = '';
         for (var i = 0; i < grid.length; i++) output += grid[i].join('') + '\n';
         container.textContent = output;
+
+        if (!measured) { measure(); measured = true; }
     }
 
     function getSize() {
@@ -160,6 +247,7 @@
         edgeDist = buildEdgeDist();
         startTime = performance.now();
         lastRender = 0;
+        measured = false;
     }
 
     function start() {

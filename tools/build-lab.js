@@ -159,7 +159,7 @@ ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty"
     <p>&copy; 2026 Alex Batten</p>
 </footer>
 
-<script src="/ascii-bg.js?v=10"></script>
+<script src="/ascii-bg.js?v=11"></script>
 </body>
 </html>
 `;
