@@ -56,6 +56,12 @@ if (missing.length) {
 }
 
 // ── lab/index.html ──
+// The page descriptions say so while the archive is empty, and drop the sentence
+// by themselves once the first article lands.
+const NOTHING_YET = sorted.length ? '' : ' Nothing published yet.';
+const PAGE_DESCRIPTION = 'Notes and posts from Alex Batten on .NET, AI agent safety, and enterprise integrations.' + NOTHING_YET;
+const BLOG_DESCRIPTION = 'Notes and posts on .NET, AI agent safety, and enterprise integrations.' + NOTHING_YET;
+
 const entryHtml = p => `
     <article class="lab-entry">
         <p class="article-meta"><span class="article-type">${p.type === 'note' ? 'Note' : 'Post'}</span> &middot; ${longDate(p.date)} &middot; ${p.minutes} min read</p>
@@ -71,7 +77,7 @@ const indexHtml = `<!DOCTYPE html>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Lab | Alex Batten</title>
-    <meta name="description" content="Notes and writeups from Alex Batten on .NET, AI agent safety, enterprise integrations, and ideas worth someone else picking up.">
+    <meta name="description" content="${esc(PAGE_DESCRIPTION)}">
     <meta name="author" content="Alex Batten">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
     <meta name="theme-color" content="#3b82f6">
@@ -80,7 +86,7 @@ const indexHtml = `<!DOCTYPE html>
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Alex Batten">
     <meta property="og:title" content="Lab | Alex Batten">
-    <meta property="og:description" content="Notes and writeups from Alex Batten on .NET, AI agent safety, enterprise integrations, and ideas worth someone else picking up.">
+    <meta property="og:description" content="${esc(PAGE_DESCRIPTION)}">
     <meta property="og:url" content="${ORIGIN}/lab/">
     <meta property="og:image" content="${ORIGIN}/images/og-image.png">
 
@@ -100,7 +106,7 @@ ${JSON.stringify({
             '@id': ORIGIN + '/lab/#blog',
             url: ORIGIN + '/lab/',
             name: 'Lab — Alex Batten',
-            description: 'Notes and writeups on .NET, AI agent safety, enterprise integrations, and ideas worth someone else picking up.',
+            description: BLOG_DESCRIPTION,
             inLanguage: 'en',
             isPartOf: { '@id': ORIGIN + '/#website' },
             author: { '@id': ORIGIN + '/#alex-batten' },
@@ -146,9 +152,9 @@ ${JSON.stringify({
 
 <main class="privacy-policy-content">
     <h1>Lab</h1>
-    <p>Findings, unfinished ideas, and things I wish someone had written down before I
-    needed them. Notes are short and about one thing. Posts are longer. Some of it is
-    meant for you to take and build.</p>
+    <p>Unfinished ideas, and things I wish someone had written down before I needed
+    them. Notes are short and about one thing. Posts are longer. Some of it is meant
+    for you to take and build.</p>
     <p><a href="mailto:alex.batten1234@gmail.com">Tell me I'm wrong</a></p>
 ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty">
         <p>nothing here yet. turns out the ideas were the easy part.</p>

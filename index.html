@@ -173,16 +173,13 @@
          content.js. Also published as a fully visible page at /cv. -->
     <main class="cv-content" aria-label="Alex Batten, software engineer portfolio">
         <h1>Alex Batten, Freelance .NET &amp; Full-Stack Engineer in Denmark</h1>
-        <p>Alex Batten is a software engineer based in Denmark with a BEng in Software
-        Technology from the Technical University of Denmark (DTU). Most of my work is
-        in .NET and full-stack web, with API and enterprise integrations and some AI/ML
-        data work. I care about clean, functional code, solid architecture, and building
-        things that actually work. Outside of coding I'm into strength training and music
-        production, from audio engineering to composition.</p>
-        <p>Available for freelance and contract work. Email
+        <p>Hi, I'm Alex, a software engineer in Denmark with a BEng in Software
+        Technology from DTU. Most of my work is C# and .NET: backend services,
+        REST APIs, and enterprise integrations.</p>
+        <p>Not available for new work right now. Email
         <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
-        (alex.batten1234@gmail.com), or see the
-        <a href="cv">full CV</a>, which also answers
+        and I will say when that changes. The
+        <a href="cv">full CV</a> also answers
         <a href="cv#faq">frequently asked questions</a> about availability, stack,
         and how to start a project.</p>
 
@@ -191,14 +188,8 @@
             <article>
                 <h3>Senior Software Engineer, AI Infrastructure — Alignerr (Contract, signed 2026, not yet started)</h3>
                 <p>Signed contract, first assignment still pending. The agreed scope is
-                designing, building, and scaling the production infrastructure behind AI
-                training, evaluation, and deployment pipelines: Python and TypeScript across
-                backend services, APIs, and data pipelines, architected for reliability and
-                long-term maintainability at scale on cloud and containerized environments.
-                The role also covers system design, code reviews, and debugging across
-                distributed systems, working asynchronously with ML engineers, researchers,
-                and product managers on a global distributed team. Stack: Python, TypeScript,
-                AI Infrastructure, Distributed Systems, Data Pipelines, Cloud, Containers.</p>
+                the infrastructure behind AI training, evaluation, and deployment
+                pipelines, in Python and TypeScript. Stack: Python, TypeScript.</p>
             </article>
             <article>
                 <h3>Backend Developer — Acconta (2026–Present)</h3>
@@ -209,7 +200,7 @@
                 switching, yearly plans, webhooks, secret hardening), plus a working
                 subscription flow prototype in the Next.js client. Implemented Danish tax
                 compliance: VAT reporting to SKAT via the NemVirksomhed service (SOAP with
-                WS signing), computing all 17 VAT return fields, plus SAF-T import with
+                WS-Security signing), computing all 17 VAT return fields, plus SAF-T import with
                 schema validation. Also built standalone integrations for daily currency
                 rates (National Bank) and company data via CVR (Danish Business Authority).
                 Stack: C#, .NET Aspire, ASP.NET Core, Entity Framework, Microservices,
@@ -235,17 +226,21 @@
                 and designed single and multi-turn conversational and agentic datasets
                 spanning 50+ risk categories including bias, misinformation, privacy, and
                 safety. Built autonomous agent trajectories exercising skill discovery,
-                memory, long-horizon context, and native tools (cron, sub-agent delegation),
-                and refined Golden Trajectories for efficiency and grounding. Served as both
-                author and reviewer on Mechanic Astrologer. Skills: AI/ML, Prompt
+                memory, long-horizon context, and native tools (cron, sub-agent delegation).
+                Served as both author and reviewer on Mechanic Astrologer. Skills: AI/ML, Prompt
                 Engineering, Agentic AI, Data Annotation.</p>
             </article>
             <article>
                 <h3>Software Development Intern — IT Operators / Simple Agency Group (2024)</h3>
                 <p>Developed REST APIs with auth, rate limiting, and monitoring. Built
                 fullstack web apps with Angular, .NET, and Bootstrap, including JWT auth,
-                real-time dashboards, and automated reporting. Maintained and optimized ERP
-                systems in production.</p>
+                real-time dashboards, and automated reporting. Migrated an in-house ERP's
+                time representation from quarter hours to minutes across every display,
+                estimate and report field, then rebuilt the billing review on top of it so
+                a task worked by employees from more than one group billed under each of
+                those groups instead of one. Validated the rebuilt invoicing screen by
+                reconciling a full month of billing data against what had actually been
+                invoiced.</p>
             </article>
         </section>
 
@@ -266,10 +261,22 @@
                 limiting with automated email alerts.</p>
             </article>
             <article>
-                <h3>Eye4u — Automated SMS Alert System</h3>
-                <p>Extended a surveillance customer portal with automated SMS notifications
-                triggered by medicine-cooler temperature deviations across a sensor network.
-                Built as a multi-tenant SaaS module.</p>
+                <h3>Eye4u — Automated SMS Alert System (Client: Eye4u)</h3>
+                <p>Extended a customer monitoring portal with automated SMS notifications
+                triggered by medicine cooler temperature deviations across a sensor network.
+                Added an adjustable pre-alarm tier that warns by SMS and email without
+                raising an incident, with suppression logic so a sensor sitting outside its
+                threshold does not re-notify on every check. Built as a multi-tenant module,
+                each customer with their own sensor configuration and alert thresholds.</p>
+            </article>
+            <article>
+                <h3>Dexa Bodyscan — internal portal (Client: Dexa Bodyscan)</h3>
+                <p>Built the initial web application for a body-scan clinic's internal
+                portal, from an empty repository to a working authenticated application in
+                eight working days: project scaffold, Dockerfile, DNS record, SSL
+                certificate, MySQL schema, Entity Framework contexts, JWT login, salted
+                password hashing, role-gated pages, and password reset from an email
+                link.</p>
             </article>
             <article>
                 <h3>Internal Monitoring Dashboards (IT Operators)</h3>
@@ -319,7 +326,7 @@
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
             </article>
             <article>
-                <h3>Hemi-Sync Guided Meditation App</h3>
+                <h3>Hemi-Sync Guided Meditation App (paused)</h3>
                 <p>A concept app for generating customizable guided meditations using
                 AI-driven text-to-speech layered with Hemi-Sync binaural beats, built in
                 React Native for iOS and Android.</p>
@@ -332,10 +339,10 @@
         </section>
 
         <section aria-labelledby="seo-lab">
-            <h2 id="seo-lab">Lab &mdash; writing and notes</h2>
-            <p>Findings, unfinished ideas, and things worth someone else picking up, on
-            .NET, AI agent safety, and enterprise integrations. Read them at
-            <a href="/lab/">alexbatten.dk/lab</a>.</p>
+            <h2 id="seo-lab"><a href="/lab/">Lab</a> &mdash; writing and notes</h2>
+            <p>Unfinished ideas, and things I wish someone had written down before I
+            needed them. Notes are short and about one thing. Posts are longer. Some of
+            it is meant for you to take and build. Nothing published yet.</p>
         </section>
 
         <section aria-labelledby="seo-skills">
@@ -363,9 +370,8 @@
             <h2 id="seo-recs">Recommendations</h2>
             <article>
                 <h3>Mike Valencia — CEO at Simple Agency Group</h3>
-                <p>Recommended Alex Batten on LinkedIn for his work on development, software,
-                and integrations.
-                <a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" rel="noopener">View the recommendation on LinkedIn</a>.</p>
+                <p>Wrote about Alex Batten&rsquo;s work at Simple Agency Group.
+                <a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" rel="noopener">View the post on LinkedIn</a>.</p>
             </article>
             <article>
                 <h3>Erik Seifert</h3>
@@ -375,10 +381,11 @@
 
         <section aria-labelledby="seo-hire">
             <h2 id="seo-hire">Freelance &amp; Project Requests</h2>
-            <p>Available for freelance and contract work: .NET and full-stack web
-            apps, REST APIs and enterprise integrations, and AI/ML features. Have a
-            project in mind? Send a request through the site or email
-            <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.</p>
+            <p>Not available for new work right now. Email
+            <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
+            and I will say when that changes. The work I take is .NET and full-stack web
+            applications, REST APIs, enterprise integrations, and AI features, remote
+            across the EU on CET. The request form on this site is still open.</p>
         </section>
 
         <section aria-labelledby="seo-contact">

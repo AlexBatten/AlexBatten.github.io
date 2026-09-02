@@ -47,12 +47,10 @@ const CONTENT_EN = {
         number: '01',
         title: 'About',
         html: `
-            <p>Hi, I'm <strong>Alex</strong>, a software engineer based in Denmark with a
-            BEng in Software Technology from DTU. I care about functional clean code, solid architecture,
-            and building things that actually work.</p>
-            <p style="margin-top:12px">I'm drawn to system design, performance optimization,
-            and writing maintainable software. Outside of coding, I'm into strength training
-            and music production, from audio engineering to composition.</p>
+            <p>Hi, I'm <strong>Alex</strong>, a software engineer in Denmark with a
+            BEng in Software Technology from DTU. Most of my work is C# and .NET:
+            backend services, REST APIs, and enterprise integrations.</p>
+            <p style="margin-top:12px">Outside work I train and produce music.</p>
         `
     },
 
@@ -65,22 +63,12 @@ const CONTENT_EN = {
                     <h3>Senior Software Engineer, AI Infrastructure — Alignerr (Contract)</h3>
                     <span class="entry-date">Signed 2026, not yet started</span>
                 </div>
-                <p>Signed contract, first assignment still pending. The agreed scope is
-                designing, building, and scaling the production infrastructure behind AI
-                training, evaluation, and deployment pipelines: Python and TypeScript across
-                backend services, APIs, and data pipelines, architected for reliability and
-                long term maintainability at scale on cloud and containerized environments.
-                The role also covers system design, code reviews, and debugging across
-                distributed systems, working asynchronously with ML engineers, researchers,
-                and product managers on a global distributed team.</p>
+                <p>Signed contract, first assignment still pending. The agreed scope is the
+                infrastructure behind AI training, evaluation, and deployment pipelines, in
+                Python and TypeScript.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Python</span>
                     <span class="tag">TypeScript</span>
-                    <span class="tag">AI Infrastructure</span>
-                    <span class="tag">Distributed Systems</span>
-                    <span class="tag">Data Pipelines</span>
-                    <span class="tag">Cloud</span>
-                    <span class="tag">Containers</span>
                 </div>
             </div>
             <div class="entry">
@@ -95,7 +83,7 @@ const CONTENT_EN = {
                 switching, yearly plans, webhooks, secret hardening), plus a working
                 subscription flow prototype in the Next.js client. Implemented Danish tax
                 compliance: VAT reporting to SKAT via the NemVirksomhed service (SOAP with
-                WS signing), computing all 17 VAT return fields, plus SAF-T import with
+                WS-Security signing), computing all 17 VAT return fields, plus SAF-T import with
                 schema validation. Also built standalone integrations for daily currency
                 rates (National Bank) and company data via CVR (Danish Business Authority).</p>
                 <div style="margin-top:8px">
@@ -138,9 +126,9 @@ const CONTENT_EN = {
                 conversational and agentic datasets spanning 50+ risk categories including bias,
                 misinformation, privacy, and safety. Built autonomous agent trajectories exercising
                 skill discovery, memory, long horizon context, and native tools (cron, sub agent
-                delegation), and refined Golden Trajectories for efficiency and grounding. Served as
-                both author and reviewer on Mechanic Astrologer, auditing peer Task Blueprints against
-                structured rubrics, verifying ground truth, and writing teaching feedback.</p>
+                delegation). Served as both author and reviewer on Mechanic Astrologer, auditing
+                peer Task Blueprints against structured rubrics, verifying ground truth, and
+                writing teaching feedback.</p>
                 <div style="margin-top:8px">
                     <span class="tag">AI/ML</span>
                     <span class="tag">Prompt Engineering</span>
@@ -155,7 +143,12 @@ const CONTENT_EN = {
                 </div>
                 <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
                 web apps with Angular, .NET, and Bootstrap, including JWT auth, real-time dashboards,
-                and automated reporting. Maintained and optimized ERP systems in production.</p>
+                and automated reporting. Migrated an in-house ERP's time representation from quarter
+                hours to minutes across every display, estimate and report field, then rebuilt the
+                billing review on top of it so a task worked by employees from more than one group
+                billed under each of those groups instead of one. Validated the rebuilt invoicing
+                screen by reconciling a full month of billing data against what had actually been
+                invoiced.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
                     <span class="tag">.NET</span>
@@ -182,7 +175,7 @@ const CONTENT_EN = {
                 <p>Fullstack application bridging two enterprise platforms, transferring and
                 reviewing time registrations from Accelo (PSA) into Microsoft Business Central (ERP).
                 Built a custom UI for reviewing and adjusting hours before syncing. Designed the data model
-                in MSSQL, implemented multi tenant authentication via Microsoft Entra ID, and containerized
+                in MSSQL, implemented multi-tenant authentication via Microsoft Entra ID, and containerized
                 the entire stack with Docker in a Jenkins CI/CD pipeline. Fully tested, unit tests on both
                 layers, plus integration tests using Selenium and WebApplicationFactory.</p>
                 <div style="margin-top:8px">
@@ -216,14 +209,34 @@ const CONTENT_EN = {
                     <h3>Eye4u — Automated SMS Alert System</h3>
                     <span class="entry-date">Client: Eye4u</span>
                 </div>
-                <p>Extended a surveillance customer portal with automated SMS notifications triggered
-                by medicine cooler temperature deviations detected across a sensor network. Reduced risk
-                of unnoticed electrical or staff errors. Built as a multi tenant SaaS module, each customer
-                with their own sensor configuration and alert thresholds.</p>
+                <p>Extended a customer monitoring portal with automated SMS notifications triggered
+                by medicine cooler temperature deviations across a sensor network. Added an adjustable
+                pre-alarm tier that warns by SMS and email without raising an incident, with suppression
+                logic so a sensor sitting outside its threshold does not re-notify on every check. Built
+                as a multi-tenant module, each customer with their own sensor configuration and alert
+                thresholds.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">IoT / Sensors</span>
                     <span class="tag">Multi-tenant SaaS</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Dexa Bodyscan — internal portal</h3>
+                    <span class="entry-date">Client: Dexa Bodyscan</span>
+                </div>
+                <p>Built the initial web application for a body-scan clinic's internal portal, from
+                an empty repository to a working authenticated application in eight working days:
+                project scaffold, Dockerfile, DNS record, SSL certificate, MySQL schema, Entity
+                Framework contexts, JWT login, salted password hashing, role-gated pages, and
+                password reset from an email link.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Auth</span>
                 </div>
             </div>
 
@@ -322,11 +335,11 @@ const CONTENT_EN = {
             <div class="entry">
                 <div class="entry-header">
                     <h3>Hemi-Sync Guided Meditation App</h3>
-                    <span class="entry-date">In progress</span>
+                    <span class="entry-date">Paused</span>
                 </div>
                 <p>A concept app for generating customizable guided meditations using AI driven
                 text to speech, layered with Hemi Sync binaural beat technology for brainwave
-                entrainment. Built in React Native targeting both iOS and Android. Currently paused </p>
+                entrainment. Built in React Native targeting both iOS and Android.</p>
                 <div style="margin-top:8px">
                     <span class="tag">React Native</span>
                     <span class="tag">OpenAI API</span>
@@ -408,7 +421,7 @@ const CONTENT_EN = {
                     <span class="entry-date">2021 — 2025</span>
                 </div>
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
-                Bachelor's project focused on building an integration between two ERP systems from scratch.
+                Bachelor's project: an integration between two ERP systems built from scratch.
                 GPA: 7.62 (Danish 7-point scale).</p>
             </div>
         `
@@ -420,10 +433,10 @@ const CONTENT_EN = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Mike Valencia — Simple Agency Group</h3>
+                    <h3>Mike Valencia — CEO at Simple Agency Group</h3>
                 </div>
-                <p>CEO at Simple Agency Group</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View recommendation on LinkedIn &rarr;</a></p>
+                <p>Wrote about Alex Batten's work at Simple Agency Group.</p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View the post on LinkedIn &rarr;</a></p>
             </div>
 
             <div class="entry">
@@ -444,8 +457,8 @@ const CONTENT_EN = {
         number: '07',
         title: 'Start a Project',
         html: `
-            <p class="brief-intro">Have something you'd like built? Tell me about
-            it and I'll get back to you within a couple of days.</p>
+            <p class="brief-intro">Not available for new work right now. Send the details
+            anyway and I will say when that changes.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -523,9 +536,9 @@ const CONTENT_EN = {
             post: 'Post',
             read: 'min read',
             all: 'All entries',
-            intro: `Findings, unfinished ideas, and things I wish someone had written down
-                before I needed them. Notes are short and about one thing. Posts are longer.
-                Some of it is meant for you to take and build.`,
+            intro: `Unfinished ideas, and things I wish someone had written down before I
+                needed them. Notes are short and about one thing. Posts are longer. Some of
+                it is meant for you to take and build.`,
             emptyLead: `nothing here yet. turns out the ideas were the easy part.`
         })
     },
@@ -533,7 +546,8 @@ const CONTENT_EN = {
     contact: {
         title: 'Get in Touch',
         html: `
-            <p>I'm always open to interesting conversations and opportunities.</p>
+            <p>Not available for new work right now. Email alex.batten1234@gmail.com and
+            I will say when that changes.</p>
             <ul style="list-style:none;padding:0;margin-top:16px">
                 <li style="margin-bottom:10px">
                     <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
@@ -554,12 +568,10 @@ const CONTENT_DA = {
         number: '01',
         title: 'Om mig',
         html: `
-            <p>Hej, jeg hedder <strong>Alex</strong>. Jeg er softwareudvikler med base i Danmark
-            og diplomingeniør (BEng) i softwareteknologi fra DTU. Jeg går op i ren, funktionel
-            kode, solid arkitektur og at bygge ting, der rent faktisk virker.</p>
-            <p style="margin-top:12px">Jeg arbejder helst med systemdesign, performanceoptimering
-            og software, der kan vedligeholdes over tid. Uden for koden går der styrketræning og
-            musikproduktion i den, fra lydteknik til komposition.</p>
+            <p>Hej, jeg hedder <strong>Alex</strong>. Jeg er softwareudvikler i Danmark og
+            diplomingeniør (BEng) i softwareteknologi fra DTU. Det meste af mit arbejde er
+            C# og .NET: backendservices, REST-API'er og virksomhedsintegrationer.</p>
+            <p style="margin-top:12px">Uden for arbejdet træner jeg og producerer musik.</p>
         `
     },
 
@@ -572,22 +584,12 @@ const CONTENT_DA = {
                     <h3>Senior Software Engineer, AI-infrastruktur — Alignerr (kontrakt)</h3>
                     <span class="entry-date">Underskrevet 2026, ikke påbegyndt</span>
                 </div>
-                <p>Kontrakten er underskrevet, men første opgave er endnu ikke gået i gang. Det
-                aftalte omfang er at designe, bygge og skalere den produktionsinfrastruktur, der
-                ligger bag pipelines til træning, evaluering og udrulning af AI: Python og TypeScript
-                på tværs af backendservices, API'er og datapipelines, arkitekteret til driftssikkerhed
-                og langsigtet vedligeholdelse i stor skala i cloudmiljøer og containere. Rollen dækker
-                også systemdesign, code reviews og fejlfinding på tværs af distribuerede systemer, med
-                asynkront samarbejde med ML-ingeniører, forskere og produktchefer i et globalt
-                distribueret team.</p>
+                <p>Kontrakten er underskrevet, og den første opgave er endnu ikke gået i gang.
+                Det aftalte omfang er infrastrukturen bag pipelines til træning, evaluering og
+                udrulning af AI, i Python og TypeScript.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Python</span>
                     <span class="tag">TypeScript</span>
-                    <span class="tag">AI-infrastruktur</span>
-                    <span class="tag">Distribuerede systemer</span>
-                    <span class="tag">Datapipelines</span>
-                    <span class="tag">Cloud</span>
-                    <span class="tag">Containere</span>
                 </div>
             </div>
             <div class="entry">
@@ -601,8 +603,9 @@ const CONTENT_DA = {
                 Stripe-betalinger: abonnementer og licenslogik pr. bruger (proration, kreditter,
                 planskift, årsabonnementer, webhooks, hærdning af hemmeligheder) samt en fungerende
                 prototype af abonnementsflowet i Next.js-klienten. Implementerede dansk
-                skattecompliance: momsindberetning til SKAT via NemVirksomhed (SOAP med WS-signering)
-                med beregning af alle 17 felter i momsangivelsen, samt SAF-T-import med skemavalidering.
+                skattecompliance: momsindberetning til SKAT via NemVirksomhed (SOAP med
+                WS-Security-signering) med beregning af alle 17 felter i momsangivelsen, samt
+                SAF-T-import med skemavalidering.
                 Byggede desuden selvstændige integrationer til daglige valutakurser (Nationalbanken)
                 og virksomhedsdata via CVR (Erhvervsstyrelsen).</p>
                 <div style="margin-top:8px">
@@ -624,8 +627,8 @@ const CONTENT_DA = {
                 skriver begrundelsen bag hver enkelt bedømmelse. Arbejdet er nærlæsning: at
                 kontrollere et svar for faktuel korrekthed, holdbar argumentation, efterlevelse af
                 instruktioner og tone, og derefter præcist angive, hvor det holder, og hvor det
-                falder fra hinanden, med belæg. Den samme standard anvendes konsistent på tværs af
-                mange fagområder, så vurderinger forbliver sammenlignelige mellem bedømmere.</p>
+                falder fra hinanden, med belæg. Anvender den samme standard konsekvent på tværs
+                af mange fagområder, så vurderinger forbliver sammenlignelige mellem bedømmere.</p>
                 <div style="margin-top:8px">
                     <span class="tag">AI-evaluering</span>
                     <span class="tag">LLM-output</span>
@@ -642,11 +645,10 @@ const CONTENT_DA = {
                 engineering, forfining af trajektorier og QA på tværs af projekterne Clutch Zayu,
                 Maraca Camera, Mechanic Astrologer og Meter Pavilion (OpenClaw). Udformede
                 systemprompts, der definerer modellens adfærd og begrænsninger, og designede
-                datasæt til samtaler og agenter, både med én tur og flere ture på tværs af 50+
+                datasæt til samtaler og agenter, både single-turn og multi-turn, på tværs af 50+
                 risikokategorier, heriblandt bias, misinformation, privatliv og sikkerhed. Byggede
                 autonome agenttrajektorier, der afprøver skill discovery, hukommelse, kontekst over
-                lange forløb og indbyggede værktøjer (cron, delegering til underagenter), og
-                forfinede Golden Trajectories med fokus på effektivitet og forankring i kilder.
+                lange forløb og indbyggede værktøjer (cron, delegering til underagenter).
                 Fungerede både som forfatter og reviewer på Mechanic Astrologer, hvor jeg auditerede
                 kollegers Task Blueprints mod strukturerede rubrikker, verificerede ground truth og
                 skrev vejledende feedback.</p>
@@ -664,8 +666,12 @@ const CONTENT_DA = {
                 </div>
                 <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning. Byggede
                 fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder JWT-autentificering,
-                realtidsdashboards og automatiseret rapportering. Vedligeholdt og optimerede
-                ERP-systemer i produktion.</p>
+                realtidsdashboards og automatiseret rapportering. Migrerede tidsangivelsen i et internt
+                ERP-system fra kvarter til minutter i alle visnings-, estimat- og rapportfelter, og
+                byggede derefter faktureringsgennemgangen om på det nye grundlag, så en opgave, der
+                var udført af medarbejdere fra flere grupper, blev faktureret under hver af grupperne
+                i stedet for kun én. Validerede den ombyggede faktureringsskærm ved at afstemme en
+                hel måneds faktureringsdata mod det, der rent faktisk var blevet faktureret.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
                     <span class="tag">.NET</span>
@@ -729,9 +735,11 @@ const CONTENT_DA = {
                     <span class="entry-date">Kunde: Eye4u</span>
                 </div>
                 <p>Udvidede en kundeportal til overvågning med automatiske SMS-notifikationer udløst
-                af temperaturafvigelser i medicinkølere, målt på tværs af et sensornetværk. Reducerede
-                risikoen for uopdagede fejl i el eller hos personalet. Bygget som et multi-tenant SaaS-modul,
-                hvor hver kunde har sin egen sensoropsætning og sine egne alarmgrænser.</p>
+                af temperaturafvigelser i medicinkølere på tværs af et sensornetværk. Tilføjede et
+                justerbart foralarmniveau, der advarer på SMS og e-mail uden at oprette en hændelse,
+                med undertrykkelseslogik, så en sensor, der ligger uden for sin grænseværdi, ikke
+                sender besked igen ved hvert tjek. Bygget som et multi-tenant-modul, hvor hver kunde
+                har sin egen sensoropsætning og sine egne alarmgrænser.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">IoT / sensorer</span>
@@ -741,12 +749,30 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
+                    <h3>Dexa Bodyscan — intern portal</h3>
+                    <span class="entry-date">Kunde: Dexa Bodyscan</span>
+                </div>
+                <p>Byggede den første webapplikation til den interne portal hos en
+                bodyscanklinik, fra tomt repository til en fungerende applikation med login på otte
+                arbejdsdage: projektskelet, Dockerfile, DNS-record, SSL-certifikat, MySQL-skema,
+                Entity Framework-kontekster, JWT-login, saltet hashing af adgangskoder, rollestyrede
+                sider og nulstilling af adgangskode via et link i en e-mail.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">.NET</span>
+                    <span class="tag">Entity Framework</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Autentificering</span>
+                </div>
+            </div>
+
+            <div class="entry">
+                <div class="entry-header">
                     <h3>Interne overvågningsdashboards</h3>
                     <span class="entry-date">IT Operators</span>
                 </div>
                 <p>Realtidsdashboards udrullet på Raspberry Pi'er til kontorets TV-skærme, som
-                overvåger tidsregistreringer og sundheden af cron-jobs, så arbejdseffektiviteten kan
-                følges og fejlede jobs opdages tidligt.</p>
+                overvåger tidsregistreringer og status på cron-jobs, så man kan følge
+                arbejdseffektiviteten og opdage fejlede jobs tidligt.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">Realtid</span>
@@ -824,7 +850,7 @@ const CONTENT_DA = {
                 skrives som YAML eller flydende C#, den kobles på Microsoft.Extensions.AI og
                 Microsoft Agent Framework, og den rapporterer de flader, den ikke kan se, frem for
                 at vise et rent resultat. Leveres med et korpus på 194 scenarier, hvor omtrent
-                halvdelen kontrollerer, at en detektor forbliver tavs, for en detektor, der kun
+                halvdelen kontrollerer, at en detektor forbliver tavs. En detektor, der altid
                 udløses, bliver slået fra i sin første uge.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
@@ -837,11 +863,11 @@ const CONTENT_DA = {
             <div class="entry">
                 <div class="entry-header">
                     <h3>Hemi-Sync guidet meditations-app</h3>
-                    <span class="entry-date">Undervejs</span>
+                    <span class="entry-date">På pause</span>
                 </div>
                 <p>En konceptapp til at generere tilpassede guidede meditationer med AI-drevet
                 tekst-til-tale, lagt sammen med Hemi-Sync binaurale beats til hjernebølge-entrainment.
-                Bygget i React Native til både iOS og Android. Sat på pause i øjeblikket.</p>
+                Bygget i React Native til både iOS og Android.</p>
                 <div style="margin-top:8px">
                     <span class="tag">React Native</span>
                     <span class="tag">OpenAI API</span>
@@ -923,8 +949,8 @@ const CONTENT_DA = {
                     <span class="entry-date">2021 — 2025</span>
                 </div>
                 <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
-                Bachelorprojektet handlede om at bygge en integration mellem to ERP-systemer fra
-                bunden. Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+                Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
+                Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
             </div>
         `
     },
@@ -935,17 +961,17 @@ const CONTENT_DA = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Mike Valencia — Simple Agency Group</h3>
+                    <h3>Mike Valencia — CEO hos Simple Agency Group</h3>
                 </div>
-                <p>CEO hos Simple Agency Group</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se anbefalingen på LinkedIn &rarr;</a></p>
+                <p>Har skrevet om Alex Battens arbejde hos Simple Agency Group.</p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se opslaget på LinkedIn &rarr;</a></p>
             </div>
 
             <div class="entry">
                 <div class="entry-header">
                     <h3>Erik Seifert</h3>
                 </div>
-                <p>Har anbefalet følgende kompetencer:</p>
+                <p>Har bekræftet følgende kompetencer:</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">.NET Framework</span>
@@ -959,8 +985,8 @@ const CONTENT_DA = {
         number: '07',
         title: 'Start et projekt',
         html: `
-            <p class="brief-intro">Har du noget, du gerne vil have bygget? Fortæl mig om
-            det, så vender jeg tilbage inden for et par dage.</p>
+            <p class="brief-intro">Jeg er ikke ledig til nye opgaver lige nu. Send detaljerne
+            alligevel, så siger jeg til, når det ændrer sig.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -1019,7 +1045,7 @@ const CONTENT_DA = {
                 <label class="brief-field">
                     <span class="brief-label">Projektdetaljer</span>
                     <textarea name="message" rows="4" required
-                        placeholder="Hvad prøver du at bygge, og hvordan ser succes ud?"></textarea>
+                        placeholder="Hvad prøver du at bygge, og hvornår er det en succes?"></textarea>
                 </label>
 
                 <button type="submit" class="brief-submit">Send projektforespørgsel</button>
@@ -1038,9 +1064,9 @@ const CONTENT_DA = {
             post: 'Artikel',
             read: 'min. læsning',
             all: 'Alle indlæg',
-            intro: `Fund, ufærdige idéer og ting, jeg ville ønske nogen havde skrevet ned,
-                før jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
-                længere. Noget af det er ment til, at du tager det og bygger videre.
+            intro: `Ufærdige idéer og ting, jeg ville ønske nogen havde skrevet ned, før
+                jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
+                længere. Noget af det må du gerne tage og bygge videre på.
                 Indlæggene er skrevet på engelsk.`,
             emptyLead: `her er tomt endnu. det viser sig, at idéerne var den nemme del.`
         })
@@ -1049,7 +1075,8 @@ const CONTENT_DA = {
     contact: {
         title: 'Kontakt',
         html: `
-            <p>Jeg er altid åben for interessante samtaler og muligheder.</p>
+            <p>Jeg er ikke ledig til nye opgaver lige nu. Skriv til alex.batten1234@gmail.com,
+            så siger jeg til, når det ændrer sig.</p>
             <ul style="list-style:none;padding:0;margin-top:16px">
                 <li style="margin-bottom:10px">
                     <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
