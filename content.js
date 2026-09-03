@@ -60,7 +60,7 @@ const CONTENT_EN = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Senior Software Engineer, AI Infrastructure — Alignerr (Contract)</h3>
+                    <h3>Senior Software Engineer, AI Infrastructure at Alignerr (Contract)</h3>
                     <span class="entry-date">Signed 2026, not yet started</span>
                 </div>
                 <p>Signed contract, first assignment still pending. The agreed scope is the
@@ -73,8 +73,8 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Backend Developer — Acconta (Startup)</h3>
-                    <span class="entry-date">2026 — Present</span>
+                    <h3>Backend Developer at Acconta (Startup)</h3>
+                    <span class="entry-date">2026–Present</span>
                 </div>
                 <p>Designed and shipped production microservices on a multi-tenant SaaS
                 platform (.NET Aspire, ASP.NET Core, EF Core), each taken from prototype to
@@ -98,8 +98,8 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Generalist Expert, AI Evaluation — Mercor (Contract)</h3>
-                    <span class="entry-date">2026 — Present</span>
+                    <h3>Generalist Expert, AI Evaluation at Mercor (Contract)</h3>
+                    <span class="entry-date">2026–Present</span>
                 </div>
                 <p>Evaluating AI model outputs against structured evaluation guidelines and
                 writing the rationale behind every judgment. The work is close reading: checking
@@ -116,8 +116,8 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>AI Data Annotator — Outlier</h3>
-                    <span class="entry-date">2025 — Present</span>
+                    <h3>AI Data Annotator at Outlier</h3>
+                    <span class="entry-date">2025–Present</span>
                 </div>
                 <p>Contributed to advanced AI model development through data annotation, prompt
                 engineering, trajectory refinement, and QA across projects including Clutch Zayu,
@@ -138,7 +138,7 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Software Development Intern — IT Operators / Simple Agency Group</h3>
+                    <h3>Software Development Intern at IT Operators / Simple Agency Group</h3>
                     <span class="entry-date">2024</span>
                 </div>
                 <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
@@ -169,7 +169,7 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Accelo → Business Central Integration</h3>
+                    <h3>Accelo to Business Central integration</h3>
                     <span class="entry-date">Bachelor Project</span>
                 </div>
                 <p>Fullstack application bridging two enterprise platforms, transferring and
@@ -190,7 +190,7 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Uno X — Custom REST API</h3>
+                    <h3>Custom REST API for Uno X</h3>
                     <span class="entry-date">Client: ISTOBAL</span>
                 </div>
                 <p>Built a custom API for ISTOBAL (car wash manufacturer) to serve operational
@@ -206,7 +206,7 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Eye4u — Automated SMS Alert System</h3>
+                    <h3>Automated SMS alert system, Eye4u</h3>
                     <span class="entry-date">Client: Eye4u</span>
                 </div>
                 <p>Extended a customer monitoring portal with automated SMS notifications triggered
@@ -224,7 +224,7 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Dexa Bodyscan — internal portal</h3>
+                    <h3>Internal portal, Dexa Bodyscan</h3>
                     <span class="entry-date">Client: Dexa Bodyscan</span>
                 </div>
                 <p>Built the initial web application for a body-scan clinic's internal portal, from
@@ -256,7 +256,7 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>TIMEVAT — External API Integrations</h3>
+                    <h3>External API integrations, TIMEVAT</h3>
                     <span class="entry-date">Client: TIMEVAT</span>
                 </div>
                 <p>Integrated the EU VIES API for VAT number validation and the Danish National
@@ -417,8 +417,8 @@ const CONTENT_EN = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>BEng Software Technology — Technical University of Denmark (DTU)</h3>
-                    <span class="entry-date">2021 — 2025</span>
+                    <h3>BEng Software Technology, Technical University of Denmark (DTU)</h3>
+                    <span class="entry-date">2021–2025</span>
                 </div>
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
                 Bachelor's project: an integration between two ERP systems built from scratch.
@@ -433,10 +433,10 @@ const CONTENT_EN = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Mike Valencia — CEO at Simple Agency Group</h3>
+                    <h3>Mike Valencia, CEO at Simple Agency Group</h3>
                 </div>
                 <p>Wrote about Alex Batten's work at Simple Agency Group.</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View the post on LinkedIn &rarr;</a></p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View the post on LinkedIn</a></p>
             </div>
 
             <div class="entry">
@@ -463,7 +463,7 @@ const CONTENT_EN = {
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
                 <input type="hidden" name="subject" value="New project request from your portfolio">
-                <input type="hidden" name="from_name" value="alexbatten.dk — Project Request">
+                <input type="hidden" name="from_name" value="alexbatten.dk Project Request">
                 <input type="hidden" name="project_type" value="">
                 <input type="checkbox" name="botcheck" class="brief-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -581,7 +581,7 @@ const CONTENT_DA = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Senior Software Engineer, AI-infrastruktur — Alignerr (kontrakt)</h3>
+                    <h3>Senior Software Engineer, AI-infrastruktur hos Alignerr (kontrakt)</h3>
                     <span class="entry-date">Underskrevet 2026, ikke påbegyndt</span>
                 </div>
                 <p>Kontrakten er underskrevet, og den første opgave er endnu ikke gået i gang.
@@ -594,8 +594,8 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Backendudvikler — Acconta (startup)</h3>
-                    <span class="entry-date">2026 — nu</span>
+                    <h3>Backendudvikler hos Acconta (startup)</h3>
+                    <span class="entry-date">2026–nu</span>
                 </div>
                 <p>Designede og leverede mikroservices i produktion på en multi-tenant SaaS-platform
                 (.NET Aspire, ASP.NET Core, EF Core), hver især taget fra prototype til udrullet
@@ -620,8 +620,8 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Generalist Expert, AI-evaluering — Mercor (kontrakt)</h3>
-                    <span class="entry-date">2026 — nu</span>
+                    <h3>Generalist Expert, AI-evaluering hos Mercor (kontrakt)</h3>
+                    <span class="entry-date">2026–nu</span>
                 </div>
                 <p>Evaluerer AI-modellers output mod strukturerede evalueringsretningslinjer og
                 skriver begrundelsen bag hver enkelt bedømmelse. Arbejdet er nærlæsning: at
@@ -638,8 +638,8 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>AI-dataannotator — Outlier</h3>
-                    <span class="entry-date">2025 — nu</span>
+                    <h3>AI-dataannotator hos Outlier</h3>
+                    <span class="entry-date">2025–nu</span>
                 </div>
                 <p>Bidrog til udvikling af avancerede AI-modeller gennem dataannotering, prompt
                 engineering, forfining af trajektorier og QA på tværs af projekterne Clutch Zayu,
@@ -661,7 +661,7 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Softwareudviklerpraktikant — IT Operators / Simple Agency Group</h3>
+                    <h3>Softwareudviklerpraktikant hos IT Operators / Simple Agency Group</h3>
                     <span class="entry-date">2024</span>
                 </div>
                 <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning. Byggede
@@ -692,7 +692,7 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Accelo → Business Central-integration</h3>
+                    <h3>Accelo til Business Central-integration</h3>
                     <span class="entry-date">Bachelorprojekt</span>
                 </div>
                 <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og
@@ -714,7 +714,7 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Uno X — skræddersyet REST-API</h3>
+                    <h3>Skræddersyet REST-API til Uno X</h3>
                     <span class="entry-date">Kunde: ISTOBAL</span>
                 </div>
                 <p>Byggede et skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer
@@ -731,7 +731,7 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Eye4u — automatisk SMS-alarmsystem</h3>
+                    <h3>Automatisk SMS-alarmsystem, Eye4u</h3>
                     <span class="entry-date">Kunde: Eye4u</span>
                 </div>
                 <p>Udvidede en kundeportal til overvågning med automatiske SMS-notifikationer udløst
@@ -749,7 +749,7 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Dexa Bodyscan — intern portal</h3>
+                    <h3>Intern portal, Dexa Bodyscan</h3>
                     <span class="entry-date">Kunde: Dexa Bodyscan</span>
                 </div>
                 <p>Byggede den første webapplikation til den interne portal hos en
@@ -782,7 +782,7 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>TIMEVAT — eksterne API-integrationer</h3>
+                    <h3>Eksterne API-integrationer, TIMEVAT</h3>
                     <span class="entry-date">Kunde: TIMEVAT</span>
                 </div>
                 <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API til
@@ -945,8 +945,8 @@ const CONTENT_DA = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Diplomingeniør (BEng) i softwareteknologi — Danmarks Tekniske Universitet (DTU)</h3>
-                    <span class="entry-date">2021 — 2025</span>
+                    <h3>Diplomingeniør (BEng) i softwareteknologi, Danmarks Tekniske Universitet (DTU)</h3>
+                    <span class="entry-date">2021–2025</span>
                 </div>
                 <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
                 Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
@@ -961,10 +961,10 @@ const CONTENT_DA = {
         html: `
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Mike Valencia — CEO hos Simple Agency Group</h3>
+                    <h3>Mike Valencia, CEO hos Simple Agency Group</h3>
                 </div>
                 <p>Har skrevet om Alex Battens arbejde hos Simple Agency Group.</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se opslaget på LinkedIn &rarr;</a></p>
+                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se opslaget på LinkedIn</a></p>
             </div>
 
             <div class="entry">
@@ -991,7 +991,7 @@ const CONTENT_DA = {
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
                 <input type="hidden" name="subject" value="New project request from your portfolio (DA)">
-                <input type="hidden" name="from_name" value="alexbatten.dk — Project Request">
+                <input type="hidden" name="from_name" value="alexbatten.dk Project Request">
                 <input type="hidden" name="project_type" value="">
                 <input type="checkbox" name="botcheck" class="brief-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
 

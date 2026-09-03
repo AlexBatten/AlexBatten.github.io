@@ -105,7 +105,7 @@ ${JSON.stringify({
             '@type': 'Blog',
             '@id': ORIGIN + '/lab/#blog',
             url: ORIGIN + '/lab/',
-            name: 'Lab — Alex Batten',
+            name: 'Lab | Alex Batten',
             description: BLOG_DESCRIPTION,
             inLanguage: 'en',
             isPartOf: { '@id': ORIGIN + '/#website' },
