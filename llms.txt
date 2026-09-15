@@ -40,6 +40,8 @@ hreflang. English is the default (x-default).
   switching, webhooks). Implemented Danish VAT reporting to SKAT via the
   NemVirksomhed service (SOAP with WS-Security signing, all 17 VAT return fields)
   and SAF-T import with schema validation.
+- **Generalist Danish Annotator at Mercor** (2026 to present): writing prompts in
+  Danish on topics of general interest and annotating how AI models respond.
 - **Generalist Expert, AI Evaluation at Mercor** (2026 to present): evaluating AI
   model outputs against structured guidelines and writing the rationale behind
   each judgment.

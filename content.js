@@ -98,6 +98,22 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
+                    <h3>Generalist Danish Annotator at Mercor (Contract)</h3>
+                    <span class="entry-date">2026–Present</span>
+                </div>
+                <p>Writing prompts in natural Danish on topics of general interest and
+                annotating how AI models respond to them. The annotations point out errors in
+                the responses, including errors in their Danish. The finished work becomes
+                training data for large language models.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Data Annotation</span>
+                    <span class="tag">Danish Language</span>
+                    <span class="tag">Prompt Writing</span>
+                    <span class="tag">LLM Training Data</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
                     <h3>Generalist Expert, AI Evaluation at Mercor (Contract)</h3>
                     <span class="entry-date">2026–Present</span>
                 </div>
@@ -616,6 +632,21 @@ const CONTENT_DA = {
                     <span class="tag">Mikroservices</span>
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Generalist Danish Annotator hos Mercor (kontrakt)</h3>
+                    <span class="entry-date">2026–nu</span>
+                </div>
+                <p>Skriver prompts på naturligt dansk om emner af almen interesse og annoterer
+                AI-modellers svar. Annoteringerne påpeger fejl i svarene, også sproglige. Det
+                færdige arbejde bruges som træningsdata til store sprogmodeller.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Dataannotering</span>
+                    <span class="tag">Dansk sprog</span>
+                    <span class="tag">Promptskrivning</span>
+                    <span class="tag">LLM-træningsdata</span>
                 </div>
             </div>
             <div class="entry">

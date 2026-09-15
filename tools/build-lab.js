@@ -23,7 +23,7 @@ const POSTS = require(path.join(ROOT, 'posts.js'));
 // Sitemap lastmod for the pages that are not articles. Bump when those change;
 // articles carry their own date. Not derived from the clock, so rerunning the
 // generator without changing anything leaves the file byte-identical.
-const SITE_UPDATED = '2026-08-17';
+const SITE_UPDATED = '2026-09-15';
 
 // Static pages that are not articles. Language pairs carry hreflang alternates.
 const STATIC_PAGES = [
