@@ -34,12 +34,16 @@ hreflang. English is the default (x-default).
 - **Senior Software Engineer, AI Infrastructure at Alignerr** (contract signed
   2026, first assignment pending): the agreed scope is the infrastructure behind
   AI training, evaluation, and deployment pipelines, in Python and TypeScript.
-- **Backend Developer at Acconta** (2026 to present): production microservices on
-  a multi-tenant SaaS platform in .NET Aspire, ASP.NET Core, and EF Core. Owns
-  Stripe billing end to end (subscriptions, seat logic, proration, credits, plan
+- **AI Engineer & Co-Owner at Acconta** (2026 to present): production
+  microservices on a multi-tenant Danish bookkeeping SaaS in .NET Aspire,
+  ASP.NET Core, and EF Core, plus work on the Azure deployment. Owns Stripe
+  billing end to end (subscriptions, seat logic, proration, credits, plan
   switching, webhooks). Implemented Danish VAT reporting to SKAT via the
-  NemVirksomhed service (SOAP with WS-Security signing, all 17 VAT return fields)
-  and SAF-T import with schema validation.
+  NemVirksomhed (RSU) SOAP interface (WS-Security signing, all 17 VAT return
+  fields), SAF-T import with schema validation, and SAF-T export ahead of the
+  2027 audit-file mandate. Leads e-invoicing over NemHandel (OIOUBL, Peppol
+  BIS) and turns the Bookkeeping Act and the Danish Business Authority's
+  requirements into implementation specs.
 - **Generalist Danish Annotator at Mercor** (2026 to present): writing prompts in
   Danish on topics of general interest and annotating how AI models respond.
 - **Generalist Expert, AI Evaluation at Mercor** (2026 to present): evaluating AI
@@ -76,7 +80,8 @@ hreflang. English is the default (x-default).
 - **Practices**: REST API design, system design, distributed systems, CI/CD,
   Docker, JWT auth, multi-tenant SaaS, Agile/Scrum
 - **Domains**: enterprise and ERP integrations, Danish tax compliance (SKAT,
-  SAF-T, CVR, VIES), Stripe billing, AI safety and evaluation
+  SAF-T, CVR, VIES), e-invoicing (NemHandel, OIOUBL, Peppol BIS), Stripe
+  billing, AI safety and evaluation
 
 ## Profiles
 

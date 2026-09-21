@@ -73,27 +73,33 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Backend Developer at Acconta (Startup)</h3>
+                    <h3>AI Engineer & Co-Owner at Acconta (Startup)</h3>
                     <span class="entry-date">2026–Present</span>
                 </div>
-                <p>Designed and shipped production microservices on a multi-tenant SaaS
-                platform (.NET Aspire, ASP.NET Core, EF Core), each taken from prototype to
-                deployed service with OpenAPI/NSwag generated typed clients. Owned Stripe
-                billing end to end: subscriptions and seat logic (proration, credits, plan
-                switching, yearly plans, webhooks, secret hardening), plus a working
-                subscription flow prototype in the Next.js client. Implemented Danish tax
-                compliance: VAT reporting to SKAT via the NemVirksomhed service (SOAP with
-                WS-Security signing), computing all 17 VAT return fields, plus SAF-T import with
-                schema validation. Also built standalone integrations for daily currency
-                rates (National Bank) and company data via CVR (Danish Business Authority).</p>
+                <p>Building production microservices for a multi-tenant Danish bookkeeping SaaS in
+                ASP.NET Core and EF Core on .NET Aspire, with OpenAPI/NSwag generated typed
+                clients, and working on the Azure deployment. Moving six services onto a common
+                base for startup, auth, validation, and error handling. Implementing Danish tax
+                compliance: VAT reporting to SKAT via the NemVirksomhed (RSU) SOAP interface with
+                WS-Security signing, computing all 17 VAT return fields, plus SAF-T import with
+                schema validation and SAF-T export ahead of the 2027 audit-file mandate. Owning
+                Stripe billing end to end: subscriptions and seat logic (proration, credits, plan
+                switching, yearly plans, webhooks, secret hardening), plus a subscription flow
+                prototype in the Next.js client. Building standalone integrations for daily
+                currency rates (National Bank) and CVR company data (Danish Business Authority).
+                Leading e-invoicing over NemHandel (OIOUBL, Peppol BIS), turning the Bookkeeping
+                Act and the Business Authority's requirements into implementation specs, writing
+                technical decision papers, and reviewing much of the team's code.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">.NET Aspire</span>
                     <span class="tag">ASP.NET Core</span>
                     <span class="tag">Entity Framework</span>
                     <span class="tag">Microservices</span>
+                    <span class="tag">Azure</span>
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
+                    <span class="tag">NemHandel</span>
                 </div>
             </div>
             <div class="entry">
@@ -610,28 +616,35 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Backendudvikler hos Acconta (startup)</h3>
+                    <h3>AI-udvikler & medejer hos Acconta (startup)</h3>
                     <span class="entry-date">2026–nu</span>
                 </div>
-                <p>Designede og leverede mikroservices i produktion på en multi-tenant SaaS-platform
-                (.NET Aspire, ASP.NET Core, EF Core), hver især taget fra prototype til udrullet
-                service med typede klienter genereret via OpenAPI/NSwag. Havde det fulde ansvar for
-                Stripe-betalinger: abonnementer og licenslogik pr. bruger (proration, kreditter,
-                planskift, årsabonnementer, webhooks, hærdning af hemmeligheder) samt en fungerende
-                prototype af abonnementsflowet i Next.js-klienten. Implementerede dansk
-                skattecompliance: momsindberetning til SKAT via NemVirksomhed (SOAP med
-                WS-Security-signering) med beregning af alle 17 felter i momsangivelsen, samt
-                SAF-T-import med skemavalidering.
-                Byggede desuden selvstændige integrationer til daglige valutakurser (Nationalbanken)
-                og virksomhedsdata via CVR (Erhvervsstyrelsen).</p>
+                <p>Bygger mikroservices i produktion i ASP.NET Core og EF Core på .NET Aspire til
+                en multi-tenant SaaS-platform til dansk bogføring, med typede klienter genereret
+                via OpenAPI/NSwag, og arbejder på udrulningen i Azure. Flytter seks services over
+                på ét fælles kodegrundlag til opstart, autentificering, validering og
+                fejlhåndtering. Implementerer dansk skattecompliance: momsindberetning til SKAT
+                via NemVirksomheds (RSU) SOAP-grænseflade med WS-Security-signering og beregning
+                af alle 17 felter i momsangivelsen, samt SAF-T-import med skemavalidering og
+                SAF-T-eksport forud for kravet om standardiseret regnskabsfil i 2027. Har det
+                fulde ansvar for Stripe-betalinger: abonnementer og licenslogik pr. bruger
+                (proration, kreditter, planskift, årsabonnementer, webhooks, hærdning af
+                hemmeligheder) samt en prototype af abonnementsflowet i Next.js-klienten. Bygger
+                selvstændige integrationer til daglige valutakurser (Nationalbanken) og
+                virksomhedsdata via CVR (Erhvervsstyrelsen). Leder arbejdet med e-fakturering via
+                NemHandel (OIOUBL, Peppol BIS), omsætter bogføringsloven og Erhvervsstyrelsens
+                krav til tekniske kravspecifikationer, skriver tekniske beslutningsoplæg og
+                reviewer en stor del af teamets kode.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">.NET Aspire</span>
                     <span class="tag">ASP.NET Core</span>
                     <span class="tag">Entity Framework</span>
                     <span class="tag">Mikroservices</span>
+                    <span class="tag">Azure</span>
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
+                    <span class="tag">NemHandel</span>
                 </div>
             </div>
             <div class="entry">
