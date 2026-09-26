@@ -1,9 +1,9 @@
 # Alex Batten
 
-> Freelance .NET and full-stack software engineer based in Denmark. Not available
-> for new work right now. Past and typical work: backend services, REST APIs,
-> enterprise and tax-authority integrations, multi-tenant SaaS, and AI features.
-> Remote across the EU on CET.
+> Freelance .NET and full-stack software engineer based in Denmark. Available for
+> new freelance and contract work. Typical work: backend services, REST APIs,
+> enterprise and tax-authority integrations, multi-tenant SaaS, Stripe billing, and
+> AI features. Remote across the EU on CET.
 
 Alex Batten holds a BEng in Software Technology from the Technical University of
 Denmark (DTU). Most of his work is in C# and .NET with full-stack web, API and
@@ -90,11 +90,11 @@ hreflang. English is the default (x-default).
 
 ## Hiring
 
-Not available for new work right now. Email alex.batten1234@gmail.com to be told
-when that changes. The work he takes is .NET and full-stack web applications,
-REST APIs, enterprise integrations, and AI features. Project requests can still be
-sent through the form at https://alexbatten.dk/ and get a reply within a couple of
-days.
+Available for new freelance and contract work. Email alex.batten1234@gmail.com or
+send a project brief through the form at https://alexbatten.dk/. The work he takes
+is .NET and full-stack web applications, REST APIs, enterprise and tax-authority
+integrations (SKAT, SAF-T, NemHandel/Peppol), Stripe billing, and AI features,
+remote across the EU on CET. Project requests get a reply within a couple of days.
 
 ## Optional
 

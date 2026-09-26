@@ -479,8 +479,8 @@ const CONTENT_EN = {
         number: '07',
         title: 'Start a Project',
         html: `
-            <p class="brief-intro">Not available for new work right now. Send the details
-            anyway and I will say when that changes.</p>
+            <p class="brief-intro">Available for new freelance and contract work. Send the
+            details below and I will reply within a couple of days.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -568,8 +568,8 @@ const CONTENT_EN = {
     contact: {
         title: 'Get in Touch',
         html: `
-            <p>Not available for new work right now. Email alex.batten1234@gmail.com and
-            I will say when that changes.</p>
+            <p>Available for new freelance and contract work. Email alex.batten1234@gmail.com
+            or send a project brief through the form on this site.</p>
             <ul style="list-style:none;padding:0;margin-top:16px">
                 <li style="margin-bottom:10px">
                     <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
@@ -1029,8 +1029,8 @@ const CONTENT_DA = {
         number: '07',
         title: 'Start et projekt',
         html: `
-            <p class="brief-intro">Jeg er ikke ledig til nye opgaver lige nu. Send detaljerne
-            alligevel, så siger jeg til, når det ændrer sig.</p>
+            <p class="brief-intro">Jeg er ledig til nye freelance- og kontraktopgaver. Send
+            detaljerne herunder, så svarer jeg inden for et par dage.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -1119,8 +1119,9 @@ const CONTENT_DA = {
     contact: {
         title: 'Kontakt',
         html: `
-            <p>Jeg er ikke ledig til nye opgaver lige nu. Skriv til alex.batten1234@gmail.com,
-            så siger jeg til, når det ændrer sig.</p>
+            <p>Jeg er ledig til nye freelance- og kontraktopgaver. Skriv til
+            alex.batten1234@gmail.com, eller send en projektbeskrivelse via formularen
+            her på siden.</p>
             <ul style="list-style:none;padding:0;margin-top:16px">
                 <li style="margin-bottom:10px">
                     <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>
