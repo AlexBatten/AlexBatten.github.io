@@ -89,18 +89,18 @@
             '<div id="pb-score" style="position:absolute;top:28px;left:50%;transform:translateX(-50%);' +
             'font:700 2rem var(--mono);color:#3b82f6;text-shadow:0 0 20px rgba(59,130,246,0.3)"></div>' +
             '<div id="pb-lives" style="position:absolute;top:68px;left:50%;transform:translateX(-50%);' +
-            'font:0.85rem var(--mono);color:rgba(255,255,255,0.5)"></div>' +
+            'font:0.85rem var(--mono);color:rgba(var(--paper-rgb),0.5)"></div>' +
             '<div id="pb-boost" style="display:none;position:absolute;top:96px;left:50%;transform:translateX(-50%);' +
             'text-align:center;padding:6px 10px;pointer-events:auto;cursor:pointer;-webkit-tap-highlight-color:transparent">' +
-            '<div style="width:150px;height:4px;border-radius:2px;background:rgba(255,255,255,0.12);overflow:hidden">' +
+            '<div style="width:150px;height:4px;border-radius:2px;background:rgba(var(--paper-rgb),0.12);overflow:hidden">' +
             '<div id="pb-boost-fill" style="width:0%;height:100%;background:#3b82f6"></div></div>' +
             '<div id="pb-boost-label" style="margin-top:6px;font:0.66rem var(--mono);letter-spacing:0.1em;' +
-            'color:rgba(255,255,255,0.3)">BOOST</div>' +
+            'color:rgba(var(--paper-rgb),0.3)">BOOST</div>' +
             '</div>' +
             '<div id="pb-over" style="display:none;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;font-family:var(--mono)">' +
             '<div style="font:700 1.6rem var(--mono);color:#3b82f6">GAME OVER</div>' +
-            '<div id="pb-final" style="font:1rem var(--mono);color:rgba(255,255,255,0.6);margin-top:8px"></div>' +
-            '<div style="font:0.72rem var(--mono);color:rgba(255,255,255,0.25);margin-top:16px">scroll up to exit</div>' +
+            '<div id="pb-final" style="font:1rem var(--mono);color:rgba(var(--paper-rgb),0.6);margin-top:8px"></div>' +
+            '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.25);margin-top:16px">scroll up to exit</div>' +
             '</div>';
         document.body.appendChild(ui);
 
@@ -584,12 +584,28 @@
             if (raf) { cancelAnimationFrame(raf); raf = null; }
         }
 
+        // ── Theme ──
+        // The table is drawn in the page's ink and edged in paper, the same
+        // RGB triplets the stylesheet swaps for dark mode. They are re-read
+        // only when data-theme changes, not every frame.
+        var root = document.documentElement;
+        var themeSeen, inkRgb, paperRgb;
+        function readTheme() {
+            var theme = root.getAttribute('data-theme');
+            if (theme === themeSeen) return;
+            themeSeen = theme;
+            var cs = getComputedStyle(root);
+            inkRgb = cs.getPropertyValue('--ink-rgb').trim() || '0, 0, 0';
+            paperRgb = cs.getPropertyValue('--paper-rgb').trim() || '255, 255, 255';
+        }
+
         // ── Render (table, bumpers, flippers — balls are DOM elements) ──
         function draw() {
             if (!on) return;
             if (!tableShape) { raf = requestAnimationFrame(draw); return; }
             var sh = tableShape;
             var t = sh.t;
+            readTheme();
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -610,9 +626,9 @@
             ctx.lineTo(sh.flx, sh.flipY + 10);
             ctx.lineTo(t.L, sh.bendY);
             ctx.closePath();
-            ctx.fillStyle = 'rgba(0,0,0,0.3)';
+            ctx.fillStyle = 'rgba(' + inkRgb + ',0.3)';
             ctx.fill();
-            ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+            ctx.strokeStyle = 'rgba(' + paperRgb + ',0.08)';
             ctx.lineWidth = 2;
             ctx.stroke();
 
@@ -716,7 +732,7 @@
             if (ready !== boostWasReady) {
                 boostWasReady = ready;
                 $boostFill.style.background = ready ? '#fbbf24' : '#3b82f6';
-                $boostLabel.style.color = ready ? '#fbbf24' : 'rgba(255,255,255,0.3)';
+                $boostLabel.style.color = ready ? '#fbbf24' : 'rgba(var(--paper-rgb),0.3)';
                 $boostLabel.textContent = ready
                     ? (canTouch ? 'BOOST READY — TAP' : 'BOOST READY — SPACE')
                     : 'BOOST';

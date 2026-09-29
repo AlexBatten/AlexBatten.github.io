@@ -15,6 +15,74 @@
     --radius: 12px;
     --font: 'Roboto Condensed', Arial, sans-serif;
     --mono: 'Roboto Condensed', Arial, sans-serif;
+
+    /* Greys of the dark "cards" that sit on the page: balls, modal, the
+       top-left buttons, and the hints panel. */
+    --card: #3a3a3a;
+    --card-edge: #4a4a4a;
+    --panel: #2a2a2a;
+    --panel-edge: #3a3a3a;
+    --scroll-thumb: #555555;
+
+    /* Black and white as bare RGB triplets, for use as rgba(var(--ink-rgb), a).
+       Ink is what the page is drawn in (the ascii background, scrims, rules);
+       paper is the text and edges on top of a card. Swapping the two is most
+       of what dark mode does. */
+    --ink-rgb: 0, 0, 0;
+    --paper-rgb: 255, 255, 255;
+
+    /* Accent-coloured text on a card, and form errors. Separate from --accent
+       because a card turns light grey in dark mode, where the plain accent
+       would lose most of its contrast. */
+    --accent-on-card: #3b82f6;
+    --error: #f87171;
+
+    /* 1 turns the black PNG icons on the link balls white, 0 leaves them black. */
+    --icon-invert: 1;
+    --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+}
+
+/* ── Dark theme ──
+   Every black and grey above, inverted (each channel c becomes 255 - c), so the
+   page turns dark and the cards on it turn light. The accent and chat colours
+   are unchanged. theme.js sets data-theme on <html> before first paint.
+
+   Screen only: a printed or PDF-saved page keeps the light palette whatever
+   the visitor had on screen. */
+@media screen {
+    :root[data-theme="dark"] {
+        color-scheme: dark;
+
+        --bg: #0f0f0f;
+        --surface: #000000;
+        --text: #e5e5e5;
+        --text-dim: #949494;
+
+        --card: #c5c5c5;
+        --card-edge: #b5b5b5;
+        --panel: #d5d5d5;
+        --panel-edge: #c5c5c5;
+        --scroll-thumb: #aaaaaa;
+
+        --ink-rgb: 255, 255, 255;
+        --paper-rgb: 0, 0, 0;
+
+        /* One step darker than --accent and red-700, which puts them at about the
+           same contrast on #c5c5c5 as the light-theme values have on #3a3a3a. */
+        --accent-on-card: #2563eb;
+        --error: #b91c1c;
+
+        --icon-invert: 0;
+        --select-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23777' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    }
+
+    /* The page is dark, but the modal and hints panel are light cards, so their
+       browser-drawn parts (autofill, textarea grip, Firefox scrollbar) need the
+       light scheme to match. */
+    :root[data-theme="dark"] .modal,
+    :root[data-theme="dark"] .hints-panel {
+        color-scheme: light;
+    }
 }
 
 html {
@@ -46,7 +114,7 @@ body {
     font-size: 14px;
     line-height: 1.0;
     letter-spacing: 0.08em;
-    color: rgba(0, 0, 0, 0.07);
+    color: rgba(var(--ink-rgb), 0.07);
     user-select: none;
     pointer-events: none;
     white-space: pre;
@@ -110,8 +178,8 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background: #3a3a3a;
-    border: 1.5px solid #4a4a4a;
+    background: var(--card);
+    border: 1.5px solid var(--card-edge);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -136,13 +204,13 @@ body {
 .ball-icon {
     font-family: var(--mono);
     font-size: 0.7rem;
-    color: var(--accent);
+    color: var(--accent-on-card);
     font-weight: 600;
 }
 
 .ball-label {
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--paper-rgb), 0.7);
     margin-top: 2px;
     text-transform: uppercase;
     letter-spacing: 0.08em;
@@ -154,7 +222,7 @@ body {
     height: 50%;
     object-fit: contain;
     pointer-events: none;
-    filter: brightness(0) invert(1) opacity(0.85);
+    filter: brightness(0) invert(var(--icon-invert)) opacity(0.85);
 }
 
 /* ── CTA ball ("Hire") — accent-filled so it reads as the call to action ── */
@@ -258,7 +326,7 @@ body {
     font-size: 0.66rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(var(--paper-rgb), 0.4);
 }
 
 .brief-label em {
@@ -273,10 +341,10 @@ body {
 .brief-form select,
 .brief-form textarea {
     width: 100%;
-    background: rgba(0, 0, 0, 0.22);
-    border: 1px solid #4a4a4a;
+    background: rgba(var(--ink-rgb), 0.22);
+    border: 1px solid var(--card-edge);
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(var(--paper-rgb), 0.9);
     font-family: var(--font);
     font-size: 0.9rem;
     padding: 10px 12px;
@@ -285,22 +353,22 @@ body {
 
 .brief-form input::placeholder,
 .brief-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(var(--paper-rgb), 0.3);
 }
 
 .brief-form select {
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+    background-image: var(--select-arrow);
     background-repeat: no-repeat;
     background-position: right 12px center;
     padding-right: 30px;
 }
 
 .brief-form select option {
-    background: #3a3a3a;
-    color: rgba(255, 255, 255, 0.9);
+    background: var(--card);
+    color: rgba(var(--paper-rgb), 0.9);
 }
 
 .brief-form textarea {
@@ -334,7 +402,7 @@ body {
 
 .brief-pill {
     background: rgba(59, 130, 246, 0.12);
-    color: var(--accent);
+    color: var(--accent-on-card);
     border: 1px solid rgba(59, 130, 246, 0.3);
     font-family: var(--mono);
     font-size: 0.78rem;
@@ -387,12 +455,12 @@ body {
 }
 
 .brief-status.error {
-    color: #f87171;
+    color: var(--error);
 }
 
 .brief-note {
     font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(var(--paper-rgb), 0.3);
     text-align: center;
 }
 
@@ -407,7 +475,7 @@ body {
     margin: 0 auto 16px;
     border-radius: 50%;
     background: rgba(59, 130, 246, 0.15);
-    color: var(--accent);
+    color: var(--accent-on-card);
     font-size: 1.5rem;
     display: flex;
     align-items: center;
@@ -415,7 +483,7 @@ body {
 }
 
 .brief-success h3 {
-    color: var(--accent);
+    color: var(--accent-on-card);
     margin-bottom: 8px;
 }
 
@@ -423,7 +491,7 @@ body {
 .modal-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(var(--ink-rgb), 0.3);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 100;
@@ -441,8 +509,8 @@ body {
 }
 
 .modal {
-    background: #3a3a3a;
-    border: 1px solid #4a4a4a;
+    background: var(--card);
+    border: 1px solid var(--card-edge);
     border-radius: var(--radius);
     max-width: 600px;
     width: 90%;
@@ -464,7 +532,7 @@ body {
     right: 20px;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(var(--paper-rgb), 0.5);
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.2s;
@@ -472,7 +540,7 @@ body {
 }
 
 .modal-close:hover {
-    color: #ffffff;
+    color: rgb(var(--paper-rgb));
 }
 
 .modal-content h2 {
@@ -480,14 +548,14 @@ body {
     font-weight: 600;
     margin-bottom: 20px;
     letter-spacing: -0.02em;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--paper-rgb), 0.7);
     text-transform: uppercase;
     font-size: 1.2rem;
     letter-spacing: 0.08em;
 }
 
 .modal-number {
-    color: var(--accent);
+    color: var(--accent-on-card);
     font-weight: 600;
     margin-right: 4px;
 }
@@ -496,13 +564,13 @@ body {
     font-size: 1rem;
     font-weight: 600;
     margin: 20px 0 8px;
-    color: var(--accent);
+    color: var(--accent-on-card);
 }
 
 .modal-content p,
 .modal-content li {
     font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(var(--paper-rgb), 0.7);
     line-height: 1.7;
 }
 
@@ -516,20 +584,20 @@ body {
 }
 
 .modal-content a {
-    color: var(--accent);
+    color: var(--accent-on-card);
     text-decoration: none;
     border-bottom: 1px solid transparent;
     transition: border-color 0.2s;
 }
 
 .modal-content a:hover {
-    border-bottom-color: var(--accent);
+    border-bottom-color: var(--accent-on-card);
 }
 
 .modal-content .tag {
     display: inline-block;
     background: rgba(59, 130, 246, 0.15);
-    color: var(--accent);
+    color: var(--accent-on-card);
     font-size: 0.75rem;
     padding: 3px 10px;
     border-radius: 20px;
@@ -539,7 +607,7 @@ body {
 
 .modal-content .entry {
     padding: 16px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(var(--paper-rgb), 0.1);
 }
 
 .modal-content .entry:last-child {
@@ -556,7 +624,7 @@ body {
 
 .modal-content .entry-date {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(var(--paper-rgb), 0.4);
     font-family: var(--mono);
     white-space: nowrap;
 }
@@ -627,7 +695,8 @@ body {
 /* ── Lab empty state ──
    Written in the register of the hints panel: lowercase, italic mono, wry. The
    paragraphs inherit their colour from whichever context they land in, so the
-   same markup reads correctly in the dark modal and on the light /lab page. */
+   same markup reads correctly on the modal card and on the /lab page, in
+   either theme. */
 .lab-empty {
     font-family: var(--mono);
     font-style: italic;
@@ -638,22 +707,32 @@ body {
     line-height: 1.8;
 }
 
-/* ── Hints Button ── */
-.hints-btn {
+/* ── Top-left chrome ──
+   The hints and theme buttons on the front pages; the back link and theme
+   button on every other page. A flex row for the same reason as
+   .top-right-nav: nothing in it has to know where its neighbour ends. */
+.top-left-nav {
     position: fixed;
     top: 12px;
     left: 16px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.hints-btn,
+.theme-btn {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1.5px solid #4a4a4a;
-    background: #3a3a3a;
-    color: rgba(255, 255, 255, 0.5);
+    border: 1.5px solid var(--card-edge);
+    background: var(--card);
+    color: rgba(var(--paper-rgb), 0.5);
     font-family: var(--mono);
     font-size: 0.9rem;
     font-weight: 600;
     cursor: pointer;
-    z-index: 10;
     transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
     display: flex;
     align-items: center;
@@ -661,17 +740,51 @@ body {
     padding: 0;
 }
 
-.hints-btn:hover {
-    color: var(--accent);
+.hints-btn:hover,
+.theme-btn:hover {
+    color: var(--accent-on-card);
     border-color: var(--accent);
     box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Half-filled circle. It turns half a revolution when the theme flips, so the
+   filled side swaps over, which is the whole feature in one glyph. */
+.theme-glyph {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    transition: transform 0.4s ease;
+}
+
+.theme-glyph path {
+    fill: currentColor;
+    stroke: none;
+}
+
+:root[data-theme="dark"] .theme-glyph {
+    transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theme-glyph {
+        transition: none;
+    }
+}
+
+/* Print always uses the light palette, so a theme switch on paper means nothing. */
+@media print {
+    .theme-btn {
+        display: none;
+    }
 }
 
 /* ── Hints Overlay ── */
 .hints-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(var(--ink-rgb), 0.4);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     z-index: 100;
@@ -689,8 +802,8 @@ body {
 }
 
 .hints-panel {
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
     border-radius: var(--radius);
     max-width: 380px;
     width: 85%;
@@ -710,7 +823,7 @@ body {
     right: 16px;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(var(--paper-rgb), 0.4);
     font-size: 1.4rem;
     cursor: pointer;
     transition: color 0.2s;
@@ -718,7 +831,7 @@ body {
 }
 
 .hints-close:hover {
-    color: #fff;
+    color: rgb(var(--paper-rgb));
 }
 
 .hints-title {
@@ -726,7 +839,7 @@ body {
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: rgba(255, 255, 255, 0.3);
+    color: rgba(var(--paper-rgb), 0.3);
     margin-bottom: 24px;
 }
 
@@ -745,7 +858,7 @@ body {
 .hint-symbol {
     font-family: var(--mono);
     font-size: 1.2rem;
-    color: var(--accent);
+    color: var(--accent-on-card);
     opacity: 0.6;
     flex-shrink: 0;
     width: 20px;
@@ -759,7 +872,7 @@ body {
 .hint-item p {
     font-family: var(--mono);
     font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.55);
+    color: rgba(var(--paper-rgb), 0.55);
     line-height: 1.7;
     font-style: italic;
 }
@@ -767,10 +880,10 @@ body {
 .hints-footer {
     margin-top: 24px;
     padding-top: 16px;
-    border-top: 1px solid #3a3a3a;
+    border-top: 1px solid var(--panel-edge);
     font-family: var(--mono);
     font-size: 0.65rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(var(--paper-rgb), 0.2);
     text-align: center;
     letter-spacing: 0.05em;
 }
@@ -795,15 +908,20 @@ footer {
     width: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #3a3a3a;
+    background: var(--card);
 }
 ::-webkit-scrollbar-thumb {
-    background: #555;
+    background: var(--scroll-thumb);
     border-radius: 3px;
 }
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
+    /* Below the top-left buttons and the top-right nav, which it would
+       otherwise run into: the Danish hint alone is ~260px wide. */
+    .playground .hint {
+        top: 56px;
+    }
     .ball {
         width: 65px;
         height: 65px;

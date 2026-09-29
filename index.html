@@ -37,10 +37,11 @@
     <meta name="twitter:image" content="https://alexbatten.dk/images/og-image.png">
 
     <link rel="icon" href="images/portfolio.png" type="image/png">
+    <script src="theme.js?v=1"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=18">
+    <link rel="stylesheet" href="styles.css?v=19">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
 
     <!-- ── Structured data (linked graph: WebSite / ProfilePage / Person / packages) ── -->
@@ -422,7 +423,15 @@
         </nav>
         <a href="privacypolicy" class="privacy-link">Privacy</a>
     </div>
-    <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
+    <div class="top-left-nav">
+        <button class="hints-btn" id="hints-btn" aria-label="Hints">?</button>
+        <button class="theme-btn" id="theme-btn" aria-label="Dark mode" aria-pressed="false" title="Dark mode">
+            <svg class="theme-glyph" viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="12" r="8"/>
+                <path d="M12 4a8 8 0 0 1 0 16z"/>
+            </svg>
+        </button>
+    </div>
 
     <!-- Hints overlay -->
     <div class="hints-overlay" id="hints-overlay">
@@ -523,6 +532,6 @@
     <script src="chat.js?v=2"></script>
     <script src="ascii-bg.js?v=11"></script>
     <script src="physics.js?v=15"></script>
-    <script src="pinball.js?v=11"></script>
+    <script src="pinball.js?v=12"></script>
 </body>
 </html>

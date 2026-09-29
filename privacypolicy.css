@@ -7,15 +7,13 @@ body {
     padding-bottom: 60px;
 }
 
+/* Positioned by its .top-left-nav row, which it shares with the theme toggle. */
 .back-link {
-    position: fixed;
-    top: 16px;
-    left: 20px;
     font-family: var(--mono);
     font-size: 0.8rem;
     color: var(--text-dim);
     text-decoration: none;
-    z-index: 10;
+    margin-right: 6px;
     transition: color 0.2s;
 }
 
@@ -40,7 +38,7 @@ body {
     font-size: 1.8rem;
     font-weight: 600;
     margin-bottom: 24px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+    border-bottom: 1px solid rgba(var(--ink-rgb), 0.15);
     padding-bottom: 12px;
     color: var(--text);
     letter-spacing: -0.02em;
@@ -166,13 +164,13 @@ footer {
 .privacy-policy-content code {
     font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
     font-size: 0.85em;
-    background: rgba(0, 0, 0, 0.06);
+    background: rgba(var(--ink-rgb), 0.06);
     padding: 0.1em 0.35em;
     border-radius: 4px;
 }
 
 .privacy-policy-content pre {
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(var(--ink-rgb), 0.05);
     border-left: 2px solid var(--accent);
     border-radius: 4px;
     padding: 14px 16px;
@@ -189,7 +187,7 @@ footer {
 
 .privacy-policy-content hr {
     border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    border-top: 1px solid rgba(var(--ink-rgb), 0.12);
     margin: 32px 0 20px;
 }
 
@@ -202,7 +200,7 @@ footer {
 .lab-entry {
     margin-top: 28px;
     padding-top: 20px;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(var(--ink-rgb), 0.08);
 }
 
 .lab-entry h2 {
