@@ -72,7 +72,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "en",
-          "dateModified": "2026-09-26T12:00:00+02:00",
+          "dateModified": "2026-10-03T12:00:00+02:00",
           "relatedLink": "https://alexbatten.dk/cv"
         },
         {
@@ -197,22 +197,34 @@
             </article>
             <article>
                 <h3>AI Engineer &amp; Co-Owner at Acconta (2026–Present)</h3>
-                <p>Building production microservices for a multi-tenant Danish bookkeeping SaaS in
-                ASP.NET Core and EF Core on .NET Aspire, with OpenAPI/NSwag generated typed
-                clients, and working on the Azure deployment. Moving six services onto a common
-                base for startup, auth, validation, and error handling. Implementing Danish tax
-                compliance: VAT reporting to SKAT via the NemVirksomhed (RSU) SOAP interface with
-                WS-Security signing, computing all 17 VAT return fields, plus SAF-T import with
-                schema validation and SAF-T export ahead of the 2027 audit-file mandate. Owning
-                Stripe billing end to end: subscriptions and seat logic (proration, credits, plan
-                switching, yearly plans, webhooks, secret hardening), plus a subscription flow
-                prototype in the Next.js client. Building standalone integrations for daily
-                currency rates (National Bank) and CVR company data (Danish Business Authority).
-                Leading e-invoicing over NemHandel (OIOUBL, Peppol BIS), turning the Bookkeeping
-                Act and the Business Authority's requirements into implementation specs, writing
-                technical decision papers, and reviewing much of the team's code. Stack: C#, .NET
-                Aspire, ASP.NET Core, Entity Framework, Microservices, Azure, Stripe, Next.js,
-                NemHandel.</p>
+                <p>Building a multi-tenant Danish bookkeeping SaaS across the stack: microservices
+                in ASP.NET Core and EF Core on .NET Aspire and Azure, with OpenAPI/NSwag generated
+                typed clients, and the Next.js client on top. Moved six services onto a shared
+                service base for startup, configuration, health checks, OpenAPI docs, and
+                authorization. Took VAT reporting to SKAT from the 17-field return calculation
+                through to the Next.js screens and SKAT's production gateway. The integration signs
+                its NemVirksomhed (RSU) SOAP calls with WS-Security, using a certificate held in
+                Azure Key Vault. Built the bank reconciliation backend on an open banking feed
+                (Aiia): matches that must sum exactly to the bank line, a reconciliation overview,
+                and an idempotent transaction sync in its own service. Upgraded SAF-T import and
+                export to the 2.1 schema, with tenant isolation and explicit refusal rules, ahead of
+                the 2027 audit-file mandate. Owning Stripe billing end to end: subscriptions and
+                seat logic (proration, credits, plan switching, yearly plans, plan lapses),
+                webhooks, and secret hardening. Built integrations for daily currency rates
+                (Danmarks Nationalbank), CVR company data (Danish Business Authority), and
+                transactional email. Leading e-invoicing over NemHandel and Peppol (OIOUBL, Peppol
+                BIS) and building the service that sends and receives invoices. Wrote the
+                requirements spec, ran the access point provider selection, and clarified the
+                registration model with the Danish Business Authority. Turning the Bookkeeping Act
+                and its executive orders into implementation specs and reviewing the platform's
+                authentication and multi-tenant security. Doing most of the team's in-depth code
+                review. Set up an autonomous AI development agent (an OpenAI dot) that the team
+                assigns GitHub issues to, and developed its operating prompt from a colleague's
+                first draft over seven revisions. The agent is built to hand each change to Codex
+                agents that implement, review, and test it, then open a pull request for human
+                review. Wrote and presented the team's guide to AI-assisted development with Claude
+                Code. Stack: C#, .NET Aspire, ASP.NET Core, Entity Framework, Microservices, Azure,
+                Stripe, Next.js, NemHandel, Peppol, AI Agents.</p>
             </article>
             <article>
                 <h3>Generalist Danish Annotator at Mercor (Contract, 2026–Present)</h3>

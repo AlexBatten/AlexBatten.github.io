@@ -41,7 +41,7 @@
           "url": "https://alexbatten.dk/cv",
           "name": "CV | Alex Batten, Freelance .NET & Full-Stack Engineer in Denmark",
           "inLanguage": "en",
-          "dateModified": "2026-09-26T12:00:00+02:00",
+          "dateModified": "2026-10-03T12:00:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
@@ -122,7 +122,7 @@
               "name": "Does Alex Batten have experience with Danish tax and accounting integrations?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Yes. At Acconta he implemented VAT reporting to SKAT through the NemVirksomhed (RSU) SOAP interface with WS-Security signing, computing all 17 VAT return fields, plus SAF-T import with schema validation and SAF-T export ahead of the 2027 audit-file mandate. He leads e-invoicing over NemHandel (OIOUBL, Peppol BIS). He has also built integrations for CVR company data from the Danish Business Authority, daily currency rates from the Danish National Bank, and the EU VIES API for VAT number validation."
+                "text": "Yes. At Acconta he implemented VAT reporting to SKAT through the NemVirksomhed (RSU) SOAP interface with WS-Security signing, including the calculation of all 17 VAT return fields. He also built the VAT screens in the Next.js client and connected the integration to SKAT's production gateway. He upgraded SAF-T import and export to the 2.1 schema ahead of the 2027 audit-file mandate and built the backend for bank reconciliation on an open banking feed (Aiia). He leads e-invoicing over NemHandel and Peppol (OIOUBL, Peppol BIS). He ran the access point provider selection and clarified the registration model with the Danish Business Authority. At Acconta he also built integrations for CVR company data from the Danish Business Authority and daily currency rates from Danmarks Nationalbank, and in earlier client work he integrated the EU VIES API for VAT number validation."
               }
             },
             {
@@ -138,7 +138,7 @@
               "name": "What AI and machine learning experience does Alex Batten have?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The Alignerr contract is signed and the first assignment is still pending. The agreed scope is the infrastructure behind AI training, evaluation, and deployment pipelines. AI evaluation (assessing model outputs against structured guidelines) and Danish-language annotation (writing prompts and pointing out errors in model responses) for Mercor. Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He also publishes three AI-related .NET libraries: Invarix.Guard, Invarix.Guard.Evidence, and Invarix.Gate."
+                "text": "The Alignerr contract is signed and the first assignment is still pending. The agreed scope is the infrastructure behind AI training, evaluation, and deployment pipelines. At Acconta he set up an autonomous AI development agent (an OpenAI dot) and developed its operating prompt from a colleague's first draft. The agent takes GitHub issues and is built to run Codex agents that implement, review, and test each change before a human reviews the pull request. AI evaluation (assessing model outputs against structured guidelines) and Danish-language annotation (writing prompts and pointing out errors in model responses) for Mercor. Data annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He also publishes three AI-related .NET libraries: Invarix.Guard, Invarix.Guard.Evidence, and Invarix.Gate."
               }
             },
             {
@@ -195,7 +195,7 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, Freelance .NET &amp; Full-Stack Engineer in Denmark</h1>
-    <p>Last updated: September 26, 2026</p>
+    <p>Last updated: October 3, 2026</p>
 
     <p>Hi, I'm Alex, a software engineer in Denmark with a BEng in Software Technology from DTU.
     Most of my work is C# and .NET: backend services, REST APIs, and enterprise integrations,
@@ -217,21 +217,31 @@
     <p><strong>Stack:</strong> Python, TypeScript.</p>
 
     <h3>AI Engineer &amp; Co-Owner at Acconta (2026&ndash;Present)</h3>
-    <p>Building production microservices for a multi-tenant Danish bookkeeping SaaS in ASP.NET
-    Core and EF Core on .NET Aspire, with OpenAPI/NSwag generated typed clients, and working on
-    the Azure deployment. Moving six services onto a common base for startup, auth, validation,
-    and error handling. Implementing Danish tax compliance: VAT reporting to SKAT via the
-    NemVirksomhed (RSU) SOAP interface with WS-Security signing, computing all 17 VAT return
-    fields, plus SAF-T import with schema validation and SAF-T export ahead of the 2027 audit-file
-    mandate. Owning Stripe billing end to end: subscriptions and seat logic (proration, credits,
-    plan switching, yearly plans, webhooks, secret hardening), plus a subscription flow prototype
-    in the Next.js client. Building standalone integrations for daily currency rates (National
-    Bank) and CVR company data (Danish Business Authority). Leading e-invoicing over NemHandel
-    (OIOUBL, Peppol BIS), turning the Bookkeeping Act and the Business Authority's requirements
-    into implementation specs, writing technical decision papers, and reviewing much of the team's
-    code.</p>
-    <p><strong>Stack:</strong> C#, .NET Aspire, ASP.NET Core, Entity Framework, Microservices, Azure,
-    Stripe, Next.js, NemHandel.</p>
+    <p>Building a multi-tenant Danish bookkeeping SaaS across the stack: microservices in ASP.NET
+    Core and EF Core on .NET Aspire and Azure, with OpenAPI/NSwag generated typed clients, and the
+    Next.js client on top. Moved six services onto a shared service base for startup,
+    configuration, health checks, OpenAPI docs, and authorization. Took VAT reporting to SKAT from
+    the 17-field return calculation through to the Next.js screens and SKAT's production gateway.
+    The integration signs its NemVirksomhed (RSU) SOAP calls with WS-Security, using a certificate
+    held in Azure Key Vault. Built the bank reconciliation backend on an open banking feed (Aiia):
+    matches that must sum exactly to the bank line, a reconciliation overview, and an idempotent
+    transaction sync in its own service. Upgraded SAF-T import and export to the 2.1 schema, with
+    tenant isolation and explicit refusal rules, ahead of the 2027 audit-file mandate. Owning
+    Stripe billing end to end: subscriptions and seat logic (proration, credits, plan switching,
+    yearly plans, plan lapses), webhooks, and secret hardening. Built integrations for daily
+    currency rates (Danmarks Nationalbank), CVR company data (Danish Business Authority), and
+    transactional email. Leading e-invoicing over NemHandel and Peppol (OIOUBL, Peppol BIS) and
+    building the service that sends and receives invoices. Wrote the requirements spec, ran the
+    access point provider selection, and clarified the registration model with the Danish Business
+    Authority. Turning the Bookkeeping Act and its executive orders into implementation specs and
+    reviewing the platform's authentication and multi-tenant security. Doing most of the team's
+    in-depth code review. Set up an autonomous AI development agent (an OpenAI dot) that the team
+    assigns GitHub issues to, and developed its operating prompt from a colleague's first draft
+    over seven revisions. The agent is built to hand each change to Codex agents that implement,
+    review, and test it, then open a pull request for human review. Wrote and presented the team's
+    guide to AI-assisted development with Claude Code.</p>
+    <p><strong>Stack:</strong> C#, .NET Aspire, ASP.NET Core, Entity Framework, Microservices,
+    Azure, Stripe, Next.js, NemHandel, Peppol, AI Agents.</p>
 
     <h3>Generalist Danish Annotator at Mercor (Contract, 2026&ndash;Present)</h3>
     <p>Writing prompts in natural Danish on topics of general interest and annotating how AI
@@ -400,11 +410,15 @@
 
     <h3>Does Alex Batten have experience with Danish tax and accounting integrations?</h3>
     <p>Yes. At Acconta he implemented VAT reporting to SKAT through the NemVirksomhed (RSU) SOAP
-    interface with WS-Security signing, computing all 17 VAT return fields, plus SAF-T import with
-    schema validation and SAF-T export ahead of the 2027 audit-file mandate. He leads e-invoicing
-    over NemHandel (OIOUBL, Peppol BIS). He has also built integrations for CVR company data from
-    the Danish Business Authority, daily currency rates from the Danish National Bank, and the EU
-    VIES API for VAT number validation.</p>
+    interface with WS-Security signing, including the calculation of all 17 VAT return fields. He
+    also built the VAT screens in the Next.js client and connected the integration to SKAT's
+    production gateway. He upgraded SAF-T import and export to the 2.1 schema ahead of the 2027
+    audit-file mandate and built the backend for bank reconciliation on an open banking feed
+    (Aiia). He leads e-invoicing over NemHandel and Peppol (OIOUBL, Peppol BIS). He ran the access
+    point provider selection and clarified the registration model with the Danish Business
+    Authority. At Acconta he also built integrations for CVR company data from the Danish Business
+    Authority and daily currency rates from Danmarks Nationalbank, and in earlier client work he
+    integrated the EU VIES API for VAT number validation.</p>
 
     <h3>Has Alex Batten worked with Stripe billing?</h3>
     <p>Yes. He owns Stripe billing end to end at Acconta: subscriptions and seat logic covering
@@ -413,12 +427,15 @@
 
     <h3>What AI and machine learning experience does Alex Batten have?</h3>
     <p>The Alignerr contract is signed and the first assignment is still pending. The agreed scope
-    is the infrastructure behind AI training, evaluation, and deployment pipelines. AI evaluation
-    (assessing model outputs against structured guidelines) and Danish-language annotation
-    (writing prompts and pointing out errors in model responses) for Mercor. Data annotation,
-    prompt engineering, and agentic trajectory design for Outlier across 50+ risk categories. He
-    also publishes three AI-related .NET libraries: Invarix.Guard, Invarix.Guard.Evidence, and
-    Invarix.Gate.</p>
+    is the infrastructure behind AI training, evaluation, and deployment pipelines. At Acconta he
+    set up an autonomous AI development agent (an OpenAI dot) and developed its operating prompt
+    from a colleague's first draft. The agent takes GitHub issues and is built to run Codex agents
+    that implement, review, and test each change before a human reviews the pull request. AI
+    evaluation (assessing model outputs against structured guidelines) and Danish-language
+    annotation (writing prompts and pointing out errors in model responses) for Mercor. Data
+    annotation, prompt engineering, and agentic trajectory design for Outlier across 50+ risk
+    categories. He also publishes three AI-related .NET libraries: Invarix.Guard,
+    Invarix.Guard.Evidence, and Invarix.Gate.</p>
 
     <h3>What software has Alex Batten published?</h3>
     <p>Three NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering

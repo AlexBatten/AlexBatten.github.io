@@ -34,16 +34,19 @@ hreflang. English is the default (x-default).
 - **Senior Software Engineer, AI Infrastructure at Alignerr** (contract signed
   2026, first assignment pending): the agreed scope is the infrastructure behind
   AI training, evaluation, and deployment pipelines, in Python and TypeScript.
-- **AI Engineer & Co-Owner at Acconta** (2026 to present): production
-  microservices on a multi-tenant Danish bookkeeping SaaS in .NET Aspire,
-  ASP.NET Core, and EF Core, plus work on the Azure deployment. Owns Stripe
-  billing end to end (subscriptions, seat logic, proration, credits, plan
-  switching, webhooks). Implemented Danish VAT reporting to SKAT via the
-  NemVirksomhed (RSU) SOAP interface (WS-Security signing, all 17 VAT return
-  fields), SAF-T import with schema validation, and SAF-T export ahead of the
-  2027 audit-file mandate. Leads e-invoicing over NemHandel (OIOUBL, Peppol
-  BIS) and turns the Bookkeeping Act and the Danish Business Authority's
-  requirements into implementation specs.
+- **AI Engineer & Co-Owner at Acconta** (2026 to present): full-stack work on a
+  multi-tenant Danish bookkeeping SaaS, from microservices in .NET Aspire,
+  ASP.NET Core, and EF Core on Azure to the Next.js client. Took Danish VAT
+  reporting to SKAT from the NemVirksomhed (RSU) SOAP integration (WS-Security
+  signing, all 17 VAT return fields) to the Next.js screens and SKAT's
+  production gateway. Built the bank reconciliation backend on an open banking
+  feed (Aiia) and upgraded SAF-T import and export to the 2.1 schema ahead of
+  the 2027 audit-file mandate. Owns Stripe billing end to end. Leads e-invoicing
+  over NemHandel and Peppol (OIOUBL, Peppol BIS), turns the Bookkeeping Act and
+  its executive orders into implementation specs, and does most of the team's
+  in-depth code review. Set up an autonomous AI development agent (an OpenAI
+  dot) built to take GitHub issues and run Codex agents that implement, review,
+  and test each change before a human reviews the pull request.
 - **Generalist Danish Annotator at Mercor** (2026 to present): writing prompts in
   Danish on topics of general interest and annotating how AI models respond.
 - **Generalist Expert, AI Evaluation at Mercor** (2026 to present): evaluating AI

@@ -25,7 +25,7 @@ const POSTS = require(path.join(ROOT, 'posts.js'));
 // generator without changing anything leaves the file byte-identical.
 // sitemap.xml is overwritten from this on every run, so a date edited into the
 // sitemap by hand is lost unless it is also set here.
-const SITE_UPDATED = '2026-09-26';
+const SITE_UPDATED = '2026-10-03';
 
 // Static pages that are not articles. Language pairs carry hreflang alternates.
 const STATIC_PAGES = [

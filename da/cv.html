@@ -42,7 +42,7 @@
           "url": "https://alexbatten.dk/da/cv",
           "name": "CV | Alex Batten, freelance softwareudvikler i Danmark",
           "inLanguage": "da",
-          "dateModified": "2026-09-26T12:00:00+02:00",
+          "dateModified": "2026-10-03T12:00:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/da/cv#faq" }
@@ -123,7 +123,7 @@
               "name": "Har Alex Batten erfaring med integrationer til dansk skat og regnskab?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Ja. Hos Acconta implementerede Alex Batten momsindberetning til SKAT via NemVirksomheds (RSU) SOAP-grænseflade med WS-Security-signering og beregning af alle 17 felter i momsangivelsen samt SAF-T-import med skemavalidering og SAF-T-eksport forud for kravet om standardiseret regnskabsfil i 2027. Han leder arbejdet med e-fakturering via NemHandel (OIOUBL, Peppol BIS). Han har også bygget integrationer til CVR-virksomhedsdata fra Erhvervsstyrelsen, daglige valutakurser fra Nationalbanken og EU's VIES-API til validering af momsnumre."
+                "text": "Ja. Hos Acconta har Alex Batten implementeret momsindberetning til SKAT via NemVirksomheds (RSU) SOAP-grænseflade med WS-Security-signering, herunder beregningen af alle 17 felter i momsangivelsen. Han har også bygget momsskærmbillederne i Next.js-klienten og koblet integrationen på SKATs produktionsgateway. Han har opgraderet SAF-T-import og -eksport til 2.1-skemaet forud for kravet om standardiseret regnskabsfil i 2027 og bygget backenden til bankafstemning på et open banking-feed (Aiia). Han leder arbejdet med e-fakturering via NemHandel og Peppol (OIOUBL, Peppol BIS), herunder valget af accesspoint-leverandør og afklaringen af registreringsmodellen med Erhvervsstyrelsen. Hos Acconta har han også bygget integrationer til CVR-virksomhedsdata fra Erhvervsstyrelsen og daglige valutakurser fra Nationalbanken, og i tidligere kundearbejde integrerede han EU's VIES-API til validering af momsnumre."
               }
             },
             {
@@ -139,7 +139,7 @@
               "name": "Hvilken erfaring har Alex Batten med AI og machine learning?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Alignerr-kontrakten er underskrevet, og den første opgave er endnu ikke gået i gang. Det aftalte omfang er infrastrukturen bag pipelines til træning, evaluering og udrulning af AI. AI-evaluering (vurdering af modeloutput mod strukturerede retningslinjer) og annotering på dansk (udformning af prompts og påpegning af fejl i modelsvar) for Mercor. Dataannotering, prompt engineering og design af agenttrajektorier for Outlier på tværs af 50+ risikokategorier. Dertil tre AI-relaterede .NET-biblioteker: Invarix.Guard, Invarix.Guard.Evidence og Invarix.Gate."
+                "text": "Alignerr-kontrakten er underskrevet, og den første opgave er endnu ikke gået i gang. Det aftalte omfang er infrastrukturen bag pipelines til træning, evaluering og udrulning af AI. Hos Acconta har han opsat en autonom AI-udviklingsagent (en OpenAI-dot) og udviklet agentens styringsprompt fra en kollegas første udkast. Agenten tager GitHub-issues og er bygget til at lade Codex-agenter implementere, reviewe og teste hver ændring, før et menneske gennemgår pull requesten. AI-evaluering (vurdering af modeloutput mod strukturerede retningslinjer) og annotering på dansk (udformning af prompts og påpegning af fejl i modelsvar) for Mercor. Dataannotering, prompt engineering og design af agenttrajektorier for Outlier på tværs af 50+ risikokategorier. Dertil tre AI-relaterede .NET-biblioteker: Invarix.Guard, Invarix.Guard.Evidence og Invarix.Gate."
               }
             },
             {
@@ -196,7 +196,7 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, freelance softwareudvikler i Danmark</h1>
-    <p>Sidst opdateret: 26. september 2026</p>
+    <p>Sidst opdateret: 3. oktober 2026</p>
 
     <p>Hej, jeg hedder Alex. Jeg er softwareudvikler i Danmark og diplomingeniør (BEng) i
     softwareteknologi fra DTU. Det meste af mit arbejde er C# og .NET: backendservices,
@@ -220,22 +220,34 @@
     <p><strong>Teknologier:</strong> Python, TypeScript.</p>
 
     <h3>AI-udvikler &amp; medejer hos Acconta (2026&ndash;nu)</h3>
-    <p>Bygger mikroservices i produktion i ASP.NET Core og EF Core på .NET Aspire til en
-    multi-tenant SaaS-platform til dansk bogføring, med typede klienter genereret via
-    OpenAPI/NSwag, og arbejder på udrulningen i Azure. Flytter seks services over på ét fælles
-    kodegrundlag til opstart, autentificering, validering og fejlhåndtering. Implementerer dansk
-    skattecompliance: momsindberetning til SKAT via NemVirksomheds (RSU) SOAP-grænseflade med
-    WS-Security-signering og beregning af alle 17 felter i momsangivelsen, samt SAF-T-import med
-    skemavalidering og SAF-T-eksport forud for kravet om standardiseret regnskabsfil i 2027. Har
-    det fulde ansvar for Stripe-betalinger: abonnementer og licenslogik pr. bruger (proration,
-    kreditter, planskift, årsabonnementer, webhooks, hærdning af hemmeligheder) samt en prototype
-    af abonnementsflowet i Next.js-klienten. Bygger selvstændige integrationer til daglige
-    valutakurser (Nationalbanken) og virksomhedsdata via CVR (Erhvervsstyrelsen). Leder arbejdet
-    med e-fakturering via NemHandel (OIOUBL, Peppol BIS), omsætter bogføringsloven og
-    Erhvervsstyrelsens krav til tekniske kravspecifikationer, skriver tekniske beslutningsoplæg og
-    reviewer en stor del af teamets kode.</p>
-    <p><strong>Teknologier:</strong> C#, .NET Aspire, ASP.NET Core, Entity Framework, mikroservices,
-    Azure, Stripe, Next.js, NemHandel.</p>
+    <p>Bygger en multi-tenant SaaS-platform til dansk bogføring på tværs af hele stakken:
+    mikroservices i ASP.NET Core og EF Core på .NET Aspire og Azure, med typede klienter genereret
+    via OpenAPI/NSwag, og Next.js-klienten ovenpå. Har flyttet seks services over på en fælles
+    servicebase til opstart, konfiguration, health checks, OpenAPI-dokumentation og autorisation.
+    Har bygget momsindberetningen til SKAT fra ende til anden: beregningen af de 17 felter i
+    momsangivelsen, integrationen mod NemVirksomheds (RSU) SOAP-grænseflade med
+    WS-Security-signering, skærmbillederne i Next.js og forbindelsen til SKATs produktionsgateway,
+    med signeringscertifikatet i Azure Key Vault. Har bygget backenden til bankafstemning på et
+    open banking-feed (Aiia): matchede posteringer, der tilsammen skal gå præcist op med
+    bankposteringen, et afstemningsoverblik og en idempotent synkronisering af transaktioner, der
+    kører i sin egen service. Har opgraderet SAF-T-import og -eksport til 2.1-skemaet, med
+    adskillelse mellem tenants og eksplicitte afvisningsregler, forud for kravet om standardiseret
+    regnskabsfil i 2027. Har det fulde ansvar for Stripe-betalinger: abonnementer og licenslogik
+    pr. bruger (proration, kreditter, planskift, årsabonnementer, bortfaldne abonnementer),
+    webhooks og hærdning af hemmeligheder. Har bygget integrationer til daglige valutakurser
+    (Nationalbanken), virksomhedsdata via CVR (Erhvervsstyrelsen) og transaktionelle e-mails.
+    Leder arbejdet med e-fakturering via NemHandel og Peppol (OIOUBL, Peppol BIS) og bygger
+    servicen, der sender og modtager fakturaerne. Har skrevet kravspecifikationen, stået for
+    valget af accesspoint-leverandør og afklaret registreringsmodellen med Erhvervsstyrelsen.
+    Omsætter bogføringsloven og de tilhørende bekendtgørelser til tekniske kravspecifikationer og
+    gennemgår platformens autentificering og sikkerhed på tværs af tenants. Står for det meste af
+    teamets grundige code review. Har opsat en autonom AI-udviklingsagent (en OpenAI-dot), som
+    teamet tildeler GitHub-issues, og har udviklet agentens styringsprompt fra en kollegas første
+    udkast gennem syv revisioner. Agenten er bygget til at lade Codex-agenter implementere,
+    reviewe og teste hver ændring og derefter åbne en pull request til review hos et menneske. Har
+    skrevet og præsenteret teamets guide til AI-assisteret udvikling med Claude Code.</p>
+    <p><strong>Teknologier:</strong> C#, .NET Aspire, ASP.NET Core, Entity Framework,
+    mikroservices, Azure, Stripe, Next.js, NemHandel, Peppol, AI-agenter.</p>
 
     <h3>Generalist Danish Annotator hos Mercor (kontrakt, 2026&ndash;nu)</h3>
     <p>Skriver prompts på naturligt dansk om emner af almen interesse og annoterer AI-modellers
@@ -412,12 +424,16 @@
     SaaS-funktionalitet samt AI/ML-funktioner, herunder guardrails og evaluering.</p>
 
     <h3>Har Alex Batten erfaring med integrationer til dansk skat og regnskab?</h3>
-    <p>Ja. Hos Acconta implementerede Alex Batten momsindberetning til SKAT via NemVirksomheds
-    (RSU) SOAP-grænseflade med WS-Security-signering og beregning af alle 17 felter i
-    momsangivelsen samt SAF-T-import med skemavalidering og SAF-T-eksport forud for kravet om
-    standardiseret regnskabsfil i 2027. Han leder arbejdet med e-fakturering via NemHandel
-    (OIOUBL, Peppol BIS). Han har også bygget integrationer til CVR-virksomhedsdata fra
-    Erhvervsstyrelsen, daglige valutakurser fra Nationalbanken og EU's VIES-API til validering af
+    <p>Ja. Hos Acconta har Alex Batten implementeret momsindberetning til SKAT via NemVirksomheds
+    (RSU) SOAP-grænseflade med WS-Security-signering, herunder beregningen af alle 17 felter i
+    momsangivelsen. Han har også bygget momsskærmbillederne i Next.js-klienten og koblet
+    integrationen på SKATs produktionsgateway. Han har opgraderet SAF-T-import og -eksport til
+    2.1-skemaet forud for kravet om standardiseret regnskabsfil i 2027 og bygget backenden til
+    bankafstemning på et open banking-feed (Aiia). Han leder arbejdet med e-fakturering via
+    NemHandel og Peppol (OIOUBL, Peppol BIS), herunder valget af accesspoint-leverandør og
+    afklaringen af registreringsmodellen med Erhvervsstyrelsen. Hos Acconta har han også bygget
+    integrationer til CVR-virksomhedsdata fra Erhvervsstyrelsen og daglige valutakurser fra
+    Nationalbanken, og i tidligere kundearbejde integrerede han EU's VIES-API til validering af
     momsnumre.</p>
 
     <h3>Har Alex Batten arbejdet med Stripe-betalinger?</h3>
@@ -429,8 +445,11 @@
     <h3>Hvilken erfaring har Alex Batten med AI og machine learning?</h3>
     <p>Alignerr-kontrakten er underskrevet, og den første opgave er endnu ikke gået i gang. Det
     aftalte omfang er infrastrukturen bag pipelines til træning, evaluering og udrulning af AI.
-    AI-evaluering (vurdering af modeloutput mod strukturerede retningslinjer) og annotering på
-    dansk (udformning af prompts og påpegning af fejl i modelsvar) for Mercor.
+    Hos Acconta har han opsat en autonom AI-udviklingsagent (en OpenAI-dot) og udviklet agentens
+    styringsprompt fra en kollegas første udkast. Agenten tager GitHub-issues og er bygget til at
+    lade Codex-agenter implementere, reviewe og teste hver ændring, før et menneske gennemgår pull
+    requesten. AI-evaluering (vurdering af modeloutput mod strukturerede retningslinjer) og
+    annotering på dansk (udformning af prompts og påpegning af fejl i modelsvar) for Mercor.
     Dataannotering, prompt engineering og design af agenttrajektorier for Outlier på tværs af 50+
     risikokategorier. Dertil tre AI-relaterede .NET-biblioteker: Invarix.Guard,
     Invarix.Guard.Evidence og Invarix.Gate.</p>

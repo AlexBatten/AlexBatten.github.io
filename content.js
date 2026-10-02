@@ -76,20 +76,33 @@ const CONTENT_EN = {
                     <h3>AI Engineer & Co-Owner at Acconta (Startup)</h3>
                     <span class="entry-date">2026–Present</span>
                 </div>
-                <p>Building production microservices for a multi-tenant Danish bookkeeping SaaS in
-                ASP.NET Core and EF Core on .NET Aspire, with OpenAPI/NSwag generated typed
-                clients, and working on the Azure deployment. Moving six services onto a common
-                base for startup, auth, validation, and error handling. Implementing Danish tax
-                compliance: VAT reporting to SKAT via the NemVirksomhed (RSU) SOAP interface with
-                WS-Security signing, computing all 17 VAT return fields, plus SAF-T import with
-                schema validation and SAF-T export ahead of the 2027 audit-file mandate. Owning
-                Stripe billing end to end: subscriptions and seat logic (proration, credits, plan
-                switching, yearly plans, webhooks, secret hardening), plus a subscription flow
-                prototype in the Next.js client. Building standalone integrations for daily
-                currency rates (National Bank) and CVR company data (Danish Business Authority).
-                Leading e-invoicing over NemHandel (OIOUBL, Peppol BIS), turning the Bookkeeping
-                Act and the Business Authority's requirements into implementation specs, writing
-                technical decision papers, and reviewing much of the team's code.</p>
+                <p>Building a multi-tenant Danish bookkeeping SaaS across the stack: microservices
+                in ASP.NET Core and EF Core on .NET Aspire and Azure, with OpenAPI/NSwag generated
+                typed clients, and the Next.js client on top. Moved six services onto a shared
+                service base for startup, configuration, health checks, OpenAPI docs, and
+                authorization. Took VAT reporting to SKAT from the 17-field return calculation
+                through to the Next.js screens and SKAT's production gateway. The integration signs
+                its NemVirksomhed (RSU) SOAP calls with WS-Security, using a certificate held in
+                Azure Key Vault. Built the bank reconciliation backend on an open banking feed
+                (Aiia): matches that must sum exactly to the bank line, a reconciliation overview,
+                and an idempotent transaction sync in its own service. Upgraded SAF-T import and
+                export to the 2.1 schema, with tenant isolation and explicit refusal rules, ahead of
+                the 2027 audit-file mandate. Owning Stripe billing end to end: subscriptions and
+                seat logic (proration, credits, plan switching, yearly plans, plan lapses),
+                webhooks, and secret hardening. Built integrations for daily currency rates
+                (Danmarks Nationalbank), CVR company data (Danish Business Authority), and
+                transactional email. Leading e-invoicing over NemHandel and Peppol (OIOUBL, Peppol
+                BIS) and building the service that sends and receives invoices. Wrote the
+                requirements spec, ran the access point provider selection, and clarified the
+                registration model with the Danish Business Authority. Turning the Bookkeeping Act
+                and its executive orders into implementation specs and reviewing the platform's
+                authentication and multi-tenant security. Doing most of the team's in-depth code
+                review. Set up an autonomous AI development agent (an OpenAI dot) that the team
+                assigns GitHub issues to, and developed its operating prompt from a colleague's
+                first draft over seven revisions. The agent is built to hand each change to Codex
+                agents that implement, review, and test it, then open a pull request for human
+                review. Wrote and presented the team's guide to AI-assisted development with Claude
+                Code.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">.NET Aspire</span>
@@ -100,6 +113,8 @@ const CONTENT_EN = {
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
                     <span class="tag">NemHandel</span>
+                    <span class="tag">Peppol</span>
+                    <span class="tag">AI Agents</span>
                 </div>
             </div>
             <div class="entry">
@@ -619,22 +634,35 @@ const CONTENT_DA = {
                     <h3>AI-udvikler & medejer hos Acconta (startup)</h3>
                     <span class="entry-date">2026–nu</span>
                 </div>
-                <p>Bygger mikroservices i produktion i ASP.NET Core og EF Core på .NET Aspire til
-                en multi-tenant SaaS-platform til dansk bogføring, med typede klienter genereret
-                via OpenAPI/NSwag, og arbejder på udrulningen i Azure. Flytter seks services over
-                på ét fælles kodegrundlag til opstart, autentificering, validering og
-                fejlhåndtering. Implementerer dansk skattecompliance: momsindberetning til SKAT
-                via NemVirksomheds (RSU) SOAP-grænseflade med WS-Security-signering og beregning
-                af alle 17 felter i momsangivelsen, samt SAF-T-import med skemavalidering og
-                SAF-T-eksport forud for kravet om standardiseret regnskabsfil i 2027. Har det
-                fulde ansvar for Stripe-betalinger: abonnementer og licenslogik pr. bruger
-                (proration, kreditter, planskift, årsabonnementer, webhooks, hærdning af
-                hemmeligheder) samt en prototype af abonnementsflowet i Next.js-klienten. Bygger
-                selvstændige integrationer til daglige valutakurser (Nationalbanken) og
-                virksomhedsdata via CVR (Erhvervsstyrelsen). Leder arbejdet med e-fakturering via
-                NemHandel (OIOUBL, Peppol BIS), omsætter bogføringsloven og Erhvervsstyrelsens
-                krav til tekniske kravspecifikationer, skriver tekniske beslutningsoplæg og
-                reviewer en stor del af teamets kode.</p>
+                <p>Bygger en multi-tenant SaaS-platform til dansk bogføring på tværs af hele
+                stakken: mikroservices i ASP.NET Core og EF Core på .NET Aspire og Azure, med typede
+                klienter genereret via OpenAPI/NSwag, og Next.js-klienten ovenpå. Har flyttet seks
+                services over på en fælles servicebase til opstart, konfiguration, health checks,
+                OpenAPI-dokumentation og autorisation. Har bygget momsindberetningen til SKAT fra
+                ende til anden: beregningen af de 17 felter i momsangivelsen, integrationen mod
+                NemVirksomheds (RSU) SOAP-grænseflade med WS-Security-signering, skærmbillederne i
+                Next.js og forbindelsen til SKATs produktionsgateway, med signeringscertifikatet i
+                Azure Key Vault. Har bygget backenden til bankafstemning på et open banking-feed
+                (Aiia): matchede posteringer, der tilsammen skal gå præcist op med bankposteringen,
+                et afstemningsoverblik og en idempotent synkronisering af transaktioner, der kører i
+                sin egen service. Har opgraderet SAF-T-import og -eksport til 2.1-skemaet, med
+                adskillelse mellem tenants og eksplicitte afvisningsregler, forud for kravet om
+                standardiseret regnskabsfil i 2027. Har det fulde ansvar for Stripe-betalinger:
+                abonnementer og licenslogik pr. bruger (proration, kreditter, planskift,
+                årsabonnementer, bortfaldne abonnementer), webhooks og hærdning af hemmeligheder.
+                Har bygget integrationer til daglige valutakurser (Nationalbanken), virksomhedsdata
+                via CVR (Erhvervsstyrelsen) og transaktionelle e-mails. Leder arbejdet med
+                e-fakturering via NemHandel og Peppol (OIOUBL, Peppol BIS) og bygger servicen, der
+                sender og modtager fakturaerne. Har skrevet kravspecifikationen, stået for valget af
+                accesspoint-leverandør og afklaret registreringsmodellen med Erhvervsstyrelsen.
+                Omsætter bogføringsloven og de tilhørende bekendtgørelser til tekniske
+                kravspecifikationer og gennemgår platformens autentificering og sikkerhed på tværs
+                af tenants. Står for det meste af teamets grundige code review. Har opsat en autonom
+                AI-udviklingsagent (en OpenAI-dot), som teamet tildeler GitHub-issues, og har
+                udviklet agentens styringsprompt fra en kollegas første udkast gennem syv
+                revisioner. Agenten er bygget til at lade Codex-agenter implementere, reviewe og
+                teste hver ændring og derefter åbne en pull request til review hos et menneske. Har
+                skrevet og præsenteret teamets guide til AI-assisteret udvikling med Claude Code.</p>
                 <div style="margin-top:8px">
                     <span class="tag">C#</span>
                     <span class="tag">.NET Aspire</span>
@@ -645,6 +673,8 @@ const CONTENT_DA = {
                     <span class="tag">Stripe</span>
                     <span class="tag">Next.js</span>
                     <span class="tag">NemHandel</span>
+                    <span class="tag">Peppol</span>
+                    <span class="tag">AI-agenter</span>
                 </div>
             </div>
             <div class="entry">
