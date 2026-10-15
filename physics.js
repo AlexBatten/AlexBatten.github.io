@@ -43,6 +43,12 @@
         return document.documentElement.clientWidth <= 600 ? RADIUS_MOBILE : RADIUS;
     }
 
+    // The rendered ball radius, which follows the <=600px media query. Kept
+    // up to date by resize() so the per-frame render() never reads
+    // clientWidth: that read comes right after the ascii background has
+    // rewritten its text, and would force a synchronous layout every frame.
+    let ballR;
+
     function resize() {
         // Use document.documentElement dimensions — they are the most reliable
         // in iOS WKWebView (LinkedIn/Facebook/Instagram in-app browsers) where
@@ -51,6 +57,7 @@
         H = document.documentElement.clientHeight;
         canvas.width = W;
         canvas.height = H;
+        ballR = getRadius();
     }
     resize();
 
@@ -461,7 +468,7 @@
     });
 
     function render() {
-        const r = getRadius();
+        const r = ballR;
         for (const { body, el } of pairs) {
             let bx = body.position.x;
             let by = body.position.y;
@@ -476,7 +483,14 @@
 
             const x = bx - r;
             const y = by - r;
-            el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
+            // Only write a transform that changed. A parked pinball table or
+            // a ball at rest gives the same string frame after frame, and each
+            // write would still cost a style recalc.
+            const t = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
+            if (el._transform !== t) {
+                el._transform = t;
+                el.style.transform = t;
+            }
         }
         requestAnimationFrame(render);
     }

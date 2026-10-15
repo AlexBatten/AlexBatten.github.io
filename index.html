@@ -41,8 +41,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=19">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+    <link rel="stylesheet" href="styles.css?v=20">
+    <!-- Fetched from the start, but run at the end of <body> before physics.js. -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" as="script">
 
     <!-- ── Structured data (linked graph: WebSite / ProfilePage / Person / packages) ── -->
     <script type="application/ld+json">
@@ -542,8 +543,11 @@
     <script src="content.js?v=19"></script>
     <script src="freelance.js?v=2"></script>
     <script src="chat.js?v=2"></script>
-    <script src="ascii-bg.js?v=11"></script>
-    <script src="physics.js?v=16"></script>
+    <script src="ascii-bg.js?v=12"></script>
+    <!-- Matter is only needed from physics.js on. As a plain script in
+         <head> it would hold up the first paint. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+    <script src="physics.js?v=17"></script>
     <script src="pinball.js?v=13"></script>
     <script src="snake.js?v=1"></script>
     <script src="stages.js?v=1"></script>

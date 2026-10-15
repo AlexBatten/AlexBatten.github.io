@@ -499,12 +499,18 @@ body {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    /* Hidden while closed. Chrome keeps drawing a backdrop-filter at opacity
+       0, which re-blurs the whole viewport under it on every frame the page
+       animates. A visibility transition keeps the overlay visible for the
+       whole fade, out as well as in, so the fade itself is unchanged. */
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
 
 .modal-overlay.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 }
 
@@ -792,12 +798,15 @@ body {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    /* Hidden while closed, for the same reason as .modal-overlay. */
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s;
 }
 
 .hints-overlay.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
 }
 
