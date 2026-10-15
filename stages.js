@@ -1,12 +1,13 @@
 // ── Stages ──
-// The page never scrolls. A wheel gesture moves between three stacked stages
-// instead: 0 playground, 1 pinball, 2 snake. One gesture moves one stage at
-// most, so a long trackpad flick stops at pinball rather than carrying on into
-// snake, and the momentum tail of a step can't trigger a second one.
+// The page never scrolls. A wheel gesture moves between stacked stages
+// instead: 0 playground, 1 pinball, 2 snake, 3 chess. One gesture moves one
+// stage at most, so a long trackpad flick stops at pinball rather than
+// carrying on into snake, and the momentum tail of a step can't trigger a
+// second one.
 //
-// Pinball to snake and back slides the stages like a page snapping to a
-// section. The table is parked while snake is in view, so scrolling back up
-// resumes the same pinball game.
+// Below pinball, each step slides the stages like a page snapping to a
+// section. A stage that slides away is parked, so scrolling back resumes the
+// same game.
 
 (function () {
     'use strict';
@@ -14,7 +15,7 @@
     // ── Thresholds (px of normalised wheel travel) ──
     var ENTER_PX      = 400;  // 0 -> 1
     var EXIT_PX       = 350;  // 1 -> 0, which ends the pinball run
-    var STEP_PX       = 200;  // 1 -> 2 and 2 -> 1, which keep both games
+    var STEP_PX       = 200;  // between neighbouring game stages, which keeps both games
     var EDGE_PX       = 140;  // a push past either end only arms the lock
 
     // ── Wheel normalisation ──
@@ -50,10 +51,29 @@
     })();
 
     function setup() {
-        var PINBALL = window.PINBALL, SNAKE = window.SNAKE;
+        var PINBALL = window.PINBALL, SNAKE = window.SNAKE, CHESS = window.CHESS;
         var pg = document.getElementById('playground');
         var pbUi = PINBALL.ui;
-        var layer = SNAKE.layer;
+
+        // ── Stage table ──
+        // Every stage below the playground, in order. Each one parks itself
+        // (leave), comes back (show), takes input (arrive) and goes off screen
+        // (hide). Pinball is parked rather than ended, so its game survives a
+        // visit to the stages below it. Chess is only added if its scripts
+        // loaded, so a failure there can't take the other games down.
+        var STAGE_LIST = [null, {
+            els: [pg, pbUi],
+            leave: PINBALL.suspend,
+            show: function () { pg.style.visibility = ''; pbUi.style.visibility = ''; PINBALL.paint(); },
+            arrive: PINBALL.resume,
+            hide: function () { pg.style.visibility = 'hidden'; pbUi.style.visibility = 'hidden'; }
+        }, {
+            els: [SNAKE.layer], leave: SNAKE.leave, show: SNAKE.show, arrive: SNAKE.arrive, hide: SNAKE.hide
+        }];
+        if (CHESS) {
+            STAGE_LIST.push({ els: [CHESS.layer], leave: CHESS.leave, show: CHESS.show, arrive: CHESS.arrive, hide: CHESS.hide });
+        }
+        var LAST = STAGE_LIST.length - 1;
         var modal = document.getElementById('modal-overlay');
         var hints = document.getElementById('hints-overlay');
         var motionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
@@ -72,8 +92,8 @@
         window.GAME_LEVEL = 0;
 
         // ── Pager ──
-        // Three dots on the right edge, shown only once a game is in view, so
-        // the portfolio itself never gives the secret away.
+        // A dot per stage on the right edge, shown only once a game is in
+        // view, so the portfolio itself never gives the secret away.
         var pager = document.createElement('div');
         pager.id = 'stage-pager';
         pager.setAttribute('aria-hidden', 'true');
@@ -81,7 +101,7 @@
             'display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none;' +
             'opacity:0;transition:opacity 300ms;';
         var dots = [];
-        for (var i = 0; i < 3; i++) {
+        for (var i = 0; i <= LAST; i++) {
             var d = document.createElement('div');
             d.style.cssText = 'width:6px;height:6px;border-radius:3px;background:rgba(var(--ink-rgb),0.22);' +
                 'transition:height 300ms,background-color 300ms;';
@@ -212,8 +232,9 @@
 
         function need(dir) {
             if (level === 0) return dir > 0 ? ENTER_PX : EDGE_PX;
-            if (level === 1) return dir > 0 ? STEP_PX : EXIT_PX;
-            return dir > 0 ? EDGE_PX : STEP_PX;
+            if (level === 1 && dir < 0) return EXIT_PX;
+            if (level === LAST && dir > 0) return EDGE_PX;
+            return STEP_PX;
         }
 
         function wheelStep(dir, t) {
@@ -240,9 +261,9 @@
             // One slot: the latest request made during a transition wins.
             if (busy) { queued = dir; return; }
             var target = level + dir;
-            if (target < 0 || target > 2) {
+            if (target < 0 || target > LAST) {
                 lock(dir, t);
-                if (target > 2) bump();
+                if (target > LAST) bump();
                 return;
             }
             transition(target, t);
@@ -258,8 +279,7 @@
             setPager();
             if (from === 0) { PINBALL.enter(); busyFor(ENTER_BUSY_MS); }
             else if (target === 0) { PINBALL.exit(); busyFor(EXIT_BUSY_MS); }
-            else if (target === 2) down();
-            else up();
+            else step(STAGE_LIST[from], STAGE_LIST[target], target > from);
         }
 
         // Completion always comes from a timer. transitionend never fires when
@@ -278,50 +298,35 @@
             }, ms);
         }
 
-        // Pinball slides up and out, snake slides up into view.
-        function down() {
+        // One stage slides out and its neighbour slides in: up the screen when
+        // going down the stack, down it when going back up. The outgoing stage
+        // stops taking input first; the incoming one only does once it has
+        // fully arrived.
+        function step(out, inn, downward) {
             var rm = reduced(), ms = rm ? FADE_MS : SLIDE_MS;
-            PINBALL.suspend();
-            SNAKE.show();
+            out.leave();
+            // Clicks are blocked during the slide, and each element gets its
+            // own pointer-events back afterwards: #pinball-ui relies on an
+            // inline none to stay click-through over the navs.
+            var pe = out.els.map(function (el) { return el.style.pointerEvents; });
+            out.els.forEach(function (el) { el.style.pointerEvents = 'none'; });
+            inn.show();
             if (rm) {
-                layer.style.transform = '';
-                fade([layer], 0, 1, ms);
-                fade([pg, pbUi], 1, 0, ms);
+                clear(inn.els, ['transform']);
+                fade(inn.els, 0, 1, ms);
+                fade(out.els, 1, 0, ms);
             } else {
-                slide([pg, pbUi], '0%', '-100%', ms);
-                slide([layer], '100%', '0%', ms);
+                slide(out.els, '0%', downward ? '-100%' : '100%', ms);
+                slide(inn.els, downward ? '100%' : '-100%', '0%', ms);
             }
             busyFor(ms + 40, function () {
-                pg.style.visibility = 'hidden';
-                pbUi.style.visibility = 'hidden';
-                clear([pg, pbUi], ['opacity', 'transition']);
-                clear([layer], ['transform', 'transition', 'opacity']);
-                SNAKE.arrive();
-            });
-        }
-
-        // Snake slides down and out, the parked table slides back down.
-        function up() {
-            var rm = reduced(), ms = rm ? FADE_MS : SLIDE_MS;
-            SNAKE.leave();
-            layer.style.pointerEvents = 'none';
-            pg.style.visibility = '';
-            pbUi.style.visibility = '';
-            PINBALL.paint();
-            if (rm) {
-                clear([pg, pbUi], ['transform']);
-                fade([pg, pbUi], 0, 1, ms);
-                fade([layer], 1, 0, ms);
-            } else {
-                slide([pg, pbUi], '-100%', '0%', ms);
-                slide([layer], '0%', '100%', ms);
-            }
-            busyFor(ms + 40, function () {
-                SNAKE.hide();
+                out.hide();
                 // Matter's mouse maps clicks through getBoundingClientRect, so
                 // the playground must be left with no transform at all.
-                clear([pg, pbUi, layer], ['transform', 'transition', 'opacity']);
-                PINBALL.resume();
+                clear(out.els, ['transform', 'transition', 'opacity']);
+                out.els.forEach(function (el, i) { el.style.pointerEvents = pe[i]; });
+                clear(inn.els, ['transform', 'transition', 'opacity']);
+                inn.arrive();
             });
         }
 
@@ -361,7 +366,8 @@
         // A short nudge when pushing down past the last stage, so the stop
         // reads as the bottom rather than as a scroll that did nothing.
         function bump() {
-            if (level !== 2 || busy || reduced()) return;
+            if (level !== LAST || busy || reduced()) return;
+            var layer = STAGE_LIST[LAST].els[0];
             var id = ++bumpSeq;
             layer.style.transition = 'transform 120ms ease-out';
             layer.style.transform = 'translate3d(0,-12px,0)';
@@ -397,7 +403,7 @@
         window.STAGES = {
             level: function () { return level; },
             go: function (n) {
-                goal = Math.max(0, Math.min(2, n | 0));
+                goal = Math.max(0, Math.min(LAST, n | 0));
                 if (!busy && goal !== level) request(goal > level ? 1 : -1, performance.now());
             },
             feed: feed,

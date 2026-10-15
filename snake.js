@@ -91,6 +91,7 @@
             '<div id="sn-best" style="font:0.85rem var(--mono);margin-top:4px"></div>' +
             '<div id="sn-act" style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.5);margin-top:16px"></div>' +
             '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.3);margin-top:4px">scroll up for pinball</div>' +
+            '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.3);margin-top:4px">scroll down for chess</div>' +
             '</div>';
 
         layer.appendChild(canvas);
@@ -932,7 +933,7 @@
             hud();
         }
 
-        // leave(): input off as the slide back up starts. A running round is
+        // leave(): input off as the slide away starts. A running round is
         // paused and waits for the player to come back.
         function leave() {
             pause();
