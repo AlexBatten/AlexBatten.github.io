@@ -313,6 +313,14 @@
     // ── Track hover for visual feedback ──
     let hoveredBody = null;
     Events.on(mouseConstraint, 'mousemove', function () {
+        // During pinball (and the snake stage below it) the balls can't be
+        // grabbed, so don't advertise a grab. This event still fires then,
+        // because MouseConstraint listens to the engine, not to the world.
+        if (window.PINBALL_ACTIVE) {
+            if (hoveredBody) { hoveredBody.el.classList.remove('hovered'); hoveredBody = null; }
+            canvas.style.cursor = 'default';
+            return;
+        }
         const pos = mouse.position;
         let found = null;
         for (const p of pairs) {
@@ -559,8 +567,8 @@
         }
     }
 
-    // ── Expose for pinball module ──
-    window.PLAYGROUND = { engine, pairs, canvas, ctx, mouseConstraint, getSize: function () { return { W: W, H: H }; } };
+    // ── Expose for the pinball and snake modules ──
+    window.PLAYGROUND = { engine, pairs, canvas, ctx, mouseConstraint, runner, playBounce, getSize: function () { return { W: W, H: H }; } };
 })();
 
 // ── Console easter egg ──

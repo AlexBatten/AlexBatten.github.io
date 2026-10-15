@@ -1,5 +1,7 @@
 // ── Pinball Easter Egg ──
 // Scroll down on the main page to scoop the portfolio balls into a pinball game.
+// stages.js owns the scroll gesture and calls into window.PINBALL; this file
+// only runs the table.
 
 (function () {
     'use strict';
@@ -15,8 +17,6 @@
     var FLIP_RATE_PER_SEC = 14.4;
     var REST_RATE_PER_SEC = 1.8;
     var BUMP_FORCE  = 0.012;
-    var SCROLL_IN   = 400;
-    var SCROLL_OUT  = 350;
     var MAX_SPEED   = 18;
 
     // Corner bumpers: worth a burst instead of a flat 100, and the burst grows
@@ -58,7 +58,7 @@
         var flipL = null, flipR = null;
         var keyL = false, keyR = false;
         var flash = {};
-        var raf = null, scrollAcc = 0;
+        var raf = null;
         var updateH = null, collisionH = null;
         var tableShape = null;
         var drainBlocker = null;
@@ -67,6 +67,14 @@
         var boostCharge = 0, boostUntil = 0, boostBall = null, boostTrail = [];
         var boostPct = -1, boostWasReady = null;
         var canTouch = 'ontouchstart' in window;
+
+        // Parked: the table is still built, but the snake stage is in view.
+        // Physics, drawing and the pending game timers all stop until resume().
+        var paused = false, pausedAt = 0;
+        // The two game timers keep their due time so a park can carry the
+        // remainder over instead of firing (or being lost) while off screen.
+        var chaosT = null, chaosDue = 0, chaosLeft = -1;
+        var nextT = null, nextDue = 0, nextLeft = -1;
 
         // Proportional dimensions based on ball radius
         var R, FLIP_W, FLIP_H, BUMP_R, SM_BUMP_R, SURGE_R, DRAIN_HALF, BALL_AIR;
@@ -101,6 +109,7 @@
             '<div style="font:700 1.6rem var(--mono);color:#3b82f6">GAME OVER</div>' +
             '<div id="pb-final" style="font:1rem var(--mono);color:rgba(var(--paper-rgb),0.6);margin-top:8px"></div>' +
             '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.25);margin-top:16px">scroll up to exit</div>' +
+            '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.25);margin-top:4px">scroll down for snake</div>' +
             '</div>';
         document.body.appendChild(ui);
 
@@ -314,7 +323,7 @@
         }
 
         function fireBoost() {
-            if (!on || !boostReady()) return;
+            if (!on || paused || !boostReady()) return;
             var b = activeBall.body;
             var spd = Math.hypot(b.velocity.x, b.velocity.y);
             // Always launch up-table, keeping whatever sideways drift the ball
@@ -346,13 +355,40 @@
             return BOOST_CAP + (MAX_SPEED - BOOST_CAP) * (dt / BOOST_FADE);
         }
 
+        // ── Game timers ──
+        // Both are tracked so exit() can cancel them. Left running, a stale
+        // activateNext() from a drain just before exit would call gameOver()
+        // over the next visit's chaos phase, and a stale chaos timer would
+        // reshuffle a game already in progress.
+        function armChaos(ms) {
+            chaosDue = Date.now() + ms;
+            chaosT = setTimeout(function () {
+                chaosT = null;
+                if (on && !paused) startGame();
+            }, ms);
+        }
+
+        function armNext(ms) {
+            nextDue = Date.now() + ms;
+            nextT = setTimeout(function () {
+                nextT = null;
+                if (on && !paused) activateNext();
+            }, ms);
+        }
+
+        function clearTimers() {
+            clearTimeout(chaosT); clearTimeout(nextT);
+            chaosT = nextT = null;
+            chaosLeft = nextLeft = -1;
+        }
+
         // ── ENTER ──
         function enter() {
             if (on) return;
             on = true;
+            paused = false;
             window.PINBALL_ACTIVE = true;
             canvas.style.zIndex = '0'; // draw table behind balls
-            scrollAcc = 0;
             gameStarted = false;
             dead = false;
             popups = [];
@@ -371,8 +407,11 @@
             // Disable mouse drag
             Comp.remove(engine.world, PG.mouseConstraint);
 
-            // Increase gravity for pinball
+            // Increase gravity for pinball. Phone tilt can have left a sideways
+            // pull, and zero-gravity mode a zero, so both axes are set.
+            engine.world.gravity.x = 0;
             engine.world.gravity.y = 1.6;
+            window.ZERO_GRAVITY = false;
 
             // Build table and scoop balls in
             tableAlpha = 0;
@@ -394,7 +433,7 @@
             }
 
             updateH = function () {
-                if (!on) return;
+                if (!on || paused) return;
 
                 var sh = tableShape;
                 // Per-tick step scales with display rate; angular velocity is
@@ -467,7 +506,7 @@
                     if (lives <= 0) {
                         gameOver();
                     } else {
-                        setTimeout(function () { activateNext(); }, 600);
+                        armNext(600);
                     }
                 }
             };
@@ -512,9 +551,7 @@
             draw();
 
             // After chaos, start the real game
-            setTimeout(function () {
-                if (on) startGame();
-            }, 1200);
+            armChaos(1200);
         }
 
         function isBumper(body) {
@@ -536,9 +573,13 @@
         function exit() {
             if (!on) return;
             on = false;
+            clearTimers();
+            // A parked table stopped the shared runner; never leave the
+            // playground frozen behind it.
+            paused = false;
+            if (PG.runner) PG.runner.enabled = true;
             window.PINBALL_ACTIVE = false;
             canvas.style.zIndex = ''; // restore default
-            scrollAcc = 0;
             gameStarted = false;
 
             Ev.off(engine, 'beforeUpdate', updateH);
@@ -599,10 +640,68 @@
             paperRgb = cs.getPropertyValue('--paper-rgb').trim() || '255, 255, 255';
         }
 
-        // ── Render (table, bumpers, flippers — balls are DOM elements) ──
+        // ── Park and resume ──
+        // Used while the snake stage is in view. The table, balls and score
+        // stay exactly where they were, and scrolling back resumes the same
+        // game. The runner's enabled flag gates every tick, so no physics,
+        // collisions or bounce sounds happen while parked. Matter's
+        // timeScale is no good for this: at 0 its velocity correction
+        // divides by zero.
+        function suspend() {
+            if (!on || paused) return;
+            paused = true;
+            pausedAt = Date.now();
+            if (PG.runner) PG.runner.enabled = false;
+            // A flipper held by a touch during the switch would stay up after
+            // resume, because touchend is ignored while parked.
+            keyL = keyR = false;
+            var now = Date.now();
+            if (chaosT) { clearTimeout(chaosT); chaosT = null; chaosLeft = Math.max(0, chaosDue - now); }
+            if (nextT)  { clearTimeout(nextT);  nextT = null;  nextLeft  = Math.max(0, nextDue - now); }
+            if (raf) { cancelAnimationFrame(raf); raf = null; }
+        }
+
+        function resume() {
+            if (!on || !paused) return;
+            shiftClocks(Date.now() - pausedAt);
+            paused = false;
+            // After a long gap Runner.tick falls back to the last frame delta,
+            // so the table does not fast-forward through the time away.
+            if (PG.runner) PG.runner.enabled = true;
+            if (chaosLeft >= 0) { armChaos(chaosLeft); chaosLeft = -1; }
+            if (nextLeft >= 0)  { armNext(nextLeft);   nextLeft = -1; }
+            if (!raf) draw();
+        }
+
+        // Every timer the game measures against Date.now() moves forward by
+        // the time spent parked, so the boost window, surge chain, popups and
+        // bumper flashes carry on as if no time had passed.
+        function shiftClocks(d) {
+            if (boostUntil) boostUntil += d;
+            if (surgeLast) surgeLast += d;
+            for (var i = 0; i < popups.length; i++) popups[i].t0 += d;
+            for (var id in flash) {
+                if (Object.prototype.hasOwnProperty.call(flash, id)) flash[id] += d;
+            }
+        }
+
+        // One frame of a parked table, for when it slides back into view. A
+        // resize clears the canvas, and a theme switch changes its colours.
+        function paint() {
+            if (!on || !tableShape) return;
+            if (paused) { shiftClocks(Date.now() - pausedAt); pausedAt = Date.now(); }
+            drawFrame();
+        }
+
+        // ── Render (table, bumpers, flippers; balls are DOM elements) ──
         function draw() {
-            if (!on) return;
+            if (!on || paused) { raf = null; return; }
             if (!tableShape) { raf = requestAnimationFrame(draw); return; }
+            drawFrame();
+            raf = requestAnimationFrame(draw);
+        }
+
+        function drawFrame() {
             var sh = tableShape;
             var t = sh.t;
             readTheme();
@@ -717,7 +816,6 @@
 
             ctx.restore();
             drawBoostMeter(now);
-            raf = requestAnimationFrame(draw);
         }
 
         // ── Boost meter (DOM, only written when it actually changes) ──
@@ -741,29 +839,9 @@
             if (ready) $boostLabel.style.opacity = (0.55 + 0.45 * Math.sin(now / 220)).toFixed(2);
         }
 
-        // ── Scroll ──
-        window.addEventListener('wheel', function (e) {
-            if (document.getElementById('modal-overlay').classList.contains('active')) return;
-            if (on) {
-                if (e.deltaY < 0) {
-                    scrollAcc -= Math.abs(e.deltaY);
-                    if (scrollAcc < -SCROLL_OUT) exit();
-                } else {
-                    scrollAcc = 0;
-                }
-            } else {
-                if (e.deltaY > 0) {
-                    scrollAcc += e.deltaY;
-                    if (scrollAcc > SCROLL_IN) enter();
-                } else {
-                    scrollAcc = Math.max(0, scrollAcc + e.deltaY);
-                }
-            }
-        }, { passive: true });
-
         // ── Keyboard ──
         window.addEventListener('keydown', function (e) {
-            if (!on) return;
+            if (!on || paused) return;
             if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') { keyL = true; e.preventDefault(); }
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { keyR = true; e.preventDefault(); }
             if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
@@ -778,7 +856,7 @@
 
         // ── Touch controls for mobile ──
         canvas.addEventListener('touchstart', function (e) {
-            if (!on) return;
+            if (!on || paused) return;
             for (var i = 0; i < e.touches.length; i++) {
                 if (e.touches[i].clientX < canvas.width / 2) keyL = true;
                 else keyR = true;
@@ -787,12 +865,28 @@
         }, { passive: false });
 
         canvas.addEventListener('touchend', function (e) {
-            if (!on) return;
+            if (!on || paused) return;
             keyL = false; keyR = false;
             for (var i = 0; i < e.touches.length; i++) {
                 if (e.touches[i].clientX < canvas.width / 2) keyL = true;
                 else keyR = true;
             }
         }, { passive: false });
+
+        // ── API for stages.js ──
+        // PINBALL_ACTIVE stays true while parked: it means the playground
+        // belongs to pinball, which keeps physics.js's clamp, G toggle, ball
+        // taps and tilt switched off while the snake stage is in view.
+        window.PINBALL = {
+            enter: enter,
+            exit: exit,
+            suspend: suspend,
+            resume: resume,
+            paint: paint,
+            ui: ui,
+            isOn: function () { return on; },
+            isSuspended: function () { return paused; },
+            activeLabel: function () { return activeBall ? activeBall.body.label : null; }
+        };
     }
 })();
