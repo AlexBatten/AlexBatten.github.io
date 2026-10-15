@@ -3,8 +3,9 @@
 // to go back. stages.js decides when it is shown; this file runs the game.
 //
 // Drawn in pinball's vocabulary: the board is the table's ink panel, the
-// snake is the flippers' blue, food is a small portfolio ball and the bonus
-// is an amber surge bumper.
+// snake is the flippers' blue (or the site's green or amber, as picked), food
+// is a small portfolio ball and the bonus is an amber surge bumper. Each round
+// also hides a bucket hat on the board for the snake to put on.
 
 (function () {
     'use strict';
@@ -39,6 +40,16 @@
     var TAP_PX         = 12;
     var TAP_MS         = 250;
     var BEST_KEY       = 'snake-best';
+    var COLOR_KEY      = 'snake-color';
+    var HAT_MIN_DIST   = 6;      // the hat starts this many steps from the head or more
+    // Snake colours, taken from the site's own: the accent blue, the chat
+    // ball's green and pinball's amber. flash is the eat flash, glow the
+    // head's halo, as the blue ones were picked for the default.
+    var PALETTE = [
+        { id: 'blue',  label: 'blue',  base: '#3b82f6', flash: 'rgba(96,165,250,0.8)',  glow: 'rgba(59,130,246,0.45)' },
+        { id: 'green', label: 'green', base: '#10b981', flash: 'rgba(52,211,153,0.85)', glow: 'rgba(16,185,129,0.45)' },
+        { id: 'amber', label: 'amber', base: '#f59e0b', flash: 'rgba(252,211,77,0.85)', glow: 'rgba(245,158,11,0.45)' }
+    ];
     var FONT           = '"Roboto Condensed", Arial, sans-serif';
     var ACCENT         = '#3b82f6';
     var DIRS = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } };
@@ -92,11 +103,55 @@
             '<div id="sn-act" style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.5);margin-top:16px"></div>' +
             '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.3);margin-top:4px">scroll up for pinball</div>' +
             '<div style="font:0.72rem var(--mono);color:rgba(var(--paper-rgb),0.3);margin-top:4px">scroll down for chess</div>' +
-            '</div>';
+            '</div>' +
+            '<div id="sn-colors" style="position:absolute;display:flex;pointer-events:auto"></div>';
 
         layer.appendChild(canvas);
         layer.appendChild(ui);
         document.body.appendChild(layer);
+
+        // ── Colour swatches ──
+        // One dot per palette colour in the corner of the board's header
+        // band. C cycles through them from the keyboard. Each dot sits in a
+        // 28px button, so a fingertip that just misses still picks a colour
+        // instead of landing on the board, where a tap starts or resumes a
+        // round.
+        var SWATCH = 28;
+        var $colors = ui.querySelector('#sn-colors');
+        var swatches = PALETTE.map(function (p, i) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.title = 'Snake colour (C)';
+            b.setAttribute('aria-label', 'Snake colour: ' + p.label);
+            b.style.cssText = 'width:' + SWATCH + 'px;height:' + SWATCH + 'px;border:none;padding:0;' +
+                'background:transparent;cursor:pointer';
+            // The ink edge keeps green and amber visible on the light theme's
+            // grey band, where their own contrast with it is close to 1:1.
+            var dot = document.createElement('span');
+            dot.style.cssText = 'display:block;width:14px;height:14px;margin:7px;border-radius:50%;' +
+                'background:' + p.base + ';transition:transform .15s,box-shadow .15s';
+            b.appendChild(dot);
+            b.addEventListener('click', function () {
+                setColor(i);
+                // Focus left on the button would take a later Enter or Space.
+                b.blur();
+            });
+            $colors.appendChild(b);
+            return dot;
+        });
+
+        // The chosen dot gets a ring in ink with a paper gap, which stands out
+        // on the band in both themes.
+        function syncSwatches() {
+            for (var i = 0; i < swatches.length; i++) {
+                var on = i === colorIdx;
+                swatches[i].style.transform = on ? 'scale(1.2)' : 'none';
+                swatches[i].style.boxShadow = on
+                    ? '0 0 0 2px rgba(var(--paper-rgb),0.9), 0 0 0 3.5px rgba(var(--ink-rgb),0.85)'
+                    : '0 0 0 1px rgba(var(--ink-rgb),0.5)';
+                swatches[i].parentNode.setAttribute('aria-pressed', on ? 'true' : 'false');
+            }
+        }
 
         var $score = ui.querySelector('#sn-score');
         var $sub   = ui.querySelector('#sn-sub');
@@ -156,6 +211,9 @@
         var hasRound = false;
         var body = [], prevTail = null, dir = 'right', queue = [], grow = 0;
         var food = null, ghost = null, bonus = null;
+        var hat = null, wearing = false;   // the bucket hat on the board, or on the snake
+        var colorIdx = loadColor();
+        syncSwatches();
         var score = 0, eaten = 0, chain = 0, best = loadBest(), bestAtStart = 0;
         var stepMs = stepFor(0), acc = 0, last = 0, deathAt = 0, deathKind = '';
         var flashAt = -Infinity, rings = [], popups = [], trail = [];
@@ -206,6 +264,10 @@
             if (canvas.width !== bw) canvas.width = bw;
             if (canvas.height !== bh) canvas.height = bh;
             $panel.style.top = Math.round(gy + rows * cell / 2) + 'px';
+            // Swatches in the top-right corner of the header band, the last dot
+            // 12px in from the edge (each dot is inset 7px in its button).
+            $colors.style.left = Math.round(panel.L + panel.w - 12 - PALETTE.length * SWATCH + 7) + 'px';
+            $colors.style.top = Math.round(panel.top + 5) + 'px';
         }
 
         function applyDirty() {
@@ -238,6 +300,7 @@
             for (var i = 0; i < START_LEN; i++) body.push({ x: hx - i, y: hy });
             dir = 'right'; queue = []; grow = 0; prevTail = null;
             score = 0; eaten = 0; chain = 0; bonus = null; food = null; ghost = null;
+            hat = null; wearing = false;
             rings = []; popups = []; trail = [];
             stepMs = stepFor(0); acc = 0;
             phase = 'ready';
@@ -248,7 +311,24 @@
             var lbl = window.PINBALL && window.PINBALL.activeLabel ? window.PINBALL.activeLabel() : null;
             for (var j = 0; j < sections.length; j++) if (sections[j].id === lbl) first = j;
             placeFood(first);
+            // Every round puts a bucket hat somewhere on the board. Running
+            // over it puts it on, for the rest of the round.
+            var hc = freeCell(HAT_MIN_DIST);
+            if (hc) hat = { x: hc.x, y: hc.y, t0: performance.now() };
             hud();
+        }
+
+        function loadColor() {
+            var id = null;
+            try { id = localStorage.getItem(COLOR_KEY); } catch (e) {}
+            for (var i = 0; i < PALETTE.length; i++) if (PALETTE[i].id === id) return i;
+            return 0;
+        }
+
+        function setColor(i) {
+            colorIdx = ((i % PALETTE.length) + PALETTE.length) % PALETTE.length;
+            try { localStorage.setItem(COLOR_KEY, PALETTE[colorIdx].id); } catch (e) {}
+            syncSwatches();
         }
 
         // A random empty cell, preferring ones at least minDist steps from
@@ -258,6 +338,7 @@
             for (i = 0; i < body.length; i++) taken[body[i].x + ',' + body[i].y] = 1;
             if (food) taken[food.x + ',' + food.y] = 1;
             if (bonus) taken[bonus.x + ',' + bonus.y] = 1;
+            if (hat) taken[hat.x + ',' + hat.y] = 1;
             var far = [], any = [], h = body[0];
             for (var y = 0; y < rows; y++) {
                 for (var x = 0; x < cols; x++) {
@@ -316,6 +397,15 @@
             }
 
             var res = 'move';
+            if (hat && nx === hat.x && ny === hat.y) {
+                // Worn, not scored: the hat changes nothing but the look.
+                hat = null;
+                wearing = true;
+                ring(nx, ny, 'hat', now);
+                popup(nx, ny, 'BUCKET HAT', '#f5f5f5', '', now);
+                sound(6);
+                res = 'hat';
+            }
             if (bonus && nx === bonus.x && ny === bonus.y) {
                 chain = Math.min(chain + 1, BONUS_MAX);
                 var pts = BONUS_BASE * chain;
@@ -478,6 +568,10 @@
                 if (!pause()) resume();
                 return;
             }
+            if ((k === 'c' || k === 'C') && !e.repeat) {
+                setColor(colorIdx + 1);
+                return;
+            }
             // Pause only, never a toggle: physics.js closes the hints panel on
             // the same key, and a toggle would resume a round it had paused.
             if (k === 'Escape') pause();
@@ -613,6 +707,13 @@
                 drawBall(center(food), cell * 0.42 * fs, sections[food.idx]);
             }
             drawBonus(now, a, rm);
+            if (hat) {
+                // On the board it bobs gently, so it reads as something to
+                // pick up rather than part of the floor.
+                var hs = rm ? 1 : easeOutBack(Math.min(1, (now - hat.t0) / SPAWN_MS));
+                var hc = center(hat), bob = rm ? 0 : Math.sin(now / 320) * cell * 0.05;
+                drawHat(hc.x, hc.y + cell * 0.04 + bob, cell * 1.15 * hs, 0);
+            }
             var pts = path(a);
             drawBody(pts, now);
             drawHead(pts, now, rm);
@@ -734,10 +835,11 @@
             ctx.stroke();
         }
 
-        // One solid tube in the flippers' blue. After a crash it greys from
-        // the neck back to the tail.
+        // One solid tube in the chosen colour, blue (the flippers') by
+        // default. After a crash it greys from the neck back to the tail.
         function drawBody(pts, now) {
             if (pts.length < 2) return;
+            var col = PALETTE[colorIdx].base;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
             ctx.lineWidth = cell * 0.62;
@@ -747,30 +849,89 @@
                 // frame's own timestamp, so the first count can be negative.
                 var per = Math.min(22, 400 / pts.length);
                 var k = Math.max(0, Math.min(end, Math.floor((now - deathAt) / per)));
-                strokePath(pts, k, end, ACCENT);
+                strokePath(pts, k, end, col);
                 strokePath(pts, 0, k, 'rgba(' + paper + ',0.28)');
             } else {
-                strokePath(pts, 0, end, ACCENT);
+                strokePath(pts, 0, end, col);
             }
+        }
+
+        // A black bucket hat seen from the side: a rounded crown with a band,
+        // and a wide brim that slopes down at both ends. w is the brim width;
+        // (cx, cy) is about the middle of the hat; tilt is in radians.
+        function drawHat(cx, cy, w, tilt) {
+            if (w <= 1) return;
+            ctx.save();
+            ctx.translate(cx, cy);
+            if (tilt) ctx.rotate(tilt);
+            // A short crown with a soft dome, not a top hat's tall flat one.
+            var tw = w * 0.25, bw = w * 0.35, top = -w * 0.27, bot = w * 0.1, rr = w * 0.12;
+            var edge = 'rgba(255,255,255,0.32)';
+            ctx.lineJoin = 'round';
+            ctx.lineWidth = Math.max(1, w * 0.035);
+
+            ctx.beginPath();
+            ctx.moveTo(-bw, bot);
+            ctx.lineTo(-tw, top + rr);
+            ctx.quadraticCurveTo(-tw, top, -tw + rr, top);
+            ctx.quadraticCurveTo(0, top - w * 0.05, tw - rr, top);
+            ctx.quadraticCurveTo(tw, top, tw, top + rr);
+            ctx.lineTo(bw, bot);
+            ctx.closePath();
+            ctx.fillStyle = '#141414';
+            ctx.fill();
+            ctx.strokeStyle = edge;
+            ctx.stroke();
+
+            // The band, just above the brim.
+            ctx.beginPath();
+            ctx.moveTo(-bw * 0.97, bot - w * 0.07);
+            ctx.lineTo(bw * 0.97, bot - w * 0.07);
+            ctx.strokeStyle = 'rgba(255,255,255,0.16)';
+            ctx.lineWidth = Math.max(1, w * 0.05);
+            ctx.stroke();
+
+            // The brim droops well down at both ends.
+            ctx.beginPath();
+            ctx.moveTo(-w * 0.5, w * 0.24);
+            ctx.quadraticCurveTo(0, -w * 0.04, w * 0.5, w * 0.24);
+            ctx.lineTo(w * 0.47, w * 0.33);
+            ctx.quadraticCurveTo(0, w * 0.1, -w * 0.47, w * 0.33);
+            ctx.closePath();
+            ctx.fillStyle = '#1b1b1b';
+            ctx.fill();
+            ctx.strokeStyle = edge;
+            ctx.lineWidth = Math.max(1, w * 0.035);
+            ctx.stroke();
+
+            // Stitching round the brim.
+            ctx.beginPath();
+            ctx.moveTo(-w * 0.43, w * 0.26);
+            ctx.quadraticCurveTo(0, w * 0.04, w * 0.43, w * 0.26);
+            ctx.strokeStyle = 'rgba(255,255,255,0.14)';
+            ctx.lineWidth = Math.max(0.75, w * 0.02);
+            ctx.stroke();
+            ctx.restore();
         }
 
         function drawHead(pts, now, rm) {
             if (!pts.length) return;
+            var pal = PALETTE[colorIdx];
             var hp = pts[0], r = cell * 0.40;
             if (phase === 'ready' && !rm) r *= 1 + 0.08 * Math.sin(now / 180);
             ctx.beginPath();
             ctx.arc(hp.x, hp.y, r, 0, TAU);
             if (phase === 'dead') {
-                ctx.fillStyle = ACCENT;
+                ctx.fillStyle = pal.base;
             } else if (now - flashAt < FLASH_MS) {
                 // A bumper hit's flash.
-                ctx.fillStyle = 'rgba(96,165,250,0.8)';
-                ctx.shadowColor = ACCENT;
+                ctx.fillStyle = pal.flash;
+                ctx.shadowColor = pal.base;
                 ctx.shadowBlur = 18 * dpr;
             } else {
                 // The Hire ball's glow.
-                ctx.fillStyle = ACCENT;
-                ctx.shadowColor = 'rgba(59,130,246,0.45)';
+                ctx.fillStyle = pal.base;
+                ctx.shadowColor = pal.glow;
                 ctx.shadowBlur = 14 * dpr;
             }
             ctx.fill();
@@ -800,6 +961,14 @@
                     ctx.fill();
                 }
             }
+
+            // The hat sits upright on top of the head whichever way it is
+            // going, tipped back a little against the direction of travel,
+            // with the eyes just under the brim. It stays on after a crash.
+            if (wearing) {
+                var tilt = fx > 0 ? -0.14 : fx < 0 ? 0.14 : 0;
+                drawHat(hp.x, hp.y - cell * 0.38, cell * 1.05, tilt);
+            }
         }
 
         function drawRings(now) {
@@ -814,6 +983,8 @@
                     ctx.strokeStyle = 'rgba(251,191,36,' + al + ')';
                     ctx.shadowColor = '#f59e0b';
                     ctx.shadowBlur = 26 * dpr;
+                } else if (rg.kind === 'hat') {
+                    ctx.strokeStyle = 'rgba(245,245,245,' + al + ')';
                 } else {
                     ctx.strokeStyle = 'rgba(96,165,250,' + al + ')';
                 }
@@ -962,16 +1133,19 @@
             resume: resume,
             restart: restart,
             render: render,
+            setColor: setColor,
             seed: function (fn) { rng = typeof fn === 'function' ? fn : Math.random; },
             state: function () {
                 return {
                     phase: phase, live: live, shown: shown, score: score, best: best,
                     len: body.length, dir: dir, eaten: eaten, chain: chain, stepMs: stepMs,
+                    color: PALETTE[colorIdx].id, wearing: wearing,
+                    hat: hat ? { x: hat.x, y: hat.y } : null,
                     head: body[0] ? { x: body[0].x, y: body[0].y } : null,
                     body: body.map(function (c) { return { x: c.x, y: c.y }; }),
                     food: food ? { x: food.x, y: food.y, idx: food.idx } : null,
                     bonus: bonus ? { x: bonus.x, y: bonus.y, left: bonus.left } : null,
-                    cols: cols, rows: rows, cell: cell, queue: queue.slice()
+                    cols: cols, rows: rows, cell: cell, origin: { x: gx, y: gy }, queue: queue.slice()
                 };
             }
         };
