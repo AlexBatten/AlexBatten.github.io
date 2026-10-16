@@ -7,8 +7,8 @@
 
 // ── Lab index ──
 // Rendered from posts.js rather than written out here, so the modal list and the
-// /lab page are the same data and cannot drift apart. Articles are English; the
-// Danish modal says so rather than pretending a translation exists.
+// /lab page are the same data and cannot drift apart. Until there are entries the
+// modal shows a single line in its own language.
 const LAB_MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const LAB_MONTHS_DA = ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun.', 'jul.', 'aug.', 'sep.', 'okt.', 'nov.', 'dec.'];
 
@@ -36,7 +36,7 @@ function labHtml(t) {
                 <p>${t.emptyLead}</p>
             </div>`;
 
-    return `<p class="brief-intro">${t.intro}</p>${body}
+    return `${body}
             <p style="margin-top:20px; font-size:0.85rem; opacity:0.7">
                 <a href="/lab/">${t.all}</a>
             </p>`;
@@ -573,10 +573,7 @@ const CONTENT_EN = {
             post: 'Post',
             read: 'min read',
             all: 'All entries',
-            intro: `Unfinished ideas, and things I wish someone had written down before I
-                needed them. Notes are short and about one thing. Posts are longer. Some of
-                it is meant for you to take and build.`,
-            emptyLead: `nothing here yet. turns out the ideas were the easy part.`
+            emptyLead: `nothing here yet.`
         })
     },
 
@@ -1138,11 +1135,7 @@ const CONTENT_DA = {
             post: 'Artikel',
             read: 'min. læsning',
             all: 'Alle indlæg',
-            intro: `Ufærdige idéer og ting, jeg ville ønske nogen havde skrevet ned, før
-                jeg fik brug for dem. Noter er korte og handler om én ting. Artikler er
-                længere. Noget af det må du gerne tage og bygge videre på.
-                Indlæggene er skrevet på engelsk.`,
-            emptyLead: `her er tomt endnu. det viser sig, at idéerne var den nemme del.`
+            emptyLead: `intet her endnu.`
         })
     },
 

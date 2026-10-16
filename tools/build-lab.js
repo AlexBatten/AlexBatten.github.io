@@ -163,12 +163,8 @@ ${JSON.stringify({
 
 <main class="privacy-policy-content">
     <h1>Lab</h1>
-    <p>Unfinished ideas, and things I wish someone had written down before I needed
-    them. Notes are short and about one thing. Posts are longer. Some of it is meant
-    for you to take and build.</p>
-    <p><a href="mailto:alex.batten1234@gmail.com">Tell me I'm wrong</a></p>
 ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty">
-        <p>nothing here yet. turns out the ideas were the easy part.</p>
+        <p>nothing here yet.</p>
     </div>`}
 </main>
 
@@ -176,7 +172,7 @@ ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty"
     <p>&copy; 2026 Alex Batten</p>
 </footer>
 
-<script src="/ascii-bg.js?v=11"></script>
+<script src="/ascii-bg.js?v=12"></script>
 </body>
 </html>
 `;
