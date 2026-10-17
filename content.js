@@ -5,10 +5,71 @@
 // a single place, so a new entry can't be added to one language and forgotten
 // in the other. Shipping both costs a few KB gzipped.
 
+// ── Recommendation marks ──
+// Glyph pictures for the Recommendations modal, in the background's own
+// 0 1 : . set: a quotation mark beside a written post and a check beside
+// endorsed skills. Rasterised once from Roboto Condensed bold; a few digits
+// are picked out in the accent.
+const REC_MARKS = {
+    quote: [
+        '    001:    .110.',
+        '   <span class="ac">0</span>01100  .11000:',
+        '  <span class="ac">1</span>01010. .00011<span class="ac">0</span>',
+        ' :11111:  11100<span class="ac">0</span>.',
+        ' 000100. :0111<span class="ac">0</span>0',
+        ':001001  001<span class="ac">1</span>111',
+        ':101111  1<span class="ac">1</span>11110',
+        ':10111<span class="ac">1</span>  1101110',
+        '.000<span class="ac">1</span>11  :01111:'
+    ].join('\n'),
+    check: [
+        '               ::',
+        '             .111<span class="ac">1</span>',
+        '            :1101:',
+        '           :1001.',
+        ' .:.      01<span class="ac">1</span>00.',
+        '.0001   .0110<span class="ac">1</span>',
+        ' 11010..0110:',
+        '  :0<span class="ac">1</span>011101:',
+        '   .1000<span class="ac">1</span>0.',
+        '     1011.'
+    ].join('\n')
+};
+
+// ── Grade ruler ──
+// A drafting scale under the Education entry (styles.css, "Grade ruler"): the
+// Danish 7-point grades at their true places on a -3..12 axis and a cursor at
+// the GPA. Built here so both languages share it and the fine ticks follow
+// the GPA: whole numbers between the grades, halves everywhere, and tenths
+// only in the unit the GPA falls in. The tenth under the cursor is left out,
+// as the two would merge into one smudged line. readout is the GPA as the
+// page writes it (7.62, or 7,62 in Danish).
+function gradeRuler(gpa, readout) {
+    const at = v => +((v + 3) / 15 * 100).toFixed(3) + '%';
+    const GRADES = [[-3, '<span>&minus;</span>3'], [0, '00'], [2, '02'], [4, '4'], [7, '7'], [10, '10'], [12, '12']];
+    const graded = GRADES.map(g => g[0]);
+    let ticks = '';
+    for (let n = -3; n < 12; n++) {
+        if (graded.indexOf(n) < 0) ticks += `<i style="left:${at(n)}"></i>`;
+        ticks += `<i class="h" style="left:${at(n + 0.5)}"></i>`;
+    }
+    const unit = Math.floor(gpa);
+    for (let k = 1; k < 10; k++) {
+        const v = unit + k / 10;
+        if (k !== 5 && Math.abs(v - gpa) >= 0.05) ticks += `<i class="t" style="left:${at(v)}"></i>`;
+    }
+    const labels = GRADES.map(g => `<b style="left:${at(g[0])}">${g[1]}</b>`).join('');
+    return `<div class="grade-ruler" aria-hidden="true">` +
+        `<div class="gr-scale">${ticks}${labels}</div>` +
+        `<div class="gr-cursor" style="--gr-at:${at(gpa)}"><i style="left:${at(gpa)}"><span>${readout}</span></i></div>` +
+        `</div>`;
+}
+
 // ── Lab index ──
 // Rendered from posts.js rather than written out here, so the modal list and the
 // /lab page are the same data and cannot drift apart. Until there are entries the
-// modal shows a single line in its own language.
+// modal has no visible text: the Lab's picture (fx/lab.js) grows out of the
+// empty-state line, which stays in the markup for screen readers.
 const LAB_MONTHS_EN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 const LAB_MONTHS_DA = ['jan.', 'feb.', 'mar.', 'apr.', 'maj', 'jun.', 'jul.', 'aug.', 'sep.', 'okt.', 'nov.', 'dec.'];
 
@@ -31,12 +92,14 @@ function labHtml(t) {
             </div>`;
     }).join('');
 
-    const body = rows || `
-            <div class="lab-empty">
+    if (!rows) {
+        return `
+            <div class="lab-empty sr-only">
                 <p>${t.emptyLead}</p>
             </div>`;
+    }
 
-    return `${body}
+    return `${rows}
             <p style="margin-top:20px; font-size:0.85rem; opacity:0.7">
                 <a href="/lab/">${t.all}</a>
             </p>`;
@@ -459,7 +522,8 @@ const CONTENT_EN = {
                 </div>
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
                 Bachelor's project: an integration between two ERP systems built from scratch.
-                GPA: 7.62 (Danish 7-point scale).</p>
+                GPA: 7.62 (Danish <span style="white-space:nowrap">7-point</span> scale).</p>
+                ${gradeRuler(7.62, '7.62')}
             </div>
         `
     },
@@ -468,23 +532,26 @@ const CONTENT_EN = {
         number: '06',
         title: 'Recommendations',
         html: `
-            <div class="entry">
-                <div class="entry-header">
-                    <h3>Mike Valencia, CEO at Simple Agency Group</h3>
+            <div class="rec">
+                <pre class="rec-mark" aria-hidden="true">${REC_MARKS.quote}</pre>
+                <div>
+                    <h3>Mike Valencia</h3>
+                    <p class="rec-role">CEO at Simple Agency Group</p>
+                    <p>Wrote about Alex Batten's work at Simple Agency Group.</p>
+                    <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View the post on LinkedIn</a></p>
                 </div>
-                <p>Wrote about Alex Batten's work at Simple Agency Group.</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">View the post on LinkedIn</a></p>
             </div>
 
-            <div class="entry">
-                <div class="entry-header">
+            <div class="rec">
+                <pre class="rec-mark" aria-hidden="true">${REC_MARKS.check}</pre>
+                <div>
                     <h3>Erik Seifert</h3>
-                </div>
-                <p>Endorsed the following skills:</p>
-                <div style="margin-top:8px">
-                    <span class="tag">C#</span>
-                    <span class="tag">.NET Framework</span>
-                    <span class="tag">Entity Framework (EF) Core</span>
+                    <p class="rec-role">Endorsed the following skills</p>
+                    <div class="rec-stamps">
+                        <span class="tag">C#</span>
+                        <span class="tag">.NET Framework</span>
+                        <span class="tag">Entity Framework (EF) Core</span>
+                    </div>
                 </div>
             </div>
         `
@@ -1021,7 +1088,8 @@ const CONTENT_DA = {
                 </div>
                 <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
                 Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
-                Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+                Gennemsnit: 7,62 (dansk <span style="white-space:nowrap">7-trinsskala</span>).</p>
+                ${gradeRuler(7.62, '7,62')}
             </div>
         `
     },
@@ -1030,23 +1098,26 @@ const CONTENT_DA = {
         number: '06',
         title: 'Anbefalinger',
         html: `
-            <div class="entry">
-                <div class="entry-header">
-                    <h3>Mike Valencia, CEO hos Simple Agency Group</h3>
+            <div class="rec">
+                <pre class="rec-mark" aria-hidden="true">${REC_MARKS.quote}</pre>
+                <div>
+                    <h3>Mike Valencia</h3>
+                    <p class="rec-role">CEO hos Simple Agency Group</p>
+                    <p>Har skrevet om Alex Battens arbejde hos Simple Agency Group.</p>
+                    <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se opslaget på LinkedIn</a></p>
                 </div>
-                <p>Har skrevet om Alex Battens arbejde hos Simple Agency Group.</p>
-                <p style="margin-top:8px"><a href="https://www.linkedin.com/posts/mike-valencia-8858352a_development-software-integrations-activity-7196790268858138624-zarE" target="_blank" rel="noopener">Se opslaget på LinkedIn</a></p>
             </div>
 
-            <div class="entry">
-                <div class="entry-header">
+            <div class="rec">
+                <pre class="rec-mark" aria-hidden="true">${REC_MARKS.check}</pre>
+                <div>
                     <h3>Erik Seifert</h3>
-                </div>
-                <p>Har bekræftet følgende kompetencer:</p>
-                <div style="margin-top:8px">
-                    <span class="tag">C#</span>
-                    <span class="tag">.NET Framework</span>
-                    <span class="tag">Entity Framework (EF) Core</span>
+                    <p class="rec-role">Har bekræftet følgende kompetencer</p>
+                    <div class="rec-stamps">
+                        <span class="tag">C#</span>
+                        <span class="tag">.NET Framework</span>
+                        <span class="tag">Entity Framework (EF) Core</span>
+                    </div>
                 </div>
             </div>
         `

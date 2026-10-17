@@ -143,7 +143,9 @@
     fetch('/audio/ballsound.mp3')
         .then(r => r.arrayBuffer())
         .then(buf => bounceCtx.decodeAudioData(buf))
-        .then(decoded => { bounceBuffer = decoded; });
+        .then(decoded => { bounceBuffer = decoded; })
+        // Without the sample the balls just bounce silently.
+        .catch(() => {});
 
     function playBounce(speed) {
         if (!bounceBuffer || speed < 1.5) return;
@@ -389,17 +391,47 @@
     }
 
     // ── Modal ──
+    // While a modal is open the page behind it is frozen: the ascii background
+    // and the physics stop, so the overlay's blur isn't redone every frame and
+    // the modal's own visual has the frame to itself. modalPaused keeps a
+    // repeated open from pausing twice. runnerWasEnabled holds the runner's
+    // state at open, so closing never restarts a runner that something else
+    // (a parked pinball table) had stopped.
+    let modalPaused = false;
+    let runnerWasEnabled = true;
+
     function openModal(id) {
         const data = CONTENT[id];
         if (!data) return;
         modalContent.innerHTML = `<h2><span class="modal-number">${data.number}</span> ${data.title}</h2>${data.html}`;
+        // Each modal opens at its top, where its picture is, rather than at
+        // the scroll offset the previous one was left at.
+        modal.scrollTop = 0;
         overlay.classList.add('active');
         document.body.style.overflow = 'hidden';
+        if (window.MODAL_FX) window.MODAL_FX.open(id);
+        // A tap opens the modal from touchend, but Matter only releases the
+        // grabbed ball on its next update, which the paused runner won't run
+        // until close. Dropping the pending click keeps that late release
+        // from reading as a second click and opening the modal again.
+        mouseDownPos = null;
+        if (!modalPaused) {
+            modalPaused = true;
+            if (window.ASCII_BG) window.ASCII_BG.pause();
+            runnerWasEnabled = runner.enabled;
+            runner.enabled = false;
+        }
     }
 
     function closeModal() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
+        if (window.MODAL_FX) window.MODAL_FX.close();
+        if (modalPaused) {
+            modalPaused = false;
+            if (window.ASCII_BG) window.ASCII_BG.resume();
+            if (runnerWasEnabled) runner.enabled = true;
+        }
     }
 
     modalClose.addEventListener('click', closeModal);

@@ -14,6 +14,7 @@
     var FRAME_INTERVAL = 30;
     var T_PER_MS = 0.18 / 1000;
     var width, height, textMask, edgeDist, animId, startTime, lastRender;
+    var paused = false, pausedAt = 0;
 
     // ── Build boolean mask via offscreen canvas ──
     function buildTextMask() {
@@ -216,6 +217,7 @@
     }
 
     function frame(now) {
+        if (paused) { animId = null; return; }
         animId = requestAnimationFrame(frame);
         if (now - lastRender < FRAME_INTERVAL) return;
         lastRender = now;
@@ -343,12 +345,12 @@
     function start() {
         try {
             init();
-            animId = requestAnimationFrame(frame);
+            if (!paused) animId = requestAnimationFrame(frame);
         } catch (e) {
             // Retry after a short delay if sizing failed at load
             setTimeout(function () {
                 init();
-                animId = requestAnimationFrame(frame);
+                if (!paused) animId = requestAnimationFrame(frame);
             }, 500);
         }
     }
@@ -363,4 +365,24 @@
             start();
         }, 250);
     });
+
+    // ── Pause ──
+    // physics.js stops the background while a modal covers it. The clock moves
+    // on by the time spent paused, so the pattern picks up where it stopped
+    // instead of jumping ahead.
+    window.ASCII_BG = {
+        pause: function () {
+            if (paused) return;
+            paused = true;
+            pausedAt = performance.now();
+            if (animId) { cancelAnimationFrame(animId); animId = null; }
+        },
+        resume: function () {
+            if (!paused) return;
+            paused = false;
+            if (startTime !== undefined) startTime += performance.now() - pausedAt;
+            lastRender = 0;
+            if (!animId) animId = requestAnimationFrame(frame);
+        }
+    };
 })();

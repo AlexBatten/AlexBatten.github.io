@@ -97,7 +97,7 @@ const indexHtml = `<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/styles.css?v=20">
+    <link rel="stylesheet" href="/styles.css?v=23">
     <link rel="stylesheet" href="/privacypolicy.css?v=5">
 
     <script type="application/ld+json">
@@ -172,7 +172,7 @@ ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty"
     <p>&copy; 2026 Alex Batten</p>
 </footer>
 
-<script src="/ascii-bg.js?v=12"></script>
+<script src="/ascii-bg.js?v=13"></script>
 </body>
 </html>
 `;

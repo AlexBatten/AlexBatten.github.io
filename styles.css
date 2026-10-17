@@ -628,6 +628,304 @@ body {
     gap: 8px;
 }
 
+/* ── Recommendations ──
+   Each recommendation is a glyph mark beside its text: a quotation mark for a
+   written post, a check for endorsed skills. As the card opens the marks
+   decode and write themselves in (fx/recommendations.js), then the endorsed
+   skills, stamps rather than chips, press in one after another. The stamps'
+   double rule is a border plus an inset ring with a card-coloured gap, so it
+   reads in either theme. */
+/* The mark column has a fixed width, so both entries' text starts at the
+   same x whatever the width of their mark. */
+.modal-content .rec {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 0 22px;
+    align-items: start;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(var(--paper-rgb), 0.1);
+}
+
+.modal-content .rec:last-child {
+    border-bottom: none;
+}
+
+.modal-content .rec h3 {
+    margin: 0;
+}
+
+.modal-content .rec-role {
+    font-size: 0.8rem;
+    color: rgba(var(--paper-rgb), 0.5);
+    margin: 2px 0 8px;
+}
+
+.rec-mark {
+    margin: 2px 0 0;
+    font: 700 9px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.06em;
+    white-space: pre;
+    color: rgba(var(--paper-rgb), 0.5);
+    user-select: none;
+    justify-self: center;
+    animation: recMark 0.5s ease 0.15s both;
+}
+
+.rec-mark .ac {
+    color: var(--accent-on-card);
+}
+
+.rec-stamps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 2px 0 4px;
+}
+
+.modal-content .rec-stamps .tag {
+    --tilt: -2deg;
+    margin: 0;
+    padding: 5px 11px;
+    background: none;
+    border: 1.5px solid currentColor;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 2px var(--card), inset 0 0 0 3px currentColor;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transform: rotate(var(--tilt));
+    animation: recStamp 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) 1.15s both;
+}
+
+.modal-content .rec-stamps .tag:nth-child(2) {
+    --tilt: 1.5deg;
+    animation-delay: 1.32s;
+}
+
+.modal-content .rec-stamps .tag:nth-child(3) {
+    --tilt: -1deg;
+    animation-delay: 1.49s;
+}
+
+@keyframes recMark {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: none; }
+}
+
+@keyframes recStamp {
+    0%   { opacity: 0;    transform: rotate(var(--tilt)) scale(1.35); }
+    70%  { opacity: 0.95; transform: rotate(var(--tilt)) scale(0.97); }
+    100% { opacity: 0.9;  transform: rotate(var(--tilt)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rec-mark,
+    .modal-content .rec-stamps .tag {
+        animation: none;
+    }
+}
+
+/* ── Grade ruler ──
+   A drafting scale under the Education entry, built by gradeRuler() in
+   content.js: the Danish 7-point grades at their true positions on a -3..12
+   axis, x = (grade + 3) / 15, and a hairline cursor at the GPA. Decoration
+   only (aria-hidden); the sentence above it is the accessible text. Every
+   line is a 1px border on a zero-width box placed by left %. Browsers round a
+   border down to whole device pixels, so the marks keep one weight at 125% or
+   150% display scaling, where 1px-wide backgrounds come out 1 or 2 device
+   pixels wide. Borders also stay visible in forced colours (high contrast),
+   which drops background colours.
+
+   As it comes into view the scale is drawn left to right, the cursor slides
+   in from -3 and settles, then the readout and the fine tenths around it fade
+   in. Every animation is transform or opacity, so it stays smooth while the
+   path tracer above keeps the main thread busy. fx/education.js holds the
+   animations paused on their first frame (.gr-hold) until the ruler is
+   scrolled into view; without that script they play as the card opens. */
+.modal-content .grade-ruler {
+    --gr-inset: 12px;
+    position: relative;
+    height: 45px;
+    margin: 18px 0 2px;
+    /* Clips the cursor's slide and the cover, which both move outside. */
+    overflow: hidden;
+    font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* The edge runs the full column; the graduations sit inset from its ends so
+   the end labels can centre on their ticks. */
+.modal-content .grade-ruler::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 18px;
+    height: 0;
+    border-top: 1px solid rgba(var(--paper-rgb), 0.3);
+}
+
+/* Drawing the scale: a card-coloured cover over the edge and graduations
+   slides off to the right like a pen stroke. At rest it sits outside the
+   ruler, clipped away. */
+.modal-content .grade-ruler::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 18px;
+    bottom: 0;
+    background: var(--card);
+    transform: translateX(100%);
+    animation: grDraw 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.15s backwards;
+}
+
+.modal-content .gr-scale {
+    position: absolute;
+    left: var(--gr-inset);
+    right: var(--gr-inset);
+    top: 18px;
+    bottom: 0;
+}
+
+/* Four weights of graduation: grades (drawn by the labels), whole numbers,
+   halves, and tenths in the unit the cursor sits in. */
+.modal-content .gr-scale > i,
+.modal-content .gr-scale b::before {
+    position: absolute;
+    top: 0;
+    width: 0;
+    height: 5px;
+    border-left: 1px solid rgba(var(--paper-rgb), 0.3);
+}
+
+.modal-content .gr-scale > i.h {
+    height: 3px;
+    border-left-color: rgba(var(--paper-rgb), 0.2);
+}
+
+.modal-content .gr-scale > i.t {
+    height: 2px;
+    border-left-color: rgba(var(--paper-rgb), 0.2);
+    animation: grFade 0.35s ease 1.15s backwards;
+}
+
+/* A 1px-wide flex box centres its label on the tick drawn by ::before. */
+.modal-content .gr-scale b {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    display: flex;
+    justify-content: center;
+    padding-top: 14px;
+    font: 400 11px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    color: rgba(var(--paper-rgb), 0.6);
+    animation: grFade 0.4s ease 0.35s backwards;
+}
+
+.modal-content .gr-scale b::before {
+    content: '';
+    left: 0;
+    height: 9px;
+    border-left-color: rgba(var(--paper-rgb), 0.5);
+}
+
+/* The minus hangs left of the numeral, so -3 centres on its digit like the
+   other labels. */
+.modal-content .gr-scale b span {
+    display: flex;
+    justify-content: flex-end;
+    width: 0;
+}
+
+/* The cursor layer spans the scale, so translating it back by --gr-at (the
+   GPA's place, as a share of the scale) carries the hairline to -3. At rest
+   it has no transform and the hairline is pixel-snapped like the ticks. */
+.modal-content .gr-cursor {
+    position: absolute;
+    z-index: 2;
+    left: var(--gr-inset);
+    right: var(--gr-inset);
+    top: 0;
+    bottom: 0;
+    animation: grSlide 1s cubic-bezier(0.45, 0, 0.1, 1) 0.4s backwards;
+}
+
+.modal-content .gr-cursor i {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+.modal-content .gr-cursor i::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 15px;
+    width: 0;
+    height: 15px;
+    border-left: 1px solid var(--accent-on-card);
+}
+
+.modal-content .gr-cursor span {
+    position: absolute;
+    top: 0;
+    left: 0.5px;
+    transform: translateX(-50%);
+    font: 500 12px/1 var(--mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--accent-on-card);
+    animation: grFade 0.35s ease 1.15s backwards;
+}
+
+/* Paused before it starts, each animation shows its first frame (the fill
+   is backwards), so the ruler waits undrawn. The tenths are named on their
+   own: their rule above outranks the universal selector, and its animation
+   shorthand would set them running again. */
+.modal-content .grade-ruler.gr-hold::after,
+.modal-content .grade-ruler.gr-hold *,
+.modal-content .grade-ruler.gr-hold .gr-scale > i.t {
+    animation-play-state: paused;
+}
+
+@keyframes grDraw {
+    from { transform: none; }
+}
+
+@keyframes grSlide {
+    from { transform: translateX(calc(var(--gr-at) * -1)); opacity: 0; }
+    15%  { opacity: 1; }
+}
+
+@keyframes grFade {
+    from { opacity: 0; }
+}
+
+/* Tenths are under 2px apart on a phone, too fine to read as ticks. */
+@media (max-width: 600px) {
+    .modal-content .gr-scale > i.t {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .modal-content .grade-ruler::after,
+    .modal-content .gr-scale > i.t,
+    .modal-content .gr-scale b,
+    .modal-content .gr-cursor,
+    .modal-content .gr-cursor span {
+        animation: none;
+    }
+}
+
 .modal-content .entry-date {
     font-size: 0.75rem;
     color: rgba(var(--paper-rgb), 0.4);
@@ -951,6 +1249,27 @@ footer {
     .brief-row {
         grid-template-columns: 1fr;
     }
+    .rec-mark {
+        font-size: 7px;
+    }
+    .modal-content .rec {
+        grid-template-columns: 86px 1fr;
+        gap: 0 14px;
+    }
+}
+
+/* Visually hidden, still read by screen readers: text a decorative picture
+   stands in for, such as the empty Lab's line. */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+    border: 0;
 }
 
 /* ── Off-screen CV content ──
