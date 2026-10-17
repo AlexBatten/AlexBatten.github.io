@@ -106,7 +106,8 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         el.className = 'brief-status' + (type ? ' ' + type : '');
     }
 
-    // Swap the whole form out for a confirmation once it's sent.
+    // Swap the whole form out for a confirmation once it's sent, and tell
+    // the playground, which drops a ball for it (physics.js, "Sent ball").
     function showSuccess(form) {
         form.innerHTML =
             '<div class="brief-success">' +
@@ -114,5 +115,6 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
                 '<h3>' + T.successTitle + '</h3>' +
                 '<p>' + T.successBody + '</p>' +
             '</div>';
+        document.dispatchEvent(new CustomEvent('brief:sent'));
     }
 })();

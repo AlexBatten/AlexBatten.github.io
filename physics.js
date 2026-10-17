@@ -260,6 +260,20 @@
         origMouseMove(e);
     });
 
+    // ── Hit test ──
+    // The ball under a point: the one whose disc holds it, else the one whose
+    // edge is nearest, if that is within slop px. Taking the first ball within
+    // slop instead would let a big ball's margin swallow a tap aimed at the
+    // small sent ball beside it.
+    function pairAt(x, y, slop) {
+        let best = null, bestGap = Infinity;
+        for (const p of pairs) {
+            const gap = Math.hypot(p.body.position.x - x, p.body.position.y - y) - p.body.circleRadius;
+            if (gap < bestGap) { bestGap = gap; best = p; }
+        }
+        return bestGap < slop ? best : null;
+    }
+
     // ── Touch support ──
     let touchStartPos = null;
     let touchStartTime = 0;
@@ -275,16 +289,8 @@
             const y = e.touches[0].clientY - rect.top;
             touchStartPos = { x, y };
             touchStartTime = Date.now();
-            touchedPair = null;
-            for (const p of pairs) {
-                const dx = p.body.position.x - x;
-                const dy = p.body.position.y - y;
-                if (Math.sqrt(dx * dx + dy * dy) < r + 10) {
-                    touchedPair = p;
-                    e.preventDefault();
-                    break;
-                }
-            }
+            touchedPair = pairAt(x, y, 10);
+            if (touchedPair) e.preventDefault();
         }
     }, { passive: false });
 
@@ -331,15 +337,7 @@
             return;
         }
         const pos = mouse.position;
-        let found = null;
-        for (const p of pairs) {
-            const dx = p.body.position.x - pos.x;
-            const dy = p.body.position.y - pos.y;
-            if (Math.sqrt(dx * dx + dy * dy) < r + 5) {
-                found = p;
-                break;
-            }
-        }
+        const found = pairAt(pos.x, pos.y, 5);
         if (hoveredBody !== found) {
             if (hoveredBody) hoveredBody.el.classList.remove('hovered');
             hoveredBody = found;
@@ -434,6 +432,59 @@
         }
     }
 
+    // ── Sent ball ──
+    // A project request sent from the Hire form (freelance.js announces it
+    // with a 'brief:sent' event) drops a small Hire-blue ball with a check
+    // mark into the playground as the card closes. It joins pairs, so it can
+    // be thrown like the others, a tap opens a short confirmation
+    // (CONTENT.sent), and pinball scoops it up with the rest. Nothing is
+    // stored: it is gone on the next page load.
+    //
+    // A ball can't drop while a card is open, or while pinball has the
+    // playground: it would land outside the game, under the table, which only
+    // takes in the balls there when a game starts. It waits (sentWaiting) and
+    // render() drops it on the first frame the playground is free again.
+    const SENT_SCALE = 0.6;     // of a ball's radius
+    const SENT_MAX = 3;         // repeated sends stop adding balls here
+    let sentWaiting = 0;
+    let sentDropped = 0;
+
+    function dropSentBall() {
+        if (sentDropped >= SENT_MAX) return;
+        sentDropped++;
+        const el = document.createElement('div');
+        el.className = 'ball ball-cta ball-sent';
+        el.dataset.id = 'sent';
+        el.setAttribute('aria-hidden', 'true');
+        el.innerHTML = '<svg class="ball-sent-glyph" viewBox="0 0 24 24"><path d="M5.5 12.5l4.25 4.25L18.5 8"/></svg>';
+        playground.appendChild(el);
+        const rs = getRadius() * SENT_SCALE;
+        const body = Bodies.circle(W * 0.3 + Math.random() * W * 0.4, rs + 2, rs, {
+            restitution: 0.6,
+            friction: 0.15,
+            frictionAir: 0.015,
+            density: 0.003,
+            label: 'sent'
+        });
+        Body.setVelocity(body, { x: (Math.random() - 0.5) * 4, y: 2 });
+        Composite.add(engine.world, body);
+        ballBodyIds.add(body.id);
+        pairs.push({ body, el, scale: SENT_SCALE });
+        // A frame at opacity 0 first, so the fade-in runs.
+        requestAnimationFrame(function () { el.classList.add('visible'); });
+    }
+
+    function playgroundFree() {
+        return !overlay.classList.contains('active') && !window.PINBALL_ACTIVE;
+    }
+
+    // The request usually succeeds while its card is open, so the ball waits
+    // for the close; one that finishes after the card was closed drops now.
+    document.addEventListener('brief:sent', function () {
+        if (playgroundFree()) dropSentBall();
+        else sentWaiting++;
+    });
+
     modalClose.addEventListener('click', closeModal);
     overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeModal();
@@ -500,8 +551,14 @@
     });
 
     function render() {
-        const r = ballR;
-        for (const { body, el } of pairs) {
+        while (sentWaiting > 0 && playgroundFree()) {
+            sentWaiting--;
+            dropSentBall();
+        }
+        for (const { body, el, scale } of pairs) {
+            // A smaller ball (the sent ball) is placed and kept in bounds at
+            // its own size.
+            const r = scale ? ballR * scale : ballR;
             let bx = body.position.x;
             let by = body.position.y;
 
@@ -549,7 +606,8 @@
         Body.setPosition(rightWall, { x: W + WALL / 2, y: H / 2 });
 
         // Clamp balls inside bounds
-        for (const { body } of pairs) {
+        for (const { body, scale } of pairs) {
+            const r = scale ? getRadius() * scale : getRadius();
             const pos = body.position;
             let nx = pos.x, ny = pos.y;
             if (nx < r) nx = r;

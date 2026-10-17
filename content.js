@@ -644,6 +644,18 @@ const CONTENT_EN = {
         })
     },
 
+    // Opened by the ball physics.js ("Sent ball") drops into the playground
+    // once a project request is sent. Unlike 01 to 08, it has no ball in the
+    // page markup.
+    sent: {
+        number: '&#10003;',
+        title: 'Request sent',
+        html: `
+            <p>Thanks for reaching out. I'll get back to you within a couple of days.</p>
+            <p style="margin-top:12px">The ball with the check mark is yours to throw around until you leave the page.</p>
+        `
+    },
+
     contact: {
         title: 'Get in Touch',
         html: `
@@ -1208,6 +1220,15 @@ const CONTENT_DA = {
             all: 'Alle indlæg',
             emptyLead: `intet her endnu.`
         })
+    },
+
+    sent: {
+        number: '&#10003;',
+        title: 'Forespørgsel sendt',
+        html: `
+            <p>Tak fordi du skrev. Jeg vender tilbage inden for et par dage.</p>
+            <p style="margin-top:12px">Bolden med fluebenet er din at kaste rundt med, til du forlader siden.</p>
+        `
     },
 
     contact: {

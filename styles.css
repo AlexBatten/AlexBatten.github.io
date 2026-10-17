@@ -246,6 +246,24 @@ body {
     box-shadow: 0 0 26px rgba(59, 130, 246, 0.6);
 }
 
+/* ── Sent ball ── a small Hire-blue ball with a check mark, dropped into the
+   playground once a project request has been sent (physics.js, "Sent
+   ball"). Its size is SENT_SCALE (0.6) of a ball's. */
+.ball.ball-sent {
+    width: 48px;
+    height: 48px;
+}
+
+.ball-sent-glyph {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 2.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 /* ── Live-chat ball — green and pulsing, so it reads as "someone is there
       right now" and stays distinct from the blue Hire CTA ── */
 .ball.ball-chat {
@@ -1242,6 +1260,14 @@ footer {
     .ball-chat-glyph {
         width: 21px;
         height: 21px;
+    }
+    .ball.ball-sent {
+        width: 39px;
+        height: 39px;
+    }
+    .ball-sent-glyph {
+        width: 18px;
+        height: 18px;
     }
     .modal {
         padding: 28px 24px;

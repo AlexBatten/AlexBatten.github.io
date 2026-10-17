@@ -15,7 +15,8 @@
 // texture (ping-ponged between two, as a pass can't read what it writes), or
 // show that average tone-mapped on the canvas. With reduced motion the
 // samples are gathered out of sight and the finished picture appears whole.
-// Without WebGL2, a float render target or a working shader the stage folds.
+// Without WebGL2, a float render target or a working shader, the stage shows
+// a still of the finished render instead (images/cornell-box-*.jpg).
 
 (function () {
     'use strict';
@@ -38,6 +39,14 @@
     // How far the light's centre may go from the middle of the ceiling: its
     // half size (0.26 by 0.2, in the shader) plus a margin short of the walls.
     var LIGHT_MAX = [0.70, 0.76];
+
+    // The still shown where the tracer can't run: the finished desktop render
+    // (CAP samples, the light in the middle of the ceiling) in each theme,
+    // since the grey and blue spheres follow the card and accent colours.
+    var STILL = { light: '/images/cornell-box-light.jpg', dark: '/images/cornell-box-dark.jpg' };
+    // Set once the tracer has failed in this page, so later opens go straight
+    // to the still rather than asking for a context that won't come.
+    var noTracer = false;
 
     var TEXT = {
         en: {
@@ -323,6 +332,7 @@
         var count = 0, seed = 1, restart = true, hidden = reduced, fast = reduced, shown = false;
         var light = [0, 0];
         var drag = null, tap = null, lastCount = -1;
+        var still = null;
 
         // ── DOM ──
         var wrap = document.createElement('div');
@@ -348,6 +358,7 @@
         function paintChrome() {
             var c = api.colors();
             canvas.style.outline = '1px solid rgba(' + c.paper + ',0.3)';
+            if (still) still.style.outline = canvas.style.outline;
             counter.style.color = 'rgba(' + c.paper + ',0.6)';
             hint.style.color = 'rgba(' + c.paper + ',0.4)';
         }
@@ -367,6 +378,7 @@
             size = Math.max(64, Math.min(H - 2 * PAD - GAP - CAPTION_H, W - 2 * PAD));
             canvas.style.width = size + 'px';
             canvas.style.height = size + 'px';
+            if (still) still.style.width = still.style.height = size + 'px';
             var scale = api.narrow() ? 1 : Math.min(window.devicePixelRatio || 1, 2);
             var r = Math.max(32, Math.round(size * scale));
             if (r === res) return false;
@@ -564,9 +576,38 @@
         function fail() {
             if (failed) return;
             failed = true;
+            noTracer = true;
             stop();
             release();
-            api.fail();
+            showStill();
+        }
+
+        // ── Still ──
+        // The finished render as a picture, in the same frame and size as the
+        // canvas, with the caption giving its sample count. Nothing can be
+        // dragged, so the hint goes. If the picture won't load either, the
+        // stage folds.
+        function showStill() {
+            still = document.createElement('img');
+            still.alt = '';
+            still.draggable = false;
+            still.style.cssText = 'display:block;flex:none;outline-offset:3px';
+            still.onload = function () { if (!dead) api.ready(); };
+            still.onerror = function () { if (!dead) api.fail(); };
+            canvas.style.display = 'none';
+            wrap.insertBefore(still, canvas);
+            hint.style.display = 'none';
+            count = CAP;
+            writeCount();
+            layout();
+            paintChrome();
+            stillSource();
+        }
+
+        function stillSource() {
+            var dark = api.colors().paper.replace(/\s/g, '') === '0,0,0';
+            var src = dark ? STILL.dark : STILL.light;
+            if (still.getAttribute('src') !== src) still.src = src;
         }
 
         // Hand the context back now rather than at garbage collection:
@@ -651,6 +692,12 @@
             e.preventDefault();
             lost = true;
             stop();
+            // Its objects went with it; a later freeGL() must not delete them
+            // through the restored context.
+            tex = [];
+            fbo = [];
+            prog = null;
+            u = null;
         }
         function onRestored() {
             if (dead) return;
@@ -667,13 +714,15 @@
         paintChrome();
         layout();
         writeCount();
-        try {
-            gl = canvas.getContext('webgl2', {
-                alpha: false, antialias: false, depth: false, stencil: false,
-                premultipliedAlpha: false, preserveDrawingBuffer: true, powerPreference: 'low-power'
-            });
-        } catch (err) {
-            gl = null;
+        if (!noTracer) {
+            try {
+                gl = canvas.getContext('webgl2', {
+                    alpha: false, antialias: false, depth: false, stencil: false,
+                    premultipliedAlpha: false, preserveDrawingBuffer: true, powerPreference: 'low-power'
+                });
+            } catch (err) {
+                gl = null;
+            }
         }
         if (!gl || !initGL()) {
             fail();
@@ -686,7 +735,9 @@
         var resizeObs = null;
         if (window.ResizeObserver) {
             resizeObs = new ResizeObserver(function () {
-                if (dead || failed || !gl || lost) return;
+                if (dead) return;
+                if (still) { layout(); return; }
+                if (failed || !gl || lost) return;
                 if (!layout()) return;
                 makeTargets();
                 restart = true;
@@ -706,6 +757,7 @@
             // the picture is traced again, out of sight, and swapped in whole.
             theme: function () {
                 paintChrome();
+                if (still) stillSource();
                 if (!gl || failed || lost) return;
                 applyColors();
                 if (!pending) {
