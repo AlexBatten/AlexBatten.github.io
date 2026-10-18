@@ -671,8 +671,12 @@
         }
     }
 
-    // ── Expose for the pinball and snake modules ──
-    window.PLAYGROUND = { engine, pairs, canvas, ctx, mouseConstraint, runner, playBounce, getSize: function () { return { W: W, H: H }; } };
+    // ── Expose the playground to the stage and easter-egg modules ──
+    window.PLAYGROUND = {
+        engine, pairs, canvas, ctx, mouseConstraint, runner, playBounce,
+        walls: { floor, ceiling, leftWall, rightWall },
+        getSize: function () { return { W: W, H: H }; }
+    };
 })();
 
 // ── Console easter egg ──

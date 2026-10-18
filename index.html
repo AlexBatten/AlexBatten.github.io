@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=24">
+    <link rel="stylesheet" href="styles.css?v=25">
     <!-- Fetched from the start, but run at the end of <body> before physics.js. -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js" as="script">
 
@@ -462,6 +462,14 @@
                     <span class="hint-symbol">&#9742;&#xFE0E;</span>
                     <p>on a small screen, the world bends to your hand. try shifting your perspective, literally.</p>
                 </div>
+                <div class="hint-item">
+                    <span class="hint-symbol">&#8593;</span>
+                    <p>the sky is only a ceiling. throw hard enough, often enough, and something gives.</p>
+                </div>
+                <div class="hint-item">
+                    <span class="hint-symbol">&#969;</span>
+                    <p>dangle something just above the floor and wait. no tom can leave it alone for long.</p>
+                </div>
             </div>
             <p class="hints-footer">some things are best discovered by accident.</p>
         </div>
@@ -546,8 +554,10 @@
     <!-- Matter is only needed from physics.js on. As a plain script in
          <head> it would hold up the first paint. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
-    <script src="physics.js?v=19"></script>
+    <script src="physics.js?v=20"></script>
     <script src="pinball.js?v=13"></script>
+    <script src="rain.js?v=3"></script>
+    <script src="tomas.js?v=2"></script>
     <script src="snake.js?v=3"></script>
     <script src="chess-engine.js?v=1"></script>
     <script src="chess.js?v=1"></script>
