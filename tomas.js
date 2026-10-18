@@ -3,12 +3,13 @@
 // balls piled on it, still or gently swaying, and after a second Tomas's ears
 // and eyes peek up at the nearer edge of the screen. Keep it there and he
 // comes in, sits, watches it, wiggles and swats it, and the second swat
-// knocks it out of your hand. Then he grooms and walks off. Let go before
-// that and he pats the ball where it lies; lift it out of his reach and he
-// leaps, misses and leaves. The hints panel's riddle is "dangle something
+// knocks it out of your hand. Then he grooms, flops over and rolls on his
+// back for a moment, and walks off. Let go before that and he pats the ball
+// where it lies; lift it out of his reach and he leaps, misses and leaves. The hints panel's riddle is "dangle something
 // just above the floor and wait".
 //
-// He is pixel art made of the background's glyphs, on a canvas of his own
+// He is pixel art made of the background's glyphs, in his own brown tabby
+// colours, on a canvas of his own
 // over the balls (the physics canvas above still takes the pointer). He
 // walks on whatever is under him, the floor or the tops of the balls piled
 // there, so he always has the plain background around him. He is not a
@@ -290,22 +291,104 @@
                 ' dd  bdlldldlllllbwww   ddbb            ',
                 ' bldbddbldldlllll  bl     www           ',
                 '  dlldllbdlllllllbwllb     wwww         '
+            ],
+            lie: [
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                            d     d     ',
+                '       bbbbbbddbbdbbdbbb   bnb   bnb    ',
+                '      blldllllbddlldlldlb  bldldlldb    ',
+                '     blddlldlllllbdlldllbbbldeelleedb   ',
+                ' d   bldldllddlllbwwwwwwwwbldlbwnwwlb   ',
+                ' dd  bdlldldllllbwwwwwwwwwwbdlwwwwwww   ',
+                ' bldbddbldldlllbllbww bdllllbblwwwwwll  ',
+                '  dlldllbdllllllllbww  blldllllllwwww   '
+            ],
+            roll: [
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '            bww      bwwb               ',
+                '            bllb ll bllwwb              ',
+                '            bdl  dd bdl                 ',
+                '           bllb  dd bll                 ',
+                '       bbbbbdllldddbdl                  ',
+                '      blldllllbddlwwwwwww  bwwwwwww     ',
+                '     blddlldlllllbwwwwwwwwbdlwwwwwww    ',
+                ' d   bldldllddlllbwwwwwwwbldlbwnwwlb    ',
+                ' dd  bdlldldllllldllldlllbldeelleedb    ',
+                ' bldbddbldldlllldlldlldbdnbldldlldbnd   ',
+                '  dlldllbdllllllllbwww    bbldlldbb     '
+            ],
+            back1: [
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '    ll   bww                            ',
+                '    dd   bllb          bwwb             ',
+                '     dd   bdl      ll bllwwb            ',
+                '     dd    bll     ddbdl                ',
+                '      dd  bdllb    ddbll                ',
+                '       dbllldb     ddbdl                ',
+                '       bldllllwwwwwwwbll                ',
+                '      bdlldllwwwwwwwwwwwww bwwwwwww     ',
+                '     bldlllbwwwwwwwwwwwwwwbdlwwwwwww    ',
+                '     bdlldllwwwwwwwwwwwwwbldlbwnwwlb    ',
+                ' dd  bdlldllldllldllldllwbldeelleedb    ',
+                'dd   bdlldllldllldllldlldnbldldlldbnd   ',
+                'dbldlbddbdddbdddbdddbdb   bbldlldbb     '
+            ],
+            back2: [
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '                                        ',
+                '           bww        bwwb              ',
+                '      ll   bll    ll bwwlb              ',
+                '      dd   bdl    dd bdl                ',
+                '      dd   bll    dd bll                ',
+                '       dd bdllb    ddbdl                ',
+                '       d blllb     ddbll                ',
+                '        bllldb     ddbdl                ',
+                '       bldllllwwwwwwwbll                ',
+                '      bdlldllwwwwwwwwwwwww bwwwwwww     ',
+                '     bldlllbwwwwwwwwwwwwwwbdlwwwwwww    ',
+                'd    bdlldllwwwwwwwwwwwwwbldlbwnwwlb    ',
+                'dd   bdlldllldllldllldllwbldeelleedb    ',
+                ' dl  bdlldllldllldllldlldnbldldlldbnd   ',
+                '  bdlbddbdddbdddbdddbdb   bbldlldbb     '
             ]
         },
         meta: { swatPaw: [35,0], leapPaw: [38,2], patPaw: [30,17], face: [20,6] }
     };
 
     var FRAME_MS = 125;         // walk cycle, 8 frames a second
-    var PEEK_MS = 1000;         // dangling this long brings his ears up
-    var COME_MS = 3000;         // and this long brings him in
-    var LOST_MS = 400;          // out of the band this long starts the count over
     var SINK_MS = 2000;         // a peek with nothing dangling sinks after this
     var COOLDOWN_MS = 30000;    // after a visit, before he can come again
     var PEEK_COOLDOWN_MS = 3000;  // after a peek that came to nothing
     var SWATS_MAX = 4;          // tries at the ball before he gives up
-    var DANGLE_MIN = 0.2;       // the gap under the ball, in ball radii
-    var DANGLE_MAX = 1.5;
-    var SWAY_MAX = 6;           // faster than this (px per 60Hz step) isn't dangling
+    // What counts as dangling. peek: ms of it that brings his ears up; come:
+    // ms that brings him in; lost: ms out of the band that starts the count
+    // over; min and max: the gap under the ball, in ball radii; sway: px per
+    // 60Hz step, faster than which isn't dangling. A finger hides the ball it
+    // holds and is never quite still, so on a touch screen the band is
+    // wider, a wobble still counts, and he comes sooner.
+    var MOUSE = { peek: 1000, come: 3000, lost: 400, min: 0.2, max: 1.5, sway: 6 };
+    var TOUCH = { peek: 700, come: 2200, lost: 800, min: 0.1, max: 2.5, sway: 10 };
 
     (function wait() {
         if (!window.PLAYGROUND) return setTimeout(wait, 50);
@@ -318,9 +401,11 @@
         var playground = document.getElementById('playground');
         var overlay = document.getElementById('modal-overlay');
         var reducedQuery = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)');
+        var coarseQuery = window.matchMedia && window.matchMedia('(pointer: coarse)');
 
         var held = null;            // the ball being dragged
         var dangle = 0, lost = 0;   // ms in the band, ms out of it
+        var anchorX = 0;            // where the ball was when the count began
         var lastStep = 0;
         var quietUntil = -Infinity; // engine time he may come again
         var cat = null;             // the visit in progress
@@ -330,6 +415,7 @@
         function now() { return engine.timing.timestamp; }
         function velocity(b) { return Body.getVelocity ? Body.getVelocity(b) : b.velocity; }
         function reduced() { return !!(reducedQuery && reducedQuery.matches); }
+        function tuning() { return coarseQuery && coarseQuery.matches ? TOUCH : MOUSE; }
 
         function isPortfolioBall(body) {
             for (var i = 0; i < PG.pairs.length; i++) if (PG.pairs[i].body === body) return true;
@@ -410,16 +496,23 @@
                 lost = 0;
                 return;
             }
-            var gap = gapUnder(held), v = velocity(held);
-            var inBand = gap >= DANGLE_MIN && gap <= DANGLE_MAX && Math.hypot(v.x, v.y) < SWAY_MAX;
+            var T = tuning(), gap = gapUnder(held), v = velocity(held);
+            var inBand = gap >= T.min && gap <= T.max && Math.hypot(v.x, v.y) < T.sway;
+            // Dangling stays near one spot: a ball carried more than two
+            // ball widths from where the count began is being moved about,
+            // not dangled, and the count starts over from there.
+            if (dangle === 0 || Math.abs(held.position.x - anchorX) > held.circleRadius * 4) {
+                dangle = 0;
+                anchorX = held.position.x;
+            }
             if (inBand) {
                 dangle += dt;
                 lost = 0;
             } else {
                 lost += dt;
-                if (lost > LOST_MS) dangle = 0;
+                if (lost > T.lost) dangle = 0;
             }
-            if (!cat && dangle >= PEEK_MS) arrive(held);
+            if (!cat && dangle >= T.peek) arrive(held);
         });
 
         // ── A visit ──
@@ -507,8 +600,8 @@
         function afterSwat() {
             if (cat.knocked) {
                 go([{ kind: 'pose', frame: 'sit', ms: 700 },
-                    { kind: 'groom', ms: reduced() ? 600 : 1800 },
-                    { kind: 'pose', frame: 'sit', ms: 400 }]);
+                    { kind: 'groom', ms: reduced() ? 600 : 1800 }].concat(rollOver(), [
+                    { kind: 'pose', frame: 'sit', ms: 400 }]));
             } else if (cat.letGo) {
                 patBall();
             } else if (cat.tries >= SWATS_MAX) {
@@ -520,6 +613,21 @@
                     { kind: 'wiggle', ms: reduced() ? 0 : 440 },
                     { kind: 'swat' }]);
             }
+        }
+
+        // Pleased with himself, he flops onto his side, rolls onto his back
+        // and wriggles with his paws in the air, then rolls back and sits up.
+        function rollOver() {
+            if (reduced()) {
+                return [{ kind: 'pose', frame: 'lie', ms: 500 },
+                    { kind: 'pose', frame: 'back1', ms: 1200 },
+                    { kind: 'pose', frame: 'lie', ms: 400 }];
+            }
+            return [{ kind: 'pose', frame: 'lie', ms: 550 },
+                { kind: 'pose', frame: 'roll', ms: 200 },
+                { kind: 'wriggle', ms: 1700 },
+                { kind: 'pose', frame: 'roll', ms: 200 },
+                { kind: 'pose', frame: 'lie', ms: 450 }];
         }
 
         function patBall() {
@@ -609,7 +717,7 @@
                     var stillDangling = held === cat.ball && dangle > 0;
                     if (stillDangling) cat.missing = 0;
                     else cat.missing = (cat.missing || 0) + (t - (cat.lastT || t));
-                    if (held === cat.ball && dangle >= COME_MS) { comeIn(); break; }
+                    if (held === cat.ball && dangle >= tuning().come) { comeIn(); break; }
                     if (cat.missing > SINK_MS) {
                         cat.step = { kind: 'sinkaway' };
                         cat.stepStart = t;
@@ -671,6 +779,10 @@
                     break;
                 case 'groom':
                     cat.frame = Math.floor(el / 300) % 2 ? 'groom2' : 'groom1';
+                    if (el >= s.ms) next();
+                    break;
+                case 'wriggle':
+                    cat.frame = Math.floor(el / 180) % 2 ? 'back2' : 'back1';
                     if (el >= s.ms) next();
                     break;
                 case 'swat': swatStep(t, el, c, size); break;
@@ -742,35 +854,39 @@
         }
 
         // ── Drawing ──
-        var LUM = { o: 0.04, d: 0.2, b: 0.45, l: 0.66, w: 0.95 };
+        // He is drawn in his own colours, a brown tabby with white, one set
+        // per theme: on the light page his white fur is a warm light grey so
+        // it still shows, and on the dark page his stripes are lifted a
+        // little so they don't sink into the background. The eyes take the
+        // site's green.
+        var PALETTE = {
+            light: { o: '#2e2219', d: '#4a3727', b: '#8a6b4e', l: '#b2946f', w: '#c9bfb2', n: '#e59aa6' },
+            dark: { o: '#3f3024', d: '#5e4634', b: '#9d7a58', l: '#c6a47c', w: '#efe8de', n: '#f0a7b4' }
+        };
+        // The dark and mid coat are dense glyphs, the light coat lighter
+        // ones, with a little texture from the cell's place in the grid.
+        var GLYPHS = { o: '0', d: '0', b: '01', l: '1:', w: '0', e: '0', n: '0' };
         var cache = {}, cacheKey = '';
 
-        function ramp(v) {
-            if (v >= 0.85) return ['0', 0.92];
-            if (v >= 0.7) return ['0', 0.72];
-            if (v >= 0.5) return ['1', 0.58];
-            if (v >= 0.3) return [':', 0.48];
-            return ['.', 0.34];
+        function glyphFor(k, r, c) {
+            var set = GLYPHS[k];
+            return set.length === 1 ? set : set.charAt((r * 7 + c * 3) % 5 === 0 ? 1 : 0);
         }
 
         // A frame drawn once, per facing, cell size, theme and screen
-        // resolution. Tone becomes glyph density and alpha so he reads as a
-        // positive image in both themes: dark fur is dense in the light
-        // theme, white fur is dense in the dark one. Every cell of him is
-        // backed with the page's own background colour, so the balls behind
-        // him don't show through and he reads as one figure in front of
-        // them.
+        // resolution. Every cell of him is backed with the page's own
+        // background colour, so the balls behind him don't show through and
+        // he reads as one figure in front of them.
         function sprite(name, face, c, dpr) {
-            var theme = root.getAttribute('data-theme') || 'light';
+            var theme = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
             var key = theme + c.w + dpr;
             if (key !== cacheKey) { cache = {}; cacheKey = key; }
             var id = name + face;
             if (cache[id]) return cache[id];
             var cs = getComputedStyle(root);
-            var ink = cs.getPropertyValue('--ink-rgb').trim() || '0, 0, 0';
+            var P = PALETTE[theme];
             var eye = cs.getPropertyValue('--chat').trim() || '#10b981';
-            var bg = cs.getPropertyValue('--bg').trim() || (theme === 'dark' ? '#0d0d0d' : '#f0f0f0');
-            var dark = theme === 'dark';
+            var bg = cs.getPropertyValue('--bg').trim() || (theme === 'dark' ? '#0f0f0f' : '#f0f0f0');
             var rows = F.frames[name], cols = F.cols;
             var cv = document.createElement('canvas');
             cv.width = Math.ceil(cols * c.w * dpr);
@@ -798,17 +914,12 @@
             g.textBaseline = 'middle';
             for (var r = 0; r < rows.length; r++) {
                 for (var col = 0; col < cols; col++) {
-                    var k = rows[r].charAt(face > 0 ? col : cols - 1 - col);
-                    var glyph, style;
-                    if (k === 'e') { glyph = '0'; style = eye; }
-                    else if (k === 'n') { glyph = '0'; style = '#f2a7b5'; }
-                    else if (LUM[k] !== undefined) {
-                        var gl = ramp(dark ? LUM[k] : 1 - LUM[k]);
-                        glyph = gl[0];
-                        style = 'rgba(' + ink + ',' + gl[1] + ')';
-                    } else continue;
+                    var src = face > 0 ? col : cols - 1 - col;
+                    var k = rows[r].charAt(src);
+                    var style = k === 'e' ? eye : P[k];
+                    if (!style) continue;
                     g.fillStyle = style;
-                    g.fillText(glyph, col * c.w + c.w / 2, r * c.h + c.h / 2 + 0.5);
+                    g.fillText(glyphFor(k, r, src), col * c.w + c.w / 2, r * c.h + c.h / 2 + 0.5);
                 }
             }
             return (cache[id] = cv);
