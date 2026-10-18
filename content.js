@@ -110,8 +110,8 @@ const CONTENT_EN = {
         number: '01',
         title: 'About',
         html: `
-            <p>Hi, I'm <strong>Alex</strong>, a software engineer in Denmark with a
-            BEng in Software Technology from DTU. Most of my work is C# and .NET:
+            <p>Hi, I'm <strong>Alex</strong>, an AI engineer in Denmark with a
+            BEng in Software Technology from DTU. My background is C# and .NET:
             backend services, REST APIs, and enterprise integrations.</p>
             <p style="margin-top:12px">Outside work I train and produce music.</p>
         `
@@ -681,8 +681,8 @@ const CONTENT_DA = {
         number: '01',
         title: 'Om mig',
         html: `
-            <p>Hej, jeg hedder <strong>Alex</strong>. Jeg er softwareudvikler i Danmark og
-            diplomingeniør (BEng) i softwareteknologi fra DTU. Det meste af mit arbejde er
+            <p>Hej, jeg hedder <strong>Alex</strong>. Jeg er AI-udvikler i Danmark og
+            diplomingeniør (BEng) i softwareteknologi fra DTU. Min baggrund er
             C# og .NET: backendservices, REST-API'er og virksomhedsintegrationer.</p>
             <p style="margin-top:12px">Uden for arbejdet træner jeg og producerer musik.</p>
         `

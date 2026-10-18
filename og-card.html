@@ -2,7 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Internal scene used only to render the social share card (images/og-image.png). Not linked publicly. -->
+    <!-- Internal scene used only to render the social share card (images/og-image.png). Not linked publicly.
+         Render it at exactly 1200x630 from the repo root with headless Chrome:
+           chrome --headless=new --hide-scrollbars --force-device-scale-factor=1 --window-size=1200,630
+                  --virtual-time-budget=6000 --screenshot=images/og-image.png file:///<repo>/og-card.html
+         The pages reference the image as og-image.png?v=N; bump N on every re-render, because
+         Discord, Slack and LinkedIn cache link previews by image URL. -->
     <meta name="robots" content="noindex, nofollow">
     <title>OG card | Alex Batten</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,8 +116,8 @@
         <div class="og-inner">
             <div class="og-rule"></div>
             <h1 class="og-name">Alex Batten</h1>
-            <div class="og-role">Software Engineer&nbsp;&nbsp;·&nbsp;&nbsp;Denmark</div>
-            <div class="og-desc">Building <b>.NET</b>, Full-Stack &amp; <b>AI</b> Systems</div>
+            <div class="og-role">AI Engineer&nbsp;&nbsp;·&nbsp;&nbsp;Denmark</div>
+            <div class="og-desc">Building <b>AI</b>, <b>.NET</b> &amp; Full-Stack Systems</div>
         </div>
 
         <div class="og-url">alexbatten.dk</div>

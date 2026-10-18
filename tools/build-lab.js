@@ -25,7 +25,7 @@ const POSTS = require(path.join(ROOT, 'posts.js'));
 // generator without changing anything leaves the file byte-identical.
 // sitemap.xml is overwritten from this on every run, so a date edited into the
 // sitemap by hand is lost unless it is also set here.
-const SITE_UPDATED = '2026-10-03';
+const SITE_UPDATED = '2026-10-18';
 
 // Static pages that are not articles. Language pairs carry hreflang alternates.
 const STATIC_PAGES = [
@@ -90,7 +90,7 @@ const indexHtml = `<!DOCTYPE html>
     <meta property="og:title" content="Lab | Alex Batten">
     <meta property="og:description" content="${esc(PAGE_DESCRIPTION)}">
     <meta property="og:url" content="${ORIGIN}/lab/">
-    <meta property="og:image" content="${ORIGIN}/images/og-image.png">
+    <meta property="og:image" content="${ORIGIN}/images/og-image.png?v=2">
 
     <link rel="icon" href="/images/portfolio.png" type="image/png">
     <script src="/theme.js?v=1"></script>
@@ -137,8 +137,8 @@ ${JSON.stringify({
             '@id': ORIGIN + '/#alex-batten',
             name: 'Alex Batten',
             url: ORIGIN + '/',
-            image: ORIGIN + '/images/og-image.png',
-            jobTitle: 'Software Engineer',
+            image: ORIGIN + '/images/og-image.png?v=2',
+            jobTitle: 'AI Engineer',
             email: 'alex.batten1234@gmail.com',
             address: { '@type': 'PostalAddress', addressCountry: 'DK' },
             sameAs: ['https://github.com/AlexBatten', 'https://www.linkedin.com/in/alex-batten-48b28b2a2/'],
