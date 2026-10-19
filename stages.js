@@ -273,6 +273,21 @@
             var from = level;
             level = target;
             window.GAME_LEVEL = level;
+            // Being in the games holds one history entry, so the back button
+            // brings the visitor up to the playground from any of them
+            // instead of leaving the site (back.js). Every step down opens
+            // it (a no-op while it is already open), which also covers a
+            // scroll down during the walk up that a back press started.
+            // Scrolling back up to the playground takes the entry off again.
+            // Chrome and Edge skip an entry added with no click or key press
+            // since the page loaded or since the last back, when back comes
+            // from the toolbar, so a visitor who only scrolled down leaves the
+            // site from there. Page code cannot prevent that. A mouse back
+            // button counts as a press, so it works.
+            if (window.BACK) {
+                if (target > from) window.BACK.open('games', function () { window.STAGES.go(0); });
+                else if (target === 0) window.BACK.closed('games');
+            }
             lock(target > from ? 1 : -1, t);
             busy = true;
             bumpSeq++;

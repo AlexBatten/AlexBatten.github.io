@@ -842,6 +842,9 @@
         // ── Keyboard ──
         window.addEventListener('keydown', function (e) {
             if (!on || paused) return;
+            // Alt+Left is the browser's back, and other modified keys are
+            // shortcuts too: leave them to the browser.
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
             if (e.key === 'ArrowLeft'  || e.key === 'a' || e.key === 'A') { keyL = true; e.preventDefault(); }
             if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { keyR = true; e.preventDefault(); }
             if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {

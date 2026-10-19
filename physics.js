@@ -24,10 +24,13 @@
 
     hintsBtn.addEventListener('click', function () {
         hintsOverlay.classList.add('active');
+        // The back button closes it (back.js).
+        if (window.BACK) window.BACK.open('hints', closeHints);
     });
 
     function closeHints() {
         hintsOverlay.classList.remove('active');
+        if (window.BACK) window.BACK.closed('hints');
     }
 
     hintsClose.addEventListener('click', closeHints);
@@ -419,11 +422,15 @@
             runnerWasEnabled = runner.enabled;
             runner.enabled = false;
         }
+        // The back button closes the card rather than leaving the site
+        // (back.js).
+        if (window.BACK) window.BACK.open('card', closeModal);
     }
 
     function closeModal() {
         overlay.classList.remove('active');
         document.body.style.overflow = '';
+        if (window.BACK) window.BACK.closed('card');
         if (window.MODAL_FX) window.MODAL_FX.close();
         if (modalPaused) {
             modalPaused = false;
@@ -628,6 +635,23 @@
     var smoothGx = 0;
     var smoothGy = GRAVITY_SCALE;
 
+    // How far the page is turned from the frame beta and gamma are measured
+    // in, in degrees: 0, 90 (turned so the device's top points left), 180 or
+    // 270. window.orientation comes first because it is measured from that
+    // same portrait frame on every phone and tablet that has it (-90 for
+    // 270). screen.orientation.angle is not: iPadOS Safari measures it from
+    // landscape, and Safari 16.4 to 16.7 swap its two landscape angles. It
+    // is only the fallback for browsers without window.orientation.
+    function screenAngle() {
+        if (typeof window.orientation === 'number') {
+            return (window.orientation + 360) % 360;
+        }
+        if (window.screen && screen.orientation && typeof screen.orientation.angle === 'number') {
+            return screen.orientation.angle;
+        }
+        return 0;
+    }
+
     function handleOrientation(e) {
         if (window.PINBALL_ACTIVE || window.ZERO_GRAVITY) return;
         var beta = e.beta;
@@ -638,11 +662,19 @@
         var b = beta * Math.PI / 180;
         var g = gamma * Math.PI / 180;
 
-        // Project Earth's gravity onto the screen plane:
-        // Screen X = how much gravity pulls left/right on screen
-        // Screen Y = how much gravity pulls up/down on screen
-        var targetGx = Math.sin(g) * Math.cos(b) * GRAVITY_SCALE;
-        var targetGy = Math.sin(b) * GRAVITY_SCALE;
+        // Project Earth's gravity onto the device's own axes: dx pulls toward
+        // the device's right edge, dy toward its bottom edge, both as seen
+        // in portrait. beta and gamma are always measured in that frame.
+        var dx = Math.sin(g) * Math.cos(b) * GRAVITY_SCALE;
+        var dy = Math.sin(b) * GRAVITY_SCALE;
+
+        // A page that has turned with the device (landscape, or upside
+        // down) has its own axes turned the other way, so the pull is
+        // turned back by the same angle. Without this, a phone held normally
+        // in landscape pulls every ball against a side wall.
+        var a = screenAngle() * Math.PI / 180;
+        var targetGx = dx * Math.cos(a) + dy * Math.sin(a);
+        var targetGy = dy * Math.cos(a) - dx * Math.sin(a);
 
         // Smooth interpolation to prevent jitter
         smoothGx += (targetGx - smoothGx) * SMOOTHING;

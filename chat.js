@@ -26,6 +26,9 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     function open() {
         Tawk_API.showWidget();
         Tawk_API.maximize();
+        // The back button minimises the chat window rather than leaving the
+        // site (back.js).
+        if (window.BACK) window.BACK.open('chat', function () { Tawk_API.minimize(); });
     }
 
     Tawk_API.onLoad = function () {
@@ -43,6 +46,7 @@ var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
     // way in.
     Tawk_API.onChatMinimized = function () {
         Tawk_API.hideWidget();
+        if (window.BACK) window.BACK.closed('chat');
     };
 
     function inject() {
