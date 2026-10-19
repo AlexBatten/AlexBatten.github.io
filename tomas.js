@@ -1,8 +1,8 @@
 // ── Tomas (easter egg) ──
-// Alex's cat. Hold a ball dangling just above the floor, or just above the
-// balls piled on it, still or gently swaying, and after a second Tomas's ears
-// and eyes peek up at the nearer edge of the screen. Keep it there and he
-// comes in, sits, watches it, wiggles and swats it, and the second swat
+// Alex's cat. Hold a ball low, on or just above the floor or the balls piled
+// there, roughly in one place, and within a second Tomas's ears and eyes
+// peek up at the nearer edge of the screen. Keep it there a moment longer
+// and he comes in, sits, watches it, wiggles and swats it, and the second swat
 // knocks it out of your hand. Then he grooms, flops over and rolls on his
 // back for a moment, and walks off. Let go before that and he pats the ball
 // where it lies; lift it out of his reach and he leaps, misses and leaves. The hints panel's riddle is "dangle something
@@ -378,17 +378,20 @@
 
     var FRAME_MS = 125;         // walk cycle, 8 frames a second
     var SINK_MS = 2000;         // a peek with nothing dangling sinks after this
-    var COOLDOWN_MS = 30000;    // after a visit, before he can come again
-    var PEEK_COOLDOWN_MS = 3000;  // after a peek that came to nothing
+    var COOLDOWN_MS = 12000;    // after a visit, before he can come again
+    var PEEK_COOLDOWN_MS = 1500;  // after a peek that came to nothing
     var SWATS_MAX = 4;          // tries at the ball before he gives up
-    // What counts as dangling. peek: ms of it that brings his ears up; come:
-    // ms that brings him in; lost: ms out of the band that starts the count
-    // over; min and max: the gap under the ball, in ball radii; sway: px per
-    // 60Hz step, faster than which isn't dangling. A finger hides the ball it
-    // holds and is never quite still, so on a touch screen the band is
-    // wider, a wobble still counts, and he comes sooner.
-    var MOUSE = { peek: 1000, come: 3000, lost: 400, min: 0.2, max: 1.5, sway: 6 };
-    var TOUCH = { peek: 700, come: 2200, lost: 800, min: 0.1, max: 2.5, sway: 10 };
+    // What counts as dangling: a held ball kept low and roughly in one
+    // place. peek: ms of it that brings his ears up; come: ms that brings him
+    // in; lost: ms out of the band that starts the count over; min and max:
+    // the gap under the ball, in ball radii, from pressed into the floor or
+    // the pile (below 0) to about two ball heights above it; sway: px per
+    // 60Hz step, faster than which isn't dangling. The band is kept wide on
+    // purpose, so anyone holding a ball low for a moment meets him. A
+    // finger hides the ball it holds and is never quite still, so on a touch
+    // screen it is wider still and he comes a little sooner.
+    var MOUSE = { peek: 900, come: 1700, lost: 500, min: -0.6, max: 4, sway: 9 };
+    var TOUCH = { peek: 900, come: 1600, lost: 600, min: -0.8, max: 4.5, sway: 11 };
 
     (function wait() {
         if (!window.PLAYGROUND) return setTimeout(wait, 50);
@@ -423,12 +426,13 @@
         }
 
         // He stays away while the playground is someone else's: pinball and
-        // the games below it, the ball rain, zero gravity, or a phone tilted
-        // far over.
+        // the games below it, the ball rain, or zero gravity; and while a
+        // tilted phone's gravity doesn't pull toward the floor (lying flat,
+        // tipped past level), when the balls he would stand on aren't down
+        // there. A phone tilted sideways is fine.
         function blocked() {
-            var g = engine.world.gravity;
             return !!(window.PINBALL_ACTIVE || window.RAIN_ACTIVE || window.ZERO_GRAVITY ||
-                Math.abs(g.x) > 0.6 || g.y < 0.3);
+                engine.world.gravity.y < 0.3);
         }
 
         // ── Sizes ──
@@ -498,10 +502,10 @@
             }
             var T = tuning(), gap = gapUnder(held), v = velocity(held);
             var inBand = gap >= T.min && gap <= T.max && Math.hypot(v.x, v.y) < T.sway;
-            // Dangling stays near one spot: a ball carried more than two
-            // ball widths from where the count began is being moved about,
-            // not dangled, and the count starts over from there.
-            if (dangle === 0 || Math.abs(held.position.x - anchorX) > held.circleRadius * 4) {
+            // Dangling stays near one spot: a ball carried more than two and
+            // a half ball widths from where the count began is being moved
+            // about, not dangled, and the count starts over from there.
+            if (dangle === 0 || Math.abs(held.position.x - anchorX) > held.circleRadius * 5) {
                 dangle = 0;
                 anchorX = held.position.x;
             }
