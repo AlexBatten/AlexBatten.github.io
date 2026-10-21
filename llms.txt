@@ -67,13 +67,17 @@ hreflang. English is the default (x-default).
   and runs fully in process with no outbound calls.
 - [Invarix.Gate](https://www.nuget.org/packages/Invarix.Gate): A deterministic action
   firewall for AI agents in .NET. Evaluates an agent's tool calls against a policy
-  before they run and returns allow, warn, escalate, deny, or terminate. Ten detectors
-  covering destructive SQL, shell commands, git history rewrites, cloud teardown,
-  credential egress, and runaway loops, each grounded in a dated public incident. Pure
-  CPU pattern matching with no model call, median verdict 57 microseconds, deterministic
+  before they run and returns allow, warn, escalate, deny, or terminate. Eleven
+  detectors covering destructive SQL, shell commands, git history rewrites, cloud
+  teardown, credential egress, runaway loops, protected targets, mass sends, tools
+  outside an agent's allowlist, call and token ceilings, and edits to Gate's own
+  policy. Ten of them distill real incidents, most with public postmortems. Pure CPU
+  pattern matching with no model call, median verdict 57 microseconds, deterministic
   under a given policy. Policy as YAML or fluent C#, with adapters for
-  Microsoft.Extensions.AI and Microsoft Agent Framework. Observe mode is free under
-  Elastic License 2.0. Currently 1.0.0-rc.1.
+  Microsoft.Extensions.AI and Microsoft Agent Framework. Observe mode is free for any
+  company, and enforce mode is free for companies under EUR 1M in annual revenue (the
+  Community tier), all under Elastic License 2.0. Currently 1.0.0-rc.4, a release
+  candidate.
 
 ## Skills
 
@@ -89,7 +93,8 @@ hreflang. English is the default (x-default).
 ## Profiles
 
 - [GitHub](https://github.com/AlexBatten)
-- [LinkedIn](https://www.linkedin.com/in/alex-batten-48b28b2a2/)
+- [LinkedIn](https://www.linkedin.com/in/alex-batten-48b28b2a2)
+- [NuGet](https://www.nuget.org/profiles/alexbatten)
 
 ## Hiring
 

@@ -1305,7 +1305,7 @@ footer {
 /* ── Off-screen CV content ──
    The portfolio text lives in the markup for screen readers and assistive
    tech while the playground is the visual experience. The same content is
-   published fully visible at /cv, which is linked in the footer.
+   published fully visible at /cv.
    Standard "visually hidden" / sr-only pattern. No white-space: nowrap,
    which is not part of the recipe and collapses multi-paragraph output
    for screen readers. */

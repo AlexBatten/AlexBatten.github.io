@@ -1,0 +1,157 @@
+# Tells IndexNow which pages changed once GitHub Pages has published them.
+# IndexNow shares each submission between the engines that take part (Bing,
+# Yandex, Seznam, Naver and others), so one POST covers all of them.
+#
+# Runs when the built-in Pages workflow finishes deploying main. The changed
+# files are those between the commit this deployment published and the commit
+# the previous successful deployment published, so a push of several commits is
+# submitted in one go, and the changes from a failed deployment go out with the
+# next one that succeeds.
+#
+# The key is public by design: IndexNow checks it by fetching
+# https://alexbatten.dk/<key>.txt, which is the file of that name at the repo
+# root. Replacing the key means replacing that file and KEY below together.
+#
+# Run it by hand from the Actions tab to resubmit the last commit's pages, or
+# tick "all" to submit every page in sitemap.xml.
+
+name: IndexNow
+
+on:
+  workflow_run:
+    # The Pages workflow is registered as pages-build-deployment and its runs
+    # are titled "pages build and deployment". Both are listed so the trigger
+    # matches whichever of the two GitHub compares against.
+    workflows: ["pages-build-deployment", "pages build and deployment"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      all:
+        description: Submit every page in sitemap.xml instead of the last commit's changes
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    env:
+      HOST: alexbatten.dk
+      KEY: c20ab233510783029e3070884f79855d
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Work out which pages changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT: ${{ github.event_name }}
+          ALL: ${{ inputs.all }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          WORKFLOW_ID: ${{ github.event.workflow_run.workflow_id }}
+        run: |
+          set -euo pipefail
+          head=$(git rev-parse HEAD)
+
+          base=""
+          if [ "$EVENT" = "workflow_run" ]; then
+            # Successful Pages runs on main, newest first. Run ids only grow, so
+            # the first one below this run's id is the deployment before it.
+            base=$(gh api "repos/$GITHUB_REPOSITORY/actions/workflows/$WORKFLOW_ID/runs?branch=main&status=success&per_page=100" |
+              jq -r --argjson id "$RUN_ID" '[.workflow_runs[] | select(.id < $id)][0].head_sha // empty') || base=""
+          fi
+          # No earlier deployment on record, or its commit is gone from the
+          # history (a force push): fall back to the parent commit.
+          if [ -z "$base" ] || ! git cat-file -e "$base^{commit}" 2>/dev/null; then
+            base=$(git rev-parse --verify --quiet HEAD^ || true)
+          fi
+
+          # Maps a changed file to the URL paths it changes, one per line.
+          # GitHub Pages serves foo.html at /foo and dir/index.html at /dir/.
+          paths_for() {
+            local f="$1"
+            case "$f" in
+              # The homepage modals are rendered from content.js.
+              content.js) printf '/\n/da/\n'; return ;;
+              .*|*/.*) return ;;
+              *.html) ;;
+              *) return ;;
+            esac
+            # Pages that ask not to be indexed (404, privacy, og-card) are left
+            # out. A deleted page has no file to read and is submitted, so the
+            # engines come back and find it gone.
+            if [ -f "$f" ] && grep -qiE '<meta name="robots" content="[^"]*noindex' "$f"; then
+              return
+            fi
+            case "$f" in
+              index.html) echo "/" ;;
+              */index.html) echo "/${f%index.html}" ;;
+              *) echo "/${f%.html}" ;;
+            esac
+          }
+
+          if [ "$ALL" = "true" ] || [ -z "$base" ]; then
+            echo "Submitting every page in sitemap.xml."
+            grep -o '<loc>[^<]*</loc>' sitemap.xml | sed -e 's#<loc>##' -e 's#</loc>##' > urls.txt
+          else
+            echo "Changes from $base to $head:"
+            git diff --name-only --no-renames "$base" "$head" | tee changed.txt
+            : > paths.txt
+            while IFS= read -r f; do
+              paths_for "$f" >> paths.txt
+            done < changed.txt
+            sort -u paths.txt | sed "s#^#https://$HOST#" > urls.txt
+          fi
+
+          echo "URLs to submit:"
+          cat urls.txt
+
+      - name: Submit to IndexNow
+        run: |
+          set -euo pipefail
+          if [ ! -s urls.txt ]; then
+            echo "No indexable page changed, nothing to submit."
+            exit 0
+          fi
+
+          # The deployment has finished, but the CDN in front of the site may
+          # take a moment to serve a key file that was added in this same push.
+          for attempt in 1 2 3 4 5 6; do
+            served=$(curl -fsS "https://$HOST/$KEY.txt" || true)
+            [ "$served" = "$KEY" ] && break
+            if [ "$attempt" = 6 ]; then
+              echo "https://$HOST/$KEY.txt does not serve the key; IndexNow would reject the submission."
+              exit 1
+            fi
+            sleep 20
+          done
+
+          jq -n --arg host "$HOST" --arg key "$KEY" --rawfile urls urls.txt '{
+            host: $host,
+            key: $key,
+            keyLocation: ("https://" + $host + "/" + $key + ".txt"),
+            urlList: ($urls | split("\n") | map(select(length > 0)))
+          }' > body.json
+
+          status=$(curl -sS -o response.txt -w '%{http_code}' -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" --data-binary @body.json)
+          echo "IndexNow answered HTTP $status"
+          cat response.txt || true
+          # 200: accepted. 202: accepted, key validation still pending.
+          case "$status" in
+            200|202) ;;
+            *) exit 1 ;;
+          esac

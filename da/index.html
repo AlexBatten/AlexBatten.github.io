@@ -72,7 +72,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "da",
-          "dateModified": "2026-10-18T12:00:00+02:00",
+          "dateModified": "2026-10-21T02:45:00+02:00",
           "relatedLink": "https://alexbatten.dk/da/cv"
         },
         {
@@ -95,8 +95,17 @@
           "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Fullstack-udvikling", "AI-infrastruktur", "AI/ML", "AI-evaluering", "Prompt engineering", "Distribuerede systemer", "Systemdesign", "REST-API'er", "Virksomhedsintegrationer", "Multi-tenant SaaS", "Momsindberetning", "SKAT", "AI-sikkerhed", "AI-agenter", "SAF-T", "Docker"],
           "sameAs": [
             "https://github.com/AlexBatten",
-            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2",
+            "https://www.nuget.org/profiles/alexbatten",
+            "https://invarix.dk"
           ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://invarix.dk/#organization",
+          "name": "Invarix",
+          "url": "https://invarix.dk",
+          "founder": { "@id": "https://alexbatten.dk/#alex-batten" }
         },
         {
           "@type": "SoftwareApplication",
@@ -104,10 +113,11 @@
           "name": "Invarix.Guard",
           "applicationCategory": "DeveloperApplication",
           "operatingSystem": "Cross-platform (.NET)",
-          "url": "https://invarix.dk",
+          "url": "https://invarix.dk/products/invarix-guard",
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard",
           "description": "Et plug and play-AI-sikkerhedsbibliotek til .NET, udgivet som NuGet-pakke. Dækker prompt injection, persondata (PII) og indholdssikkerhed, så applikationer kan tilføje guardrails med få linjers kode.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         },
         {
           "@type": "SoftwareApplication",
@@ -119,7 +129,8 @@
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
           "license": "https://www.elastic.co/licensing/elastic-license",
           "description": "Et revisionsspor til AI-beslutninger i .NET, hvor enhver efterfølgende ændring kan påvises. Beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         },
         {
           "@type": "SoftwareApplication",
@@ -127,12 +138,13 @@
           "name": "Invarix.Gate",
           "applicationCategory": "DeveloperApplication",
           "operatingSystem": "Cross-platform (.NET)",
-          "softwareVersion": "1.0.0-rc.1",
+          "softwareVersion": "1.0.0-rc.4",
           "url": "https://invarix.dk/products/invarix-gate",
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Gate",
           "license": "https://www.elastic.co/licensing/elastic-license",
-          "description": "En deterministisk handlingsfirewall til AI-agenter i .NET. Vurderer agentens tool calls mod en politik, inden de udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Ti detektorer forankret i offentlige hændelser, uden kald til en model, og en afgørelse på 57 mikrosekunder i median.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "description": "En deterministisk handlingsfirewall til AI-agenter i .NET. Vurderer agentens tool calls mod en politik, inden de udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Elleve detektorer, heraf ti forankret i virkelige hændelser, uden kald til en model, og en afgørelse på 57 mikrosekunder i median. Observe-tilstand er gratis for alle virksomheder, og enforce-tilstand er gratis for virksomheder med under 1 mio. euro i årlig omsætning (Community-niveauet).",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         }
       ]
     }
@@ -299,7 +311,7 @@
                 <p>Et plug and play-AI-sikkerhedsbibliotek til .NET, udgivet som NuGet-pakke
                 (Invarix.Guard). Dækker prompt injection, persondata (PII) og indholdssikkerhed,
                 så applikationer kan tilføje guardrails med få linjers kode.
-                Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+                Website: <a href="https://invarix.dk/products/invarix-guard" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
             </article>
             <article>
@@ -321,15 +333,17 @@
                 <p>En deterministisk handlingsfirewall til AI-agenter, udgivet som NuGet-pakke
                 (Invarix.Gate). Den ligger foran agentens tool calls og vurderer hvert kald mod en
                 politik, inden det udføres, med afgørelsen tillad, advar, eskalér, afvis eller
-                afbryd. Ti detektorer dækker destruktiv SQL, shell-kommandoer, omskrivning af
-                git-historik, nedlukning af cloud-ressourcer, lækkede hemmeligheder og løbske
-                løkker, og hver enkelt er forankret i en dateret offentlig hændelse. Matchningen er
-                ren CPU-mønstergenkendelse uden kald til en model, så en afgørelse falder på 57 µs
-                i median og er deterministisk under en given politik. Politikken skrives i YAML
+                afbryd. Elleve detektorer dækker destruktiv SQL, shell-kommandoer, omskrivning af
+                git-historik, nedlukning af cloud-ressourcer, lækkede hemmeligheder, løbske løkker,
+                beskyttede mål, masseudsendelser, værktøjer uden for agentens tilladelsesliste,
+                lofter over kald og tokens samt ændringer i Gates egen politik. Ti af dem bygger på
+                virkelige hændelser, de fleste med offentlige postmortems. Matchningen er ren
+                CPU-mønstergenkendelse uden kald til en model, så en afgørelse falder på 57 µs i
+                median og er deterministisk under en given politik. Politikken skrives i YAML
                 eller flydende C#, kobles på Microsoft.Extensions.AI og Microsoft Agent Framework
                 og rapporterer de flader, den ikke kan se, frem for at vise et rent resultat.
-                Leveres med et korpus på 194 scenarier, hvor omtrent halvdelen kontrollerer, at en
-                detektor forbliver tavs.
+                Leveres med et testkorpus på omkring 220 scenarier, hvoraf mere end 90 alene skal
+                vise, at almindeligt arbejde ikke udløser noget.
                 Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
             </article>
@@ -400,7 +414,7 @@
             <h2 id="seo-contact">Kontakt</h2>
             <p>E-mail: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.
             GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.
-            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.
+            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">Alex Batten</a>.
             Der er også livechat på siden.</p>
         </section>
     </main>
@@ -501,7 +515,7 @@
             </svg>
             <span class="ball-label">Chat</span>
         </div>
-        <div class="ball ball-link" data-id="linkedin" data-href="https://www.linkedin.com/in/alex-batten-48b28b2a2/">
+        <div class="ball ball-link" data-id="linkedin" data-href="https://www.linkedin.com/in/alex-batten-48b28b2a2">
             <img src="/images/linkedin.png" alt="LinkedIn" class="ball-img">
         </div>
         <div class="ball ball-link" data-id="email" data-href="mailto:alex.batten1234@gmail.com">
@@ -525,7 +539,7 @@
     </footer>
 
     <script src="/posts.js?v=2"></script>
-    <script src="/content.js?v=24"></script>
+    <script src="/content.js?v=25"></script>
     <script src="/freelance.js?v=3"></script>
     <script src="/back.js?v=1"></script>
     <script src="/chat.js?v=3"></script>

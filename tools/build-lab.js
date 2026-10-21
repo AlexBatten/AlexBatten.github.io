@@ -12,6 +12,20 @@
 //
 // It verifies that every slug has a file on disk and fails loudly if one is
 // missing, so a typo cannot ship an index linking to a 404.
+//
+// Each sitemap entry carries its own lastmod:
+//
+//   hand-written pages   the dateModified in the page's own JSON-LD, read from
+//                        the file. Bump it in the page when its content changes
+//                        (content.js counts as content of / and /da/, which
+//                        render it), then rerun this.
+//   articles             `updated` in posts.js if set, otherwise `date`
+//   the /lab index       LAB_INDEX_UPDATED or the newest article, whichever is
+//                        later
+//
+// None of it comes from the clock or file mtimes, so rerunning the generator
+// without changing anything leaves both files byte-identical. A date typed into
+// sitemap.xml by hand is lost on the next run.
 
 const fs = require('fs');
 const path = require('path');
@@ -20,25 +34,76 @@ const ROOT = path.dirname(__dirname);
 const ORIGIN = 'https://alexbatten.dk';
 const POSTS = require(path.join(ROOT, 'posts.js'));
 
-// Sitemap lastmod for the pages that are not articles. Bump when those change;
-// articles carry their own date. Not derived from the clock, so rerunning the
-// generator without changing anything leaves the file byte-identical.
-// sitemap.xml is overwritten from this on every run, so a date edited into the
-// sitemap by hand is lost unless it is also set here.
-const SITE_UPDATED = '2026-10-18';
+// lab/index.html is generated here and has no hand-edited dateModified to read.
+// Bump this when its template below changes.
+const LAB_INDEX_UPDATED = '2026-10-21T02:45:00+02:00';
 
-// Static pages that are not articles. Language pairs carry hreflang alternates.
+// Static pages that are not articles. Language pairs carry hreflang alternates;
+// `file` is where the page's dateModified is read from.
 const STATIC_PAGES = [
-    { loc: '/', alts: { en: '/', da: '/da/' } },
-    { loc: '/da/', alts: { en: '/', da: '/da/' } },
-    { loc: '/cv', alts: { en: '/cv', da: '/da/cv' } },
-    { loc: '/da/cv', alts: { en: '/cv', da: '/da/cv' } },
+    { loc: '/', file: 'index.html', alts: { en: '/', da: '/da/' } },
+    { loc: '/da/', file: 'da/index.html', alts: { en: '/', da: '/da/' } },
+    { loc: '/cv', file: 'cv.html', alts: { en: '/cv', da: '/da/cv' } },
+    { loc: '/da/cv', file: 'da/cv.html', alts: { en: '/cv', da: '/da/cv' } },
     { loc: '/lab/' },
 ];
 
 const esc = s => String(s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+
+const fail = msg => {
+    console.error(msg);
+    process.exit(1);
+};
+
+// ISO 8601 date-time with an explicit offset, as used in lastmod and
+// dateModified.
+const TIMESTAMP = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?(Z|[+-]\d{2}:\d{2})$/;
+const DATE = /^\d{4}-\d{2}-\d{2}$/;
+
+// posts.js holds plain dates; `updated` may also be a full timestamp. A bare
+// date is stamped at 10:00 Copenhagen summer time, the time datePublished has
+// always carried.
+const stamp = d => (DATE.test(d) ? d + 'T10:00:00+02:00' : d);
+const later = (a, b) => (Date.parse(b) > Date.parse(a) ? b : a);
+
+// The dateModified of the JSON-LD node describing `url` in a hand-written page.
+// Parsing every block also means a JSON-LD syntax error fails the build here
+// instead of shipping silently.
+const pageModified = (file, url) => {
+    const html = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    let found = null;
+    for (const [, json] of blocks) {
+        let data;
+        try {
+            data = JSON.parse(json);
+        } catch (e) {
+            fail(file + ': JSON-LD does not parse: ' + e.message);
+        }
+        for (const node of data['@graph'] || [data]) {
+            if (node.url === url && node.dateModified) found = node.dateModified;
+        }
+    }
+    if (!found) fail(file + ': no JSON-LD node with url ' + url + ' and a dateModified');
+    if (!TIMESTAMP.test(found)) fail(file + ': dateModified ' + found + ' needs a time and an offset');
+    return found;
+};
+
+// ── Guard: dates in posts.js are dates, and `updated` is not before `date` ──
+for (const p of POSTS) {
+    if (!DATE.test(p.date)) fail(p.slug + ': date ' + p.date + ' is not YYYY-MM-DD');
+    if (p.updated === undefined) continue;
+    if (!DATE.test(p.updated) && !TIMESTAMP.test(p.updated)) {
+        fail(p.slug + ': updated ' + p.updated + ' is neither YYYY-MM-DD nor a timestamp with an offset');
+    }
+    if (Date.parse(stamp(p.updated)) < Date.parse(stamp(p.date))) {
+        fail(p.slug + ': updated ' + p.updated + ' is before date ' + p.date);
+    }
+}
+
+const modified = p => stamp(p.updated || p.date);
 
 const byNewest = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 const sorted = [...POSTS].sort(byNewest);
@@ -119,7 +184,8 @@ ${JSON.stringify({
                 headline: p.title,
                 description: p.hook,
                 url: ORIGIN + '/lab/' + p.slug,
-                datePublished: p.date + 'T10:00:00+02:00',
+                datePublished: stamp(p.date),
+                dateModified: modified(p),
                 inLanguage: p.lang,
                 author: { '@id': ORIGIN + '/#alex-batten' },
             })),
@@ -141,7 +207,12 @@ ${JSON.stringify({
             jobTitle: 'AI Engineer',
             email: 'alex.batten1234@gmail.com',
             address: { '@type': 'PostalAddress', addressCountry: 'DK' },
-            sameAs: ['https://github.com/AlexBatten', 'https://www.linkedin.com/in/alex-batten-48b28b2a2/'],
+            sameAs: [
+                'https://github.com/AlexBatten',
+                'https://www.linkedin.com/in/alex-batten-48b28b2a2',
+                'https://www.nuget.org/profiles/alexbatten',
+                'https://invarix.dk',
+            ],
         },
     ],
 }, null, 2).split('\n').map(l => '    ' + l).join('\n')}
@@ -178,7 +249,10 @@ ${sorted.length ? sorted.map(entryHtml).join('\n') : `    <div class="lab-empty"
 `;
 
 // ── sitemap.xml ──
-const today = SITE_UPDATED;
+const lastmod = p => (p.file
+    ? pageModified(p.file, ORIGIN + p.loc)
+    : sorted.map(modified).reduce(later, LAB_INDEX_UPDATED));
+
 const altLinks = alts => !alts ? '' : '\n' + Object.entries(alts)
     .map(([lang, loc]) => `    <xhtml:link rel="alternate" hreflang="${lang}" href="${ORIGIN}${loc}"/>`)
     .join('\n') + `\n    <xhtml:link rel="alternate" hreflang="x-default" href="${ORIGIN}${alts.en}"/>`;
@@ -189,11 +263,11 @@ const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${STATIC_PAGES.map(p => `  <url>
     <loc>${ORIGIN}${p.loc}</loc>
-    <lastmod>${today}</lastmod>${altLinks(p.alts)}
+    <lastmod>${lastmod(p)}</lastmod>${altLinks(p.alts)}
   </url>`).join('\n')}
 ${sorted.map(p => `  <url>
     <loc>${ORIGIN}/lab/${p.slug}</loc>
-    <lastmod>${p.date}</lastmod>
+    <lastmod>${modified(p)}</lastmod>
   </url>`).join('\n')}
 </urlset>
 `;

@@ -46,7 +46,7 @@
           "url": "https://alexbatten.dk/cv",
           "name": "CV | Alex Batten, AI Engineer in Denmark",
           "inLanguage": "en",
-          "dateModified": "2026-10-18T12:00:00+02:00",
+          "dateModified": "2026-10-21T02:45:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
@@ -78,8 +78,17 @@
           },
           "sameAs": [
             "https://github.com/AlexBatten",
-            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2",
+            "https://www.nuget.org/profiles/alexbatten",
+            "https://invarix.dk"
           ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://invarix.dk/#organization",
+          "name": "Invarix",
+          "url": "https://invarix.dk",
+          "founder": { "@id": "https://alexbatten.dk/#alex-batten" }
         },
         {
           "@type": "FAQPage",
@@ -151,7 +160,7 @@
               "name": "What software has Alex Batten published?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Three NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key. Invarix.Gate is a deterministic action firewall for AI agents that evaluates tool calls against a policy before they run, with ten incident-grounded detectors and no model call."
+                "text": "Three NuGet packages. Invarix.Guard is a plug-and-play AI safety library for .NET covering prompt injection, PII, and content safety. Invarix.Guard.Evidence is a tamper-evident audit trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key. Invarix.Gate is a deterministic action firewall for AI agents that evaluates tool calls against a policy before they run, with eleven detectors (ten of them grounded in real incidents) and no model call."
               }
             },
             {
@@ -200,7 +209,11 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, AI Engineer in Denmark</h1>
-    <p>Last updated: October 18, 2026</p>
+    <p>Last updated: <time datetime="2026-10-21">October 21, 2026</time></p>
+
+    <p>Alex Batten is a freelance AI engineer in Denmark with a C#/.NET background. He builds AI
+    agent guardrails (the Invarix libraries) and Danish tax and e-invoicing integrations (SKAT,
+    SAF-T, NemHandel/Peppol). He is available for new freelance and contract work.</p>
 
     <p>Hi, I'm Alex, an AI engineer in Denmark with a BEng in Software Technology from DTU.
     My background is C# and .NET: backend services, REST APIs, and enterprise integrations,
@@ -329,7 +342,7 @@
     <p>A plug-and-play AI safety library for .NET, shipped as a NuGet package (Invarix.Guard).
     Covers several AI safety categories out of the box, including prompt injection, PII, and
     content safety, so apps can add guardrails in a few lines of code.
-    Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+    Website: <a href="https://invarix.dk/products/invarix-guard" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
 
     <h4>Invarix Guard Evidence</h4>
@@ -346,14 +359,17 @@
     <h4>Invarix Gate</h4>
     <p>A deterministic action firewall for AI agents, shipped as a NuGet package
     (Invarix.Gate). It sits in front of an agent's tool calls and evaluates each one against a
-    policy before it runs, returning allow, warn, escalate, deny, or terminate. Ten detectors
+    policy before it runs, returning allow, warn, escalate, deny, or terminate. Eleven detectors
     cover destructive SQL, shell commands, git history rewrites, cloud teardown, credential
-    egress, and runaway loops, each grounded in a dated public incident. Matching is pure CPU
-    pattern work with no model call, so a verdict lands in a median of 57 &micro;s and is
-    deterministic under a given policy. Policy is authored in YAML or fluent C#, attaches through
-    Microsoft.Extensions.AI and Microsoft Agent Framework, and reports the surfaces it cannot see
-    rather than rendering a clean run. Ships with a 194 scenario policy corpus where roughly half
-    the cases assert a detector stays quiet. Observe mode is free under Elastic License 2.0.
+    egress, runaway loops, protected targets, mass sends, tools outside an agent's allowlist,
+    call and token ceilings, and edits to Gate's own policy. Ten of them distill real incidents,
+    most with public postmortems. Matching is pure CPU pattern work with no model call, so a
+    verdict lands in a median of 57 &micro;s and is deterministic under a given policy. Policy is
+    authored in YAML or fluent C#, attaches through Microsoft.Extensions.AI and Microsoft Agent
+    Framework, and reports the surfaces it cannot see rather than rendering a clean run. Ships
+    with a test corpus of about 220 scenarios, more than 90 of which exist to prove ordinary work
+    stays quiet. Observe mode is free for any company, and enforce mode is free for companies
+    under &euro;1M in annual revenue (the Community tier), all under Elastic License 2.0.
     Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
 
@@ -393,11 +409,11 @@
     <h2 id="faq">Frequently Asked Questions</h2>
 
     <h3>Is Alex Batten available for freelance or contract work?</h3>
-    <p>Yes. I am taking on new freelance and contract work. The work I take is .NET and
-    full-stack web applications, REST APIs, enterprise and tax-authority integrations (SKAT,
-    SAF-T, NemHandel/Peppol), Stripe billing, and AI features, remote across the EU on CET.
-    Email <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a> or send a
-    brief through the request form at <a href="/">alexbatten.dk</a>.</p>
+    <p>Yes. Alex Batten is taking on new freelance and contract work: .NET and full-stack web
+    applications, REST APIs, enterprise and tax-authority integrations (SKAT, SAF-T,
+    NemHandel/Peppol), Stripe billing, and AI features, remote across the EU on CET. Email
+    <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a> or send a brief
+    through the request form at <a href="/">alexbatten.dk</a>.</p>
 
     <h3>Where is Alex Batten based, and does he work remotely?</h3>
     <p>Alex Batten is based in Denmark and works remotely across the EU on Central European Time.
@@ -448,7 +464,8 @@
     trail for AI decisions that records them as CloudEvents keyed on SHA-256 hashes and seals
     batches into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.
     Invarix.Gate is a deterministic action firewall for AI agents that evaluates tool calls
-    against a policy before they run, with ten incident-grounded detectors and no model call.</p>
+    against a policy before they run, with eleven detectors (ten of them grounded in real
+    incidents) and no model call.</p>
 
     <h3>What is Alex Batten's education?</h3>
     <p>A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025,
@@ -461,13 +478,13 @@
     sending a project brief through the request form at <a href="/">alexbatten.dk</a>, which also
     has live chat. He is on GitHub at
     <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a> and on
-    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">LinkedIn</a>.
+    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">LinkedIn</a>.
     Project requests get a reply within a couple of days.</p>
 
     <h2>Contact</h2>
     <p>Email: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.<br>
     GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.<br>
-    LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.</p>
+    LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">Alex Batten</a>.</p>
 </main>
 
 <footer>

@@ -47,7 +47,7 @@
           "url": "https://alexbatten.dk/da/cv",
           "name": "CV | Alex Batten, AI-udvikler i Danmark",
           "inLanguage": "da",
-          "dateModified": "2026-10-18T12:00:00+02:00",
+          "dateModified": "2026-10-21T02:45:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/da/cv#faq" }
@@ -79,8 +79,17 @@
           },
           "sameAs": [
             "https://github.com/AlexBatten",
-            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2",
+            "https://www.nuget.org/profiles/alexbatten",
+            "https://invarix.dk"
           ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://invarix.dk/#organization",
+          "name": "Invarix",
+          "url": "https://invarix.dk",
+          "founder": { "@id": "https://alexbatten.dk/#alex-batten" }
         },
         {
           "@type": "FAQPage",
@@ -152,7 +161,7 @@
               "name": "Hvilken software har Alex Batten udgivet?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Tre NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres, med ti detektorer forankret i offentlige hændelser og uden kald til en model."
+                "text": "Tre NuGet-pakker. Invarix.Guard er et plug and play-AI-sikkerhedsbibliotek til .NET, der dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962 Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres, med elleve detektorer, heraf ti forankret i virkelige hændelser, og uden kald til en model."
               }
             },
             {
@@ -201,7 +210,12 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, AI-udvikler i Danmark</h1>
-    <p>Sidst opdateret: 18. oktober 2026</p>
+    <p>Sidst opdateret: <time datetime="2026-10-21">21. oktober 2026</time></p>
+
+    <p>Alex Batten er freelance AI-udvikler i Danmark med en baggrund i C#/.NET. Han bygger
+    guardrails til AI-agenter (Invarix-bibliotekerne) og integrationer til dansk skat og
+    e-fakturering (SKAT, SAF-T, NemHandel/Peppol). Han er ledig til nye freelance- og
+    kontraktopgaver.</p>
 
     <p>Hej, jeg hedder Alex. Jeg er AI-udvikler i Danmark og diplomingeniør (BEng) i
     softwareteknologi fra DTU. Min baggrund er C# og .NET: backendservices,
@@ -340,7 +354,7 @@
     (Invarix.Guard). Dækker flere AI-sikkerhedskategorier ud af boksen, heriblandt prompt
     injection, persondata (PII) og indholdssikkerhed, så applikationer kan tilføje guardrails med
     få linjers kode.
-    Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+    Website: <a href="https://invarix.dk/products/invarix-guard" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
 
     <h4>Invarix Guard Evidence</h4>
@@ -358,15 +372,19 @@
     <h4>Invarix Gate</h4>
     <p>En deterministisk handlingsfirewall til AI-agenter, udgivet som NuGet-pakke
     (Invarix.Gate). Den ligger foran agentens tool calls og vurderer hvert kald mod en politik,
-    inden det udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Ti detektorer
-    dækker destruktiv SQL, shell-kommandoer, omskrivning af git-historik, nedlukning af
-    cloud-ressourcer, lækkede hemmeligheder og løbske løkker, og hver enkelt er forankret i en
-    dateret offentlig hændelse. Matchningen er ren CPU-mønstergenkendelse uden kald til en model,
-    så en afgørelse falder på 57 &micro;s i median og er deterministisk under en given politik.
+    inden det udføres, med afgørelsen tillad, advar, eskalér, afvis eller afbryd. Elleve
+    detektorer dækker destruktiv SQL, shell-kommandoer, omskrivning af git-historik, nedlukning
+    af cloud-ressourcer, lækkede hemmeligheder, løbske løkker, beskyttede mål,
+    masseudsendelser, værktøjer uden for agentens tilladelsesliste, lofter over kald og tokens
+    samt ændringer i Gates egen politik. Ti af dem bygger på virkelige hændelser, de fleste med
+    offentlige postmortems. Matchningen er ren CPU-mønstergenkendelse uden kald til en model, så
+    en afgørelse falder på 57 &micro;s i median og er deterministisk under en given politik.
     Politikken skrives i YAML eller flydende C#, kobles på Microsoft.Extensions.AI og Microsoft
     Agent Framework og rapporterer de flader, den ikke kan se, frem for at vise et rent resultat.
-    Leveres med et korpus på 194 scenarier, hvor omtrent halvdelen kontrollerer, at en detektor
-    forbliver tavs. Observe-tilstand er gratis under Elastic License 2.0.
+    Leveres med et testkorpus på omkring 220 scenarier, hvoraf mere end 90 alene skal vise, at
+    almindeligt arbejde ikke udløser noget. Observe-tilstand er gratis for alle virksomheder, og
+    enforce-tilstand er gratis for virksomheder med under 1 mio. euro i årlig omsætning
+    (Community-niveauet), alt sammen under Elastic License 2.0.
     Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
     NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
 
@@ -408,7 +426,7 @@
     <h2 id="faq">Ofte stillede spørgsmål</h2>
 
     <h3>Er Alex Batten ledig for freelanceopgaver eller kontraktopgaver?</h3>
-    <p>Ja. Jeg tager nye freelance- og kontraktopgaver ind. Jeg laver webapplikationer i .NET og
+    <p>Ja. Alex Batten tager nye freelance- og kontraktopgaver ind: webapplikationer i .NET og
     fullstack, REST-API'er, virksomheds- og skatteintegrationer (SKAT, SAF-T, NemHandel/Peppol),
     Stripe-betalinger og AI-funktionalitet, remote i hele EU på centraleuropæisk tid. Skriv til
     <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>, eller send en
@@ -464,7 +482,10 @@
     dækker prompt injection, persondata (PII) og indholdssikkerhed. Invarix.Guard.Evidence er et
     revisionsspor til AI-beslutninger, hvor enhver efterfølgende ændring kan påvises: beslutninger
     registreres som CloudEvents-hændelser nøglet på SHA-256-hashes og forsegles i et RFC 6962
-    Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres, med ti detektorer forankret i offentlige hændelser og uden kald til en model.</p>
+    Merkle-træ signeret med kundens egen Ed25519-nøgle. Invarix.Gate er en deterministisk
+    handlingsfirewall til AI-agenter, som vurderer tool calls mod en politik, inden de udføres,
+    med elleve detektorer, heraf ti forankret i virkelige hændelser, og uden kald til en
+    model.</p>
 
     <h3>Hvilken uddannelse har Alex Batten?</h3>
     <p>Diplomingeniør (BEng) i softwareteknologi fra Danmarks Tekniske Universitet (DTU), 2021
@@ -477,13 +498,13 @@
     eller ved at sende en projektbeskrivelse via formularen på <a href="/da/">alexbatten.dk</a>,
     hvor der også er livechat. Alex Batten findes desuden på GitHub på
     <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a> og på
-    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">LinkedIn</a>.
+    <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">LinkedIn</a>.
     Projektforespørgsler besvares inden for et par dage.</p>
 
     <h2>Kontakt</h2>
     <p>E-mail: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.<br>
     GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.<br>
-    LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.</p>
+    LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">Alex Batten</a>.</p>
 </main>
 
 <footer>

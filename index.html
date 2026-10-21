@@ -73,7 +73,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "en",
-          "dateModified": "2026-10-18T12:00:00+02:00",
+          "dateModified": "2026-10-21T02:45:00+02:00",
           "relatedLink": "https://alexbatten.dk/cv"
         },
         {
@@ -98,7 +98,8 @@
             {
               "@type": "Organization",
               "@id": "https://alexbatten.dk/#alignerr",
-              "name": "Alignerr"
+              "name": "Alignerr",
+              "url": "https://www.alignerr.com/"
             },
             {
               "@type": "Organization",
@@ -108,12 +109,14 @@
             {
               "@type": "Organization",
               "@id": "https://alexbatten.dk/#mercor",
-              "name": "Mercor"
+              "name": "Mercor",
+              "url": "https://www.mercor.com/"
             },
             {
               "@type": "Organization",
               "@id": "https://alexbatten.dk/#outlier",
-              "name": "Outlier"
+              "name": "Outlier",
+              "url": "https://outlier.ai/"
             }
           ],
           "hasOccupation": {
@@ -125,8 +128,17 @@
           "knowsAbout": ["C#", ".NET", "ASP.NET Core", ".NET Aspire", "Entity Framework", "Angular", "Next.js", "TypeScript", "Full-Stack Development", "AI Infrastructure", "AI/ML", "AI Evaluation", "Prompt Engineering", "Claude Code", "Distributed Systems", "System Design", "REST APIs", "Enterprise Integrations", "Multi-tenant SaaS", "AI Agent Safety", "AI Guardrails", "SAF-T", "Docker"],
           "sameAs": [
             "https://github.com/AlexBatten",
-            "https://www.linkedin.com/in/alex-batten-48b28b2a2/"
+            "https://www.linkedin.com/in/alex-batten-48b28b2a2",
+            "https://www.nuget.org/profiles/alexbatten",
+            "https://invarix.dk"
           ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://invarix.dk/#organization",
+          "name": "Invarix",
+          "url": "https://invarix.dk",
+          "founder": { "@id": "https://alexbatten.dk/#alex-batten" }
         },
         {
           "@type": "SoftwareApplication",
@@ -134,10 +146,11 @@
           "name": "Invarix.Guard",
           "applicationCategory": "DeveloperApplication",
           "operatingSystem": "Cross-platform (.NET)",
-          "url": "https://invarix.dk",
+          "url": "https://invarix.dk/products/invarix-guard",
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard",
           "description": "A plug-and-play AI safety library for .NET, shipped as a NuGet package. Covers prompt injection, PII, and content safety so apps can add guardrails in a few lines of code.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         },
         {
           "@type": "SoftwareApplication",
@@ -149,7 +162,8 @@
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Guard.Evidence",
           "license": "https://www.elastic.co/licensing/elastic-license",
           "description": "A tamper-evident audit trail for AI decisions in .NET. Records decisions as CloudEvents keyed on SHA-256 hashes, sealed into an RFC 6962 Merkle tree signed with the customer's own Ed25519 key.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         },
         {
           "@type": "SoftwareApplication",
@@ -157,12 +171,13 @@
           "name": "Invarix.Gate",
           "applicationCategory": "DeveloperApplication",
           "operatingSystem": "Cross-platform (.NET)",
-          "softwareVersion": "1.0.0-rc.1",
+          "softwareVersion": "1.0.0-rc.4",
           "url": "https://invarix.dk/products/invarix-gate",
           "downloadUrl": "https://www.nuget.org/packages/Invarix.Gate",
           "license": "https://www.elastic.co/licensing/elastic-license",
-          "description": "A deterministic action firewall for AI agents in .NET. Evaluates an agent's tool calls against a policy before they run, returning allow, warn, escalate, deny, or terminate. Ten incident-grounded detectors, no model call, and a median verdict of 57 microseconds.",
-          "author": { "@id": "https://alexbatten.dk/#alex-batten" }
+          "description": "A deterministic action firewall for AI agents in .NET. Evaluates an agent's tool calls against a policy before they run, returning allow, warn, escalate, deny, or terminate. Eleven detectors, ten of them grounded in real incidents, no model call, and a median verdict of 57 microseconds. Observe mode is free for any company, and enforce mode is free for companies under EUR 1M in annual revenue (the Community tier).",
+          "author": { "@id": "https://alexbatten.dk/#alex-batten" },
+          "publisher": { "@id": "https://invarix.dk/#organization" }
         }
       ]
     }
@@ -322,7 +337,7 @@
                 <p>A plug-and-play AI safety library for .NET, shipped as a NuGet package
                 (Invarix.Guard). Covers prompt injection, PII, and content safety so apps can
                 add guardrails in a few lines of code.
-                Website: <a href="https://invarix.dk" rel="noopener">invarix.dk</a>.
+                Website: <a href="https://invarix.dk/products/invarix-guard" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Guard" rel="noopener">nuget.org/packages/Invarix.Guard</a>.</p>
             </article>
             <article>
@@ -343,14 +358,16 @@
                 <p>A deterministic action firewall for AI agents, shipped as a NuGet package
                 (Invarix.Gate). It sits in front of an agent's tool calls and evaluates each one
                 against a policy before it runs, returning allow, warn, escalate, deny, or
-                terminate. Ten detectors cover destructive SQL, shell commands, git history
-                rewrites, cloud teardown, credential egress, and runaway loops, each grounded in a
-                dated public incident. Matching is pure CPU pattern work with no model call, so a
-                verdict lands in a median of 57 µs and is deterministic under a given policy.
-                Policy is authored in YAML or fluent C#, attaches through Microsoft.Extensions.AI
-                and Microsoft Agent Framework, and reports the surfaces it cannot see rather than
-                rendering a clean run. Ships with a 194 scenario policy corpus where roughly half
-                the cases assert a detector stays quiet.
+                terminate. Eleven detectors cover destructive SQL, shell commands, git history
+                rewrites, cloud teardown, credential egress, runaway loops, protected targets, mass
+                sends, tools outside an agent's allowlist, call and token ceilings, and edits to
+                Gate's own policy. Ten of them distill real incidents, most with public
+                postmortems. Matching is pure CPU pattern work with no model call, so a verdict
+                lands in a median of 57 µs and is deterministic under a given policy. Policy is
+                authored in YAML or fluent C#, attaches through Microsoft.Extensions.AI and
+                Microsoft Agent Framework, and reports the surfaces it cannot see rather than
+                rendering a clean run. Ships with a test corpus of about 220 scenarios, more than
+                90 of which exist to prove ordinary work stays quiet.
                 Website: <a href="https://invarix.dk/products/invarix-gate" rel="noopener">invarix.dk</a>.
                 NuGet: <a href="https://www.nuget.org/packages/Invarix.Gate" rel="noopener">nuget.org/packages/Invarix.Gate</a>.</p>
             </article>
@@ -421,7 +438,7 @@
             <h2 id="seo-contact">Contact</h2>
             <p>Email: <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>.
             GitHub: <a href="https://github.com/AlexBatten" rel="noopener">github.com/AlexBatten</a>.
-            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2/" rel="noopener">Alex Batten</a>.
+            LinkedIn: <a href="https://www.linkedin.com/in/alex-batten-48b28b2a2" rel="noopener">Alex Batten</a>.
             Live chat is also available on this site.</p>
         </section>
     </main>
@@ -522,7 +539,7 @@
             </svg>
             <span class="ball-label">Chat</span>
         </div>
-        <div class="ball ball-link" data-id="linkedin" data-href="https://www.linkedin.com/in/alex-batten-48b28b2a2/">
+        <div class="ball ball-link" data-id="linkedin" data-href="https://www.linkedin.com/in/alex-batten-48b28b2a2">
             <img src="images/linkedin.png" alt="LinkedIn" class="ball-img">
         </div>
         <div class="ball ball-link" data-id="email" data-href="mailto:alex.batten1234@gmail.com">
@@ -546,7 +563,7 @@
     </footer>
 
     <script src="posts.js?v=2"></script>
-    <script src="content.js?v=24"></script>
+    <script src="content.js?v=25"></script>
     <script src="freelance.js?v=3"></script>
     <script src="back.js?v=1"></script>
     <script src="chat.js?v=3"></script>
