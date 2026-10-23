@@ -15,7 +15,7 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         en: {
             incomplete: 'Please fill in your name, email, and a few details.',
             sending: 'Sending…',
-            submit: 'Send project request',
+            submit: 'Send request',
             failed: "Couldn't send right now. Email me directly at alex.batten1234@gmail.com.",
             successTitle: 'Request sent',
             successBody: "Thanks for reaching out. I'll get back to you within a couple of days."
@@ -23,7 +23,7 @@ const WEB3FORMS_ACCESS_KEY = '30293598-c27a-46d8-8b77-dc6f1a6e3006';
         da: {
             incomplete: 'Udfyld venligst navn, e-mail og et par detaljer.',
             sending: 'Sender…',
-            submit: 'Send projektforespørgsel',
+            submit: 'Send forespørgsel',
             failed: 'Kunne ikke sende lige nu. Skriv direkte til alex.batten1234@gmail.com.',
             successTitle: 'Forespørgsel sendt',
             successBody: 'Tak fordi du skrev. Jeg vender tilbage inden for et par dage.'

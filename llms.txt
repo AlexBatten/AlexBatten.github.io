@@ -2,8 +2,9 @@
 
 > AI engineer based in Denmark, with a background in .NET and full-stack
 > development. Available for new freelance and contract work. Typical work:
-> backend services, REST APIs, enterprise and tax-authority integrations,
-> multi-tenant SaaS, Stripe billing, and AI features. Remote across the EU on CET.
+> AI agents and AI features, automation, AI guardrails and evaluation, backend
+> services, REST APIs, enterprise and tax-authority integrations, multi-tenant
+> SaaS, and Stripe billing. Remote across the EU on CET.
 
 Alex Batten holds a BEng in Software Technology from the Technical University of
 Denmark (DTU). He works as an AI engineer. His background is C# and .NET with
@@ -100,9 +101,10 @@ hreflang. English is the default (x-default).
 
 Available for new freelance and contract work. Email alex.batten1234@gmail.com or
 send a project brief through the form at https://alexbatten.dk/. The work he takes
-is .NET and full-stack web applications, REST APIs, enterprise and tax-authority
-integrations (SKAT, SAF-T, NemHandel/Peppol), Stripe billing, and AI features,
-remote across the EU on CET. Project requests get a reply within a couple of days.
+is AI agents and AI features, automation, AI guardrails and evaluation, enterprise
+and tax-authority integrations (SKAT, SAF-T, NemHandel/Peppol), .NET and full-stack
+web applications, REST APIs, and Stripe billing, remote across the EU on CET.
+Project requests get a reply within a couple of days.
 
 ## Optional
 

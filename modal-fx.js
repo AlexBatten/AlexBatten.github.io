@@ -28,7 +28,7 @@
         skills:          { src: '/fx/skills.js?v=1',          h: 250, hNarrow: 210 },
         education:       { src: '/fx/education.js?v=5',       h: 220, hNarrow: 180 },
         recommendations: { src: '/fx/recommendations.js?v=4', decorate: true },
-        hire:            { src: '/fx/hire.js?v=1',            h: 160, hNarrow: 120 },
+        hire:            { src: '/fx/hire.js?v=2',            h: 160, hNarrow: 120 },
         lab:             { src: '/fx/lab.js?v=2',             h: 240, hNarrow: 190 }
     };
     var FADE_MS = 300;    // the overlay's fade-out in styles.css

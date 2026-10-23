@@ -1,13 +1,14 @@
 // ── 07 Hire: a blueprint drawn from the brief ──
 // The Hire modal is a project-request form. Above it sits a drafting sheet: a
 // dot grid, a thin border and a title block in the corner. As the form is
-// filled in, the sheet draws the project. Each project type picked gets its
-// own small schematic (a browser window for a web app, two services trading
-// calls for an API or integration, a small neural net for AI / ML, a phone
-// for mobile, a box in hidden-line view for anything else), the budget fills
-// a scale bar and the timeline lays a bar along an axis. The title block
-// names the client from the first word of the name field. When the form is
-// swapped for its success message, the sheet is stamped SENT.
+// filled in, the sheet draws the project. Each type of work picked gets its
+// own small schematic (a small neural net driving a gear for AI and
+// automation, a clipboard of checks with one failed for AI safety and
+// testing, two services trading calls for connecting systems, a browser
+// window for a web app, a box in hidden-line view for anything else), the
+// budget fills a scale bar and the timeline lays a bar along an axis. The
+// title block names the client from the first word of the name field. When
+// the form is swapped for its success message, the sheet is stamped SENT.
 //
 // Drawn as SVG in the card's paper ink, with the accent kept for the stamp.
 // Nothing runs between edits: each change is a short CSS transition, started
@@ -32,19 +33,30 @@
 
     var TEXT = {
         en: { client: 'Client', drawnBy: 'Drawn by', sent: 'Sent',
-              hint: 'pick a project type below to start the drawing' },
+              hint: 'pick a type of work below to start the drawing' },
         da: { client: 'Kunde', drawnBy: 'Tegnet af', sent: 'Sendt',
-              hint: 'vælg en projekttype herunder for at starte tegningen' }
+              hint: 'vælg en opgavetype herunder for at starte tegningen' }
     };
 
     // Which schematic a pill draws, by its data-value in either language.
     // Anything not listed here draws the generic box.
     var KIND = {
         'Web app': 0, 'Webapplikation': 0,
-        'API / integration': 1,
-        'AI / ML': 2,
-        'Mobile': 3, 'Mobil': 3,
-        'Other': 4, 'Andet': 4
+        'Connecting systems': 1, 'Systemer der taler sammen': 1,
+        'AI & automation': 2, 'AI og automatisering': 2,
+        'AI safety & testing': 3, 'AI-sikkerhed og test': 3,
+        'Something else': 4, 'Noget andet': 4
+    };
+
+    // A shorter name for the sheet, by data-value, used in place of a pill's
+    // own text when that does not fit its lane. That happens on a phone with
+    // several types picked; a pill not listed here is cut short instead.
+    var SHORT = {
+        'Webapplikation': 'Webapp',
+        'Connecting systems': 'Integration', 'Systemer der taler sammen': 'Integrationer',
+        'AI & automation': 'Automation', 'AI og automatisering': 'Automatisering',
+        'AI safety & testing': 'AI safety', 'AI-sikkerhed og test': 'AI-sikkerhed',
+        'Something else': 'Other', 'Noget andet': 'Andet'
     };
 
     // ── Schematics ──
@@ -74,13 +86,18 @@
         ['poly', 0.65, [27, 23, 24, 26, 27, 29]]
     ];
 
-    var PHONE = [
-        ['rect', 0.8, 20, 0, 24, 44, 4],
-        ['line', 0.55, 29, 3.5, 35, 3.5],
-        ['rect', 0.45, 22.5, 7, 19, 30, 1],
-        ['rect', 0.45, 25, 10, 14, 9, 1],
-        [['line', 0.4, 25, 23, 39, 23], ['line', 0.4, 25, 27, 35, 27], ['line', 0.4, 25, 31, 37, 31]],
-        ['line', 0.55, 28, 40.5, 36, 40.5]
+    // A clipboard of three checks, the middle one failed. The board is open
+    // at the top where the clip sits over it, and the ticks overshoot their
+    // boxes like pen strokes.
+    var CHECKS = [
+        ['poly', 0.8, [25, 4, 16, 4, 14, 6, 14, 42, 16, 44, 48, 44, 50, 42, 50, 6, 48, 4, 39, 4]],
+        ['rect', 0.65, 25, 1, 14, 6, 1.5],
+        [['rect', 0.6, 19, 12, 6, 6, 0.5], ['line', 0.45, 29, 15, 45, 15]],
+        [['rect', 0.6, 19, 22, 6, 6, 0.5], ['line', 0.45, 29, 25, 42, 25]],
+        [['rect', 0.6, 19, 32, 6, 6, 0.5], ['line', 0.45, 29, 35, 44, 35]],
+        ['poly', 0.8, [20.2, 15, 22, 17, 25.8, 11.5]],
+        [['line', 0.8, 20, 23, 24, 27], ['line', 0.8, 24, 23, 20, 27]],
+        ['poly', 0.8, [20.2, 35, 22, 37, 25.8, 31.5]]
     ];
 
     // A box in oblique projection: the front face, the top and the right
@@ -93,14 +110,21 @@
         [['line', 0.35, 23, 28, 31, 28], ['line', 0.35, 27, 24, 27, 32]]
     ];
 
-    // Three layers of nodes, wired layer to layer. Wires stop at the node
-    // rims so the circles stay open without needing a fill.
-    function network() {
-        var layers = [[6, [8, 22, 36]], [32, [5, 16.3, 27.7, 39]], [58, [14, 30]]];
-        var R = 3, out = [], i, j, k;
+    var NODE_R = 3;
+
+    // A wire between two circles. It stops at both rims so the circles stay
+    // open without needing a fill.
+    function wire(ax, ay, ra, bx, by, rb) {
+        var dx = bx - ax, dy = by - ay, d = Math.sqrt(dx * dx + dy * dy);
+        return ['line', 0.3, ax + dx / d * ra, ay + dy / d * ra, bx - dx / d * rb, by - dy / d * rb];
+    }
+
+    // Layers of nodes, each given as [x, [y, ...]], wired layer to layer.
+    function network(layers) {
+        var out = [], i, j, k;
         function nodes(l) {
             var step = [];
-            for (var n = 0; n < l[1].length; n++) step.push(['circle', 0.75, l[0], l[1][n], R]);
+            for (var n = 0; n < l[1].length; n++) step.push(['circle', 0.75, l[0], l[1][n], NODE_R]);
             return step;
         }
         for (i = 0; i < layers.length; i++) {
@@ -108,17 +132,43 @@
             if (i === layers.length - 1) break;
             var a = layers[i], b = layers[i + 1], wires = [];
             for (j = 0; j < a[1].length; j++) {
-                for (k = 0; k < b[1].length; k++) {
-                    var dx = b[0] - a[0], dy = b[1][k] - a[1][j], d = Math.sqrt(dx * dx + dy * dy);
-                    wires.push(['line', 0.3, a[0] + dx / d * R, a[1][j] + dy / d * R, b[0] - dx / d * R, b[1][k] - dy / d * R]);
-                }
+                for (k = 0; k < b[1].length; k++) wires.push(wire(a[0], a[1][j], NODE_R, b[0], b[1][k], NODE_R));
             }
             out.push(wires);
         }
         return out;
     }
 
-    var SCHEMATICS = [WEB, API, network(), PHONE, BOX];
+    // A gear outline with n teeth, tip radius ro and root radius ri, as one
+    // closed polyline. Tooth 0 points straight right; each tooth narrows from
+    // half the pitch wide at the root to 0.3 of it at the tip.
+    function gear(cx, cy, n, ro, ri) {
+        var pts = [], pitch = 2 * Math.PI / n;
+        function at(r, a) { pts.push(cx + r * Math.cos(a), cy + r * Math.sin(a)); }
+        for (var i = 0; i < n; i++) {
+            var a = i * pitch;
+            at(ri, a - pitch / 4);
+            at(ro, a - pitch * 0.15);
+            at(ro, a + pitch * 0.15);
+            at(ri, a + pitch / 4);
+        }
+        pts.push(pts[0], pts[1]);
+        return pts;
+    }
+
+    // The first two layers of a net, its last layer wired into a gear: a
+    // model driving a machine. The gear's tooth 0 points right at mid height,
+    // where the connector to the next schematic meets it.
+    function automation() {
+        var hidden = [27, [5, 16.3, 27.7, 39]], gx = 51, gy = 22, ro = 12;
+        var out = network([[6, [8, 22, 36]], hidden]);
+        out.push(hidden[1].map(function (y) { return wire(hidden[0], y, NODE_R, gx, gy, ro + 1); }));
+        out.push(['poly', 0.8, gear(gx, gy, 8, ro, 9)]);
+        out.push(['circle', 0.6, gx, gy, 3.5]);
+        return out;
+    }
+
+    var SCHEMATICS = [WEB, API, automation(), CHECKS, BOX];
 
     function strokesOf(step) {
         return typeof step[0] === 'string' ? [step] : step;
@@ -237,13 +287,14 @@
     }
 
     function readLabels(form) {
-        var out = { pills: [], kinds: [], budget: '', timeline: '', budgetOpts: [], timelineOpts: [] };
+        var out = { pills: [], kinds: [], short: [], budget: '', timeline: '', budgetOpts: [], timelineOpts: [] };
         if (!form) return out;
-        var pills = form.querySelectorAll('.brief-pill');
+        var pills = form.querySelectorAll('.brief-pill'), has = Object.prototype.hasOwnProperty;
         for (var i = 0; i < pills.length; i++) {
             var v = pills[i].getAttribute('data-value') || '';
             out.pills.push(clean(pills[i].textContent));
-            out.kinds.push(Object.prototype.hasOwnProperty.call(KIND, v) ? KIND[v] : 4);
+            out.kinds.push(has.call(KIND, v) ? KIND[v] : 4);
+            out.short.push(has.call(SHORT, v) ? SHORT[v] : '');
         }
         var b = form.querySelector('select[name="budget"]'), t = form.querySelector('select[name="timeline"]');
         out.budget = fieldLabel(b);
@@ -536,7 +587,8 @@
             var full = (labels.pills[idx] || '').toUpperCase();
             var label = text(lab, L.dw / 2, L.labY, full, { a: 0.6, anchor: 'middle', spacing: '0.06em' });
             return { g: g, steps: steps, ext: ext, dim: dim, lab: lab, label: label, leader: leader,
-                full: full, natural: width(label), x: null, row: 0, fresh: true };
+                full: full, short: (labels.short[idx] || '').toUpperCase(), natural: width(label),
+                x: null, row: 0, fresh: true };
         }
 
         function drawItem(it, delay) {
@@ -560,10 +612,15 @@
             it.x = x;
         }
 
-        // Fits the label to the room it has and keeps it inside the sheet;
-        // row 1 drops it one line and shows the leader.
+        // Fits the label to its lane, maxW wide around cx, and keeps it
+        // inside the sheet; row 1 drops it one line and shows the leader. A
+        // label the sheet edge pushes inwards loses as much room as it
+        // moves, so it stays in its own lane and clear of its neighbour's. A
+        // label too long for its lane is swapped for its short name, if it
+        // has one, before anything is cut.
         function setLabel(it, cx, maxW, row) {
-            fit(it.label, it.full, maxW);
+            var room = Math.min(maxW, cx - 4 + maxW / 2, L.W - 4 - cx + maxW / 2);
+            fit(it.label, it.short && it.natural > room ? it.short : it.full, room);
             var w = width(it.label);
             var c = Math.max(4 + w / 2, Math.min(L.W - 4 - w / 2, cx));
             it.label.setAttribute('x', (c - it.x).toFixed(1));

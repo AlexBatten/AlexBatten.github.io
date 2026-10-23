@@ -564,8 +564,8 @@ const CONTENT_EN = {
         number: '07',
         title: 'Start a Project',
         html: `
-            <p class="brief-intro">Available for new freelance and contract work. Send the
-            details below and I will reply within a couple of days.</p>
+            <p class="brief-intro">Available for new freelance and contract work. Tell me
+            what you need, with or without AI, and I will reply within a couple of days.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -586,13 +586,13 @@ const CONTENT_EN = {
                 </div>
 
                 <div class="brief-field">
-                    <span class="brief-label">Project type</span>
+                    <span class="brief-label">Type of work <em>(pick one or more)</em></span>
                     <div class="brief-pills">
+                        <button type="button" class="brief-pill" data-value="AI &amp; automation">AI &amp; automation</button>
+                        <button type="button" class="brief-pill" data-value="AI safety &amp; testing">AI safety &amp; testing</button>
+                        <button type="button" class="brief-pill" data-value="Connecting systems">Connecting systems</button>
                         <button type="button" class="brief-pill" data-value="Web app">Web app</button>
-                        <button type="button" class="brief-pill" data-value="API / integration">API / integration</button>
-                        <button type="button" class="brief-pill" data-value="AI / ML">AI / ML</button>
-                        <button type="button" class="brief-pill" data-value="Mobile">Mobile</button>
-                        <button type="button" class="brief-pill" data-value="Other">Other</button>
+                        <button type="button" class="brief-pill" data-value="Something else">Something else</button>
                     </div>
                 </div>
 
@@ -624,10 +624,10 @@ const CONTENT_EN = {
                 <label class="brief-field">
                     <span class="brief-label">Project details</span>
                     <textarea name="message" rows="4" required
-                        placeholder="What are you trying to build, and what does success look like?"></textarea>
+                        placeholder="What are you trying to solve, and what does success look like?"></textarea>
                 </label>
 
-                <button type="submit" class="brief-submit">Send project request</button>
+                <button type="submit" class="brief-submit">Send request</button>
                 <p class="brief-status" id="brief-status" role="status" aria-live="polite"></p>
                 <p class="brief-note">No account needed. Goes straight to my inbox.</p>
             </form>
@@ -1144,8 +1144,8 @@ const CONTENT_DA = {
         number: '07',
         title: 'Start et projekt',
         html: `
-            <p class="brief-intro">Jeg er ledig til nye freelance- og kontraktopgaver. Send
-            detaljerne herunder, så svarer jeg inden for et par dage.</p>
+            <p class="brief-intro">Jeg er ledig til nye freelance- og kontraktopgaver. Fortæl
+            mig, hvad du har brug for, med eller uden AI, så svarer jeg inden for et par dage.</p>
 
             <form class="brief-form" id="brief-form" novalidate>
                 <input type="hidden" name="access_key" value="">
@@ -1166,13 +1166,13 @@ const CONTENT_DA = {
                 </div>
 
                 <div class="brief-field">
-                    <span class="brief-label">Projekttype</span>
+                    <span class="brief-label">Opgavetype <em>(vælg gerne flere)</em></span>
                     <div class="brief-pills">
+                        <button type="button" class="brief-pill" data-value="AI og automatisering">AI og automatisering</button>
+                        <button type="button" class="brief-pill" data-value="AI-sikkerhed og test">AI-sikkerhed og test</button>
+                        <button type="button" class="brief-pill" data-value="Systemer der taler sammen">Systemer der taler sammen</button>
                         <button type="button" class="brief-pill" data-value="Webapplikation">Webapplikation</button>
-                        <button type="button" class="brief-pill" data-value="API / integration">API / integration</button>
-                        <button type="button" class="brief-pill" data-value="AI / ML">AI / ML</button>
-                        <button type="button" class="brief-pill" data-value="Mobil">Mobil</button>
-                        <button type="button" class="brief-pill" data-value="Andet">Andet</button>
+                        <button type="button" class="brief-pill" data-value="Noget andet">Noget andet</button>
                     </div>
                 </div>
 
@@ -1204,10 +1204,10 @@ const CONTENT_DA = {
                 <label class="brief-field">
                     <span class="brief-label">Projektdetaljer</span>
                     <textarea name="message" rows="4" required
-                        placeholder="Hvad prøver du at bygge, og hvornår er det en succes?"></textarea>
+                        placeholder="Hvad prøver du at løse, og hvornår er det en succes?"></textarea>
                 </label>
 
-                <button type="submit" class="brief-submit">Send projektforespørgsel</button>
+                <button type="submit" class="brief-submit">Send forespørgsel</button>
                 <p class="brief-status" id="brief-status" role="status" aria-live="polite"></p>
                 <p class="brief-note">Ingen konto nødvendig. Går direkte til min indbakke.</p>
             </form>
