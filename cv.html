@@ -46,7 +46,7 @@
           "url": "https://alexbatten.dk/cv",
           "name": "CV | Alex Batten, AI Engineer in Denmark",
           "inLanguage": "en",
-          "dateModified": "2026-10-23T02:05:00+02:00",
+          "dateModified": "2026-10-24T21:07:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/cv#faq" }
@@ -168,7 +168,7 @@
               "name": "What is Alex Batten's education?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025, with electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics. His bachelor's project was an integration between two ERP systems built from scratch. GPA: 7.62 on the Danish 7-point scale."
+                "text": "A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025, with electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics. His bachelor's project was a PSA-to-ERP integration (Accelo to Microsoft Business Central), with the Accelo side built from scratch and the Business Central side designed but not built. GPA: 7.62 on the Danish 7-point scale."
               }
             },
             {
@@ -209,7 +209,7 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, AI Engineer in Denmark</h1>
-    <p>Last updated: <time datetime="2026-10-23">October 23, 2026</time></p>
+    <p>Last updated: <time datetime="2026-10-24">October 24, 2026</time></p>
 
     <p>Alex Batten is a freelance AI engineer in Denmark with a C#/.NET background. He builds AI
     agent guardrails (the Invarix libraries) and Danish tax and e-invoicing integrations (SKAT,
@@ -290,30 +290,22 @@
     <p><strong>Skills:</strong> AI/ML, Prompt Engineering, Agentic AI, Data Annotation.</p>
 
     <h3>Software Development Intern at IT Operators / Simple Agency Group (2024)</h3>
-    <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack web apps
-    with Angular, .NET, and Bootstrap, including JWT auth, real-time dashboards, and automated
-    reporting. Migrated an in-house ERP's time representation from quarter hours to minutes across
-    every display, estimate and report field, then rebuilt the billing review on top of it so a
-    task worked by employees from more than one group billed under each of those groups instead of
-    one. Validated the rebuilt invoicing screen by reconciling a full month of billing data
-    against what had actually been invoiced.</p>
+    <p>Developed REST APIs with auth, plus usage-limit monitoring with email alerts. Built
+    fullstack web apps with Angular, .NET, and Bootstrap, including JWT auth, real-time
+    dashboards, and automated reporting. Migrated an in-house ERP's time representation from
+    quarter hours to minutes across every display, estimate and report field, then rebuilt the
+    billing review on top of it so a task worked by employees from more than one group billed
+    under each of those groups instead of one. Validated the rebuilt invoicing screen by
+    reconciling a full month of billing data against what had actually been invoiced.</p>
 
     <h2>Projects</h2>
 
     <h3>Professional work at IT Operators / Simple Agency Group</h3>
 
-    <h4>Accelo to Business Central integration (Bachelor Project)</h4>
-    <p>Fullstack application bridging two enterprise platforms, transferring and reviewing time
-    registrations from Accelo (PSA) into Microsoft Business Central (ERP). Built a custom UI for
-    reviewing and adjusting hours before syncing. Designed the data model in MSSQL, implemented
-    multi-tenant authentication via Microsoft Entra ID, and containerized the entire stack with
-    Docker in a Jenkins CI/CD pipeline. Fully tested, with unit tests on both layers plus
-    integration tests using Selenium and WebApplicationFactory.</p>
-
     <h4>Custom REST API for Uno X (Client: ISTOBAL)</h4>
     <p>Custom API for ISTOBAL (car wash manufacturer) serving operational data to Uno X (Nordic
-    fuel station chain), with a custom token-based authentication system and rate limiting with
-    automated email alerts on threshold breach.</p>
+    fuel station chain), with a custom token-based authentication system and per-call usage
+    counting with automated email alerts when a usage limit is reached.</p>
 
     <h4>Automated SMS alert system (Client: Eye4u)</h4>
     <p>Extended a customer monitoring portal with automated SMS notifications triggered by
@@ -334,8 +326,21 @@
     registrations and cron job health to track work efficiency and catch failed jobs early.</p>
 
     <h4>External API integrations (Client: TIMEVAT)</h4>
-    <p>Integrated the EU VIES API for VAT number validation and the Danish National Bank API for
-    daily currency exchange rates into a VAT compliance platform.</p>
+    <p>Integrated the EU VIES API for VAT number validation and daily currency exchange rates
+    from the European Central Bank into a VAT compliance platform.</p>
+
+    <h3>Bachelor project at DTU, in collaboration with IT Operators / Simple Agency Group</h3>
+
+    <h4>Accelo to Business Central integration (DTU, February&ndash;June 2025)</h4>
+    <p>Fullstack application that imports time registrations from Accelo (PSA) into MSSQL for
+    review: the Accelo side of an integration with Microsoft Business Central (ERP). Built a
+    custom UI for reviewing and adjusting hours and designed the data model in MSSQL. Designed
+    the Business Central side against its API v2.0; it was not built, because the company's API
+    credentials arrived too late. Implemented single sign-on via Microsoft Entra ID
+    (single-tenant) and ran the app in Docker in a Jenkins CI/CD pipeline, with SQL Server
+    outside the containers. Unit tests on both layers (63 backend tests, 161 frontend specs),
+    plus end-to-end tests using WebApplicationFactory and headless Selenium for the core fetch
+    and overview flows.</p>
 
     <h3>Personal projects</h3>
 
@@ -396,7 +401,8 @@
     <h2>Education</h2>
     <h3>BEng Software Technology, Technical University of Denmark (DTU), 2021&ndash;2025</h3>
     <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
-    Bachelor's project: an integration between two ERP systems built from scratch.
+    Bachelor's project: a PSA-to-ERP integration (Accelo to Microsoft Business Central), with
+    the Accelo side built from scratch and the Business Central side designed but not built.
     GPA: 7.62 (Danish 7-point scale).</p>
 
     <h2>Recommendations</h2>
@@ -472,8 +478,9 @@
     <h3>What is Alex Batten's education?</h3>
     <p>A BEng in Software Technology from the Technical University of Denmark (DTU), 2021 to 2025,
     with electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
-    His bachelor's project was an integration between two ERP systems built from scratch. GPA:
-    7.62 on the Danish 7-point scale.</p>
+    His bachelor's project was a PSA-to-ERP integration (Accelo to Microsoft Business Central),
+    with the Accelo side built from scratch and the Business Central side designed but not built.
+    GPA: 7.62 on the Danish 7-point scale.</p>
 
     <h3>How do you get in touch with Alex Batten?</h3>
     <p>By email at <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>, or by

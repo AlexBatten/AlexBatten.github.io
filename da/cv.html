@@ -47,7 +47,7 @@
           "url": "https://alexbatten.dk/da/cv",
           "name": "CV | Alex Batten, AI-udvikler i Danmark",
           "inLanguage": "da",
-          "dateModified": "2026-10-23T02:05:00+02:00",
+          "dateModified": "2026-10-24T21:07:00+02:00",
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "isPartOf": { "@id": "https://alexbatten.dk/#website" },
           "hasPart": { "@id": "https://alexbatten.dk/da/cv#faq" }
@@ -169,7 +169,7 @@
               "name": "Hvilken uddannelse har Alex Batten?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Diplomingeniør (BEng) i softwareteknologi fra Danmarks Tekniske Universitet (DTU), 2021 til 2025, med valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi. Bachelorprojektet var en integration mellem to ERP-systemer bygget fra bunden. Gennemsnit: 7,62 på den danske 7-trinsskala."
+                "text": "Diplomingeniør (BEng) i softwareteknologi fra Danmarks Tekniske Universitet (DTU), 2021 til 2025, med valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi. Bachelorprojektet var en PSA-til-ERP-integration (Accelo til Microsoft Business Central), hvor Accelo-delen blev bygget fra bunden, og Business Central-delen blev designet, men ikke bygget. Gennemsnit: 7,62 på den danske 7-trinsskala."
               }
             },
             {
@@ -210,7 +210,7 @@
 
 <main class="privacy-policy-content">
     <h1>Alex Batten, AI-udvikler i Danmark</h1>
-    <p>Sidst opdateret: <time datetime="2026-10-23">23. oktober 2026</time></p>
+    <p>Sidst opdateret: <time datetime="2026-10-24">24. oktober 2026</time></p>
 
     <p>Alex Batten er freelance AI-udvikler i Danmark med en baggrund i C#/.NET. Han bygger
     guardrails til AI-agenter (Invarix-bibliotekerne) og integrationer til dansk skat og
@@ -298,31 +298,23 @@
     <p><strong>Kompetencer:</strong> AI/ML, prompt engineering, agentisk AI, dataannotering.</p>
 
     <h3>Softwareudviklerpraktikant hos IT Operators / Simple Agency Group (2024)</h3>
-    <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning. Byggede
-    fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder JWT-autentificering,
-    realtidsdashboards og automatiseret rapportering. Migrerede tidsangivelsen i et internt
-    ERP-system fra kvarter til minutter i alle visnings-, estimat- og rapportfelter, og byggede
-    derefter faktureringsgennemgangen om på det nye grundlag, så en opgave, der var udført af
-    medarbejdere fra flere grupper, blev faktureret under hver af grupperne i stedet for kun én.
-    Validerede den ombyggede faktureringsskærm ved at afstemme en hel måneds faktureringsdata mod
-    det, der rent faktisk var blevet faktureret.</p>
+    <p>Udviklede REST-API'er med autentificering samt overvågning af forbrugsgrænser med
+    e-mailadvarsler. Byggede fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder
+    JWT-autentificering, realtidsdashboards og automatiseret rapportering. Migrerede
+    tidsangivelsen i et internt ERP-system fra kvarter til minutter i alle visnings-, estimat- og
+    rapportfelter, og byggede derefter faktureringsgennemgangen om på det nye grundlag, så en
+    opgave, der var udført af medarbejdere fra flere grupper, blev faktureret under hver af
+    grupperne i stedet for kun én. Validerede den ombyggede faktureringsskærm ved at afstemme en
+    hel måneds faktureringsdata mod det, der rent faktisk var blevet faktureret.</p>
 
     <h2>Projekter</h2>
 
     <h3>Professionelt arbejde hos IT Operators / Simple Agency Group</h3>
 
-    <h4>Accelo til Business Central-integration (bachelorprojekt)</h4>
-    <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og gennemgår
-    tidsregistreringer fra Accelo (PSA) til Microsoft Business Central (ERP). Byggede en
-    brugerflade til at gennemgå og justere timer inden synkronisering. Designede datamodellen i
-    MSSQL, implementerede multi-tenant-autentificering via Microsoft Entra ID og containeriserede
-    hele stakken med Docker i en Jenkins CI/CD-pipeline. Fuldt testet med unit tests i begge lag
-    samt integrationstests med Selenium og WebApplicationFactory.</p>
-
     <h4>Skræddersyet REST-API til Uno X (kunde: ISTOBAL)</h4>
     <p>Skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer driftsdata til
-    Uno X (nordisk tankstationskæde), med et tokenbaseret autentificeringssystem og rate limiting
-    med automatiske e-mailadvarsler, når en grænseværdi overskrides.</p>
+    Uno X (nordisk tankstationskæde), med et tokenbaseret autentificeringssystem og optælling af
+    forbrug pr. kald med automatiske e-mailadvarsler, når en forbrugsgrænse nås.</p>
 
     <h4>Automatisk SMS-alarmsystem (kunde: Eye4u)</h4>
     <p>Udvidede en kundeportal til overvågning med automatiske SMS-notifikationer udløst af
@@ -345,8 +337,21 @@
     fejlede jobs tidligt.</p>
 
     <h4>Eksterne API-integrationer (kunde: TIMEVAT)</h4>
-    <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API til daglige
-    valutakurser i en momscompliance-platform.</p>
+    <p>Integrerede EU's VIES-API til validering af momsnumre og daglige valutakurser fra Den
+    Europæiske Centralbank i en momscompliance-platform.</p>
+
+    <h3>Bachelorprojekt på DTU i samarbejde med IT Operators / Simple Agency Group</h3>
+
+    <h4>Accelo til Business Central-integration (DTU, februar&ndash;juni 2025)</h4>
+    <p>Fullstack-applikation, der importerer tidsregistreringer fra Accelo (PSA) til MSSQL, så de
+    kan gennemgås: Accelo-delen af en integration med Microsoft Business Central (ERP). Byggede
+    en brugerflade til at gennemgå og justere timer og designede datamodellen i MSSQL. Designede
+    Business Central-delen op mod systemets API v2.0; den blev ikke bygget, fordi virksomhedens
+    adgangsoplysninger til API'et kom for sent. Implementerede single sign-on via Microsoft Entra
+    ID (single-tenant) og kørte applikationen i Docker i en Jenkins CI/CD-pipeline, med SQL
+    Server uden for containerne. Unit tests i begge lag (63 backend-tests og 161 frontend-specs)
+    samt end-to-end-tests med WebApplicationFactory og headless Selenium af de centrale flows til
+    hentning og oversigt.</p>
 
     <h3>Personlige projekter</h3>
 
@@ -412,8 +417,9 @@
     <h3>Diplomingeniør (BEng) i softwareteknologi, Danmarks Tekniske Universitet (DTU),
     2021&ndash;2025</h3>
     <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
-    Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
-    Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+    Bachelorprojekt: en PSA-til-ERP-integration (Accelo til Microsoft Business
+    Central), hvor Accelo-delen blev bygget fra bunden, og Business Central-delen
+    blev designet, men ikke bygget. Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
 
     <h2>Anbefalinger</h2>
     <h3>Mike Valencia, CEO hos Simple Agency Group</h3>
@@ -493,8 +499,9 @@
     <h3>Hvilken uddannelse har Alex Batten?</h3>
     <p>Diplomingeniør (BEng) i softwareteknologi fra Danmarks Tekniske Universitet (DTU), 2021
     til 2025, med valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
-    Bachelorprojektet var en integration mellem to ERP-systemer bygget fra bunden. Gennemsnit:
-    7,62 på den danske 7-trinsskala.</p>
+    Bachelorprojektet var en PSA-til-ERP-integration (Accelo til Microsoft Business Central),
+    hvor Accelo-delen blev bygget fra bunden, og Business Central-delen blev designet, men
+    ikke bygget. Gennemsnit: 7,62 på den danske 7-trinsskala.</p>
 
     <h3>Hvordan kommer man i kontakt med Alex Batten?</h3>
     <p>På e-mail til <a href="mailto:alex.batten1234@gmail.com">alex.batten1234@gmail.com</a>

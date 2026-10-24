@@ -24,7 +24,7 @@
     var FX = {
         about:           { src: '/fx/about.js?v=1',           h: 230, hNarrow: 180 },
         experience:      { src: '/fx/experience.js?v=1',      h: 190, hNarrow: 170 },
-        projects:        { src: '/fx/projects.js?v=2',        h: 210, hNarrow: 190 },
+        projects:        { src: '/fx/projects.js?v=3',       h: 210, hNarrow: 190 },
         skills:          { src: '/fx/skills.js?v=1',          h: 250, hNarrow: 210 },
         education:       { src: '/fx/education.js?v=5',       h: 220, hNarrow: 180 },
         recommendations: { src: '/fx/recommendations.js?v=4', decorate: true },

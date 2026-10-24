@@ -72,7 +72,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "da",
-          "dateModified": "2026-10-23T02:05:00+02:00",
+          "dateModified": "2026-10-24T21:07:00+02:00",
           "relatedLink": "https://alexbatten.dk/da/cv"
         },
         {
@@ -248,35 +248,27 @@
             </article>
             <article>
                 <h3>Softwareudviklerpraktikant hos IT Operators / Simple Agency Group (2024)</h3>
-                <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning.
-                Byggede fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder
-                JWT-autentificering, realtidsdashboards og automatiseret rapportering.
-                Migrerede tidsangivelsen i et internt ERP-system fra kvarter til minutter
-                i alle visnings-, estimat- og rapportfelter, og byggede derefter
-                faktureringsgennemgangen om på det nye grundlag, så en opgave, der var udført
-                af medarbejdere fra flere grupper, blev faktureret under hver af grupperne i
-                stedet for kun én. Validerede den ombyggede faktureringsskærm ved at afstemme
-                en hel måneds faktureringsdata mod det, der rent faktisk var blevet
-                faktureret.</p>
+                <p>Udviklede REST-API'er med autentificering samt overvågning af
+                forbrugsgrænser med e-mailadvarsler. Byggede fullstack-webapplikationer med
+                Angular, .NET og Bootstrap, herunder JWT-autentificering, realtidsdashboards
+                og automatiseret rapportering. Migrerede tidsangivelsen i et internt
+                ERP-system fra kvarter til minutter i alle visnings-, estimat- og
+                rapportfelter, og byggede derefter faktureringsgennemgangen om på det nye
+                grundlag, så en opgave, der var udført af medarbejdere fra flere grupper,
+                blev faktureret under hver af grupperne i stedet for kun én. Validerede den
+                ombyggede faktureringsskærm ved at afstemme en hel måneds faktureringsdata
+                mod det, der rent faktisk var blevet faktureret.</p>
             </article>
         </section>
 
         <section aria-labelledby="seo-proj">
             <h2 id="seo-proj">Projekter</h2>
             <article>
-                <h3>Accelo til Business Central-integration (bachelorprojekt)</h3>
-                <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og
-                gennemgår tidsregistreringer fra Accelo (PSA) til Microsoft Business Central
-                (ERP). Skræddersyet brugerflade til gennemgang, datamodel i MSSQL,
-                multi-tenant-autentificering via Microsoft Entra ID, containeriseret med
-                Docker i en Jenkins
-                CI/CD-pipeline, med unit tests og Selenium-integrationstests.</p>
-            </article>
-            <article>
                 <h3>Skræddersyet REST-API til Uno X (kunde: ISTOBAL)</h3>
                 <p>Skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer
                 driftsdata til Uno X (nordisk tankstationskæde), med tokenbaseret autentificering
-                og rate limiting med automatiske e-mailadvarsler.</p>
+                og optælling af forbrug pr. kald med automatiske e-mailadvarsler ved en
+                forbrugsgrænse.</p>
             </article>
             <article>
                 <h3>Automatisk SMS-alarmsystem (kunde: Eye4u)</h3>
@@ -304,8 +296,20 @@
             </article>
             <article>
                 <h3>Eksterne API-integrationer, TIMEVAT</h3>
-                <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API
-                til valutakurser i en momscompliance-platform.</p>
+                <p>Integrerede EU's VIES-API til validering af momsnumre og valutakurser fra
+                Den Europæiske Centralbank i en momscompliance-platform.</p>
+            </article>
+            <article>
+                <h3>Accelo til Business Central-integration (bachelorprojekt, DTU, 2025)</h3>
+                <p>Fullstack-applikation, lavet i samarbejde med IT Operators / Simple Agency
+                Group, der importerer tidsregistreringer fra Accelo (PSA) til MSSQL, så de kan
+                gennemgås: Accelo-delen af en integration med Microsoft Business Central (ERP).
+                Business Central-delen blev designet op mod systemets API v2.0, men ikke
+                bygget. Skræddersyet brugerflade til gennemgang, datamodel i MSSQL, single
+                sign-on via Microsoft Entra ID (single-tenant), Docker i en Jenkins
+                CI/CD-pipeline med SQL Server uden for containerne, unit tests i begge lag og
+                end-to-end-tests (WebApplicationFactory, headless Selenium) af de centrale
+                flows til hentning og oversigt.</p>
             </article>
             <article>
                 <h3>Invarix Guard</h3>
@@ -382,8 +386,9 @@
             <article>
                 <h3>Diplomingeniør (BEng) i softwareteknologi, Danmarks Tekniske Universitet (DTU), 2021–2025</h3>
                 <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
-                Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
-                Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
+                Bachelorprojekt: en PSA-til-ERP-integration (Accelo til Microsoft Business
+                Central), hvor Accelo-delen blev bygget fra bunden, og Business Central-delen
+                blev designet, men ikke bygget. Gennemsnit: 7,62 (dansk 7-trinsskala).</p>
             </article>
         </section>
 
@@ -541,12 +546,12 @@
     </footer>
 
     <script src="/posts.js?v=2"></script>
-    <script src="/content.js?v=26"></script>
+    <script src="/content.js?v=27"></script>
     <script src="/freelance.js?v=4"></script>
     <script src="/back.js?v=1"></script>
     <script src="/chat.js?v=3"></script>
     <script src="/ascii-bg.js?v=13"></script>
-    <script src="/modal-fx.js?v=5"></script>
+    <script src="/modal-fx.js?v=6"></script>
     <!-- Matter is only needed from physics.js on. As a plain script in
          <head> it would hold up the first paint. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>

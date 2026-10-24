@@ -241,14 +241,14 @@ const CONTENT_EN = {
                     <h3>Software Development Intern at IT Operators / Simple Agency Group</h3>
                     <span class="entry-date">2024</span>
                 </div>
-                <p>Developed REST APIs with auth, rate limiting, and monitoring. Built fullstack
-                web apps with Angular, .NET, and Bootstrap, including JWT auth, real-time dashboards,
-                and automated reporting. Migrated an in-house ERP's time representation from quarter
-                hours to minutes across every display, estimate and report field, then rebuilt the
-                billing review on top of it so a task worked by employees from more than one group
-                billed under each of those groups instead of one. Validated the rebuilt invoicing
-                screen by reconciling a full month of billing data against what had actually been
-                invoiced.</p>
+                <p>Developed REST APIs with auth, plus usage-limit monitoring with email alerts.
+                Built fullstack web apps with Angular, .NET, and Bootstrap, including JWT auth,
+                real-time dashboards, and automated reporting. Migrated an in-house ERP's time
+                representation from quarter hours to minutes across every display, estimate and
+                report field, then rebuilt the billing review on top of it so a task worked by
+                employees from more than one group billed under each of those groups instead of one.
+                Validated the rebuilt invoicing screen by reconciling a full month of billing data
+                against what had actually been invoiced.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
                     <span class="tag">.NET</span>
@@ -269,38 +269,18 @@ const CONTENT_EN = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Accelo to Business Central integration</h3>
-                    <span class="entry-date">Bachelor Project</span>
-                </div>
-                <p>Fullstack application bridging two enterprise platforms, transferring and
-                reviewing time registrations from Accelo (PSA) into Microsoft Business Central (ERP).
-                Built a custom UI for reviewing and adjusting hours before syncing. Designed the data model
-                in MSSQL, implemented multi-tenant authentication via Microsoft Entra ID, and containerized
-                the entire stack with Docker in a Jenkins CI/CD pipeline. Fully tested, unit tests on both
-                layers, plus integration tests using Selenium and WebApplicationFactory.</p>
-                <div style="margin-top:8px">
-                    <span class="tag">Angular</span>
-                    <span class="tag">.NET</span>
-                    <span class="tag">MSSQL</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Jenkins</span>
-                    <span class="tag">Selenium</span>
-                </div>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
                     <h3>Custom REST API for Uno X</h3>
                     <span class="entry-date">Client: ISTOBAL</span>
                 </div>
                 <p>Built a custom API for ISTOBAL (car wash manufacturer) to serve operational
                 data to their client Uno X (Nordic fuel station chain). Implemented a custom token based
-                authentication system and rate limiting with automated email alerts on threshold breach.</p>
+                authentication system and per-call usage counting with automated email alerts when a
+                usage limit is reached.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">REST API</span>
                     <span class="tag">Auth</span>
-                    <span class="tag">Rate Limiting</span>
+                    <span class="tag">Usage Limits</span>
                 </div>
             </div>
 
@@ -359,12 +339,40 @@ const CONTENT_EN = {
                     <h3>External API integrations, TIMEVAT</h3>
                     <span class="entry-date">Client: TIMEVAT</span>
                 </div>
-                <p>Integrated the EU VIES API for VAT number validation and the Danish National
-                Bank API for daily currency exchange rates into a VAT compliance platform.</p>
+                <p>Integrated the EU VIES API for VAT number validation and daily currency exchange
+                rates from the European Central Bank into a VAT compliance platform.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">VIES API</span>
                     <span class="tag">API Integration</span>
+                </div>
+            </div>
+
+            <p style="opacity:0.5; font-size:0.78rem; margin:24px 0 16px; letter-spacing:0.02em;">
+                Bachelor project at DTU, in collaboration with IT Operators / Simple Agency
+            </p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Accelo to Business Central integration</h3>
+                    <span class="entry-date">DTU, Feb–Jun 2025</span>
+                </div>
+                <p>Fullstack application that imports time registrations from Accelo (PSA) into MSSQL for
+                review: the Accelo side of an integration with Microsoft Business Central (ERP). Built a
+                custom UI for reviewing and adjusting hours and designed the data model in MSSQL. Designed
+                the Business Central side against its API v2.0; it was not built, because the company's API
+                credentials arrived too late. Implemented single sign-on via Microsoft Entra ID
+                (single-tenant) and ran the app in Docker in a Jenkins CI/CD pipeline, with SQL Server
+                outside the containers. Unit tests on both layers (63 backend tests, 161 frontend specs),
+                plus end-to-end tests using WebApplicationFactory and headless Selenium for the core fetch
+                and overview flows.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Angular</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">MSSQL</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Jenkins</span>
+                    <span class="tag">Selenium</span>
                 </div>
             </div>
 
@@ -524,8 +532,9 @@ const CONTENT_EN = {
                     <span class="entry-date">2021–2025</span>
                 </div>
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering Economics.
-                Bachelor's project: an integration between two ERP systems built from scratch.
-                GPA: 7.62 (Danish <span style="white-space:nowrap">7-point</span> scale).</p>
+                Bachelor's project: a PSA-to-ERP integration (Accelo to Microsoft Business Central),
+                with the Accelo side built from scratch and the Business Central side designed but
+                not built. GPA: 7.62 (Danish <span style="white-space:nowrap">7-point</span> scale).</p>
                 ${gradeRuler(7.62, '7.62')}
             </div>
         `
@@ -817,14 +826,15 @@ const CONTENT_DA = {
                     <h3>Softwareudviklerpraktikant hos IT Operators / Simple Agency Group</h3>
                     <span class="entry-date">2024</span>
                 </div>
-                <p>Udviklede REST-API'er med autentificering, rate limiting og overvågning. Byggede
-                fullstack-webapplikationer med Angular, .NET og Bootstrap, herunder JWT-autentificering,
-                realtidsdashboards og automatiseret rapportering. Migrerede tidsangivelsen i et internt
-                ERP-system fra kvarter til minutter i alle visnings-, estimat- og rapportfelter, og
-                byggede derefter faktureringsgennemgangen om på det nye grundlag, så en opgave, der
-                var udført af medarbejdere fra flere grupper, blev faktureret under hver af grupperne
-                i stedet for kun én. Validerede den ombyggede faktureringsskærm ved at afstemme en
-                hel måneds faktureringsdata mod det, der rent faktisk var blevet faktureret.</p>
+                <p>Udviklede REST-API'er med autentificering samt overvågning af forbrugsgrænser med
+                e-mailadvarsler. Byggede fullstack-webapplikationer med Angular, .NET og Bootstrap,
+                herunder JWT-autentificering, realtidsdashboards og automatiseret rapportering.
+                Migrerede tidsangivelsen i et internt ERP-system fra kvarter til minutter i alle
+                visnings-, estimat- og rapportfelter, og byggede derefter faktureringsgennemgangen om på
+                det nye grundlag, så en opgave, der var udført af medarbejdere fra flere grupper, blev
+                faktureret under hver af grupperne i stedet for kun én. Validerede den ombyggede
+                faktureringsskærm ved at afstemme en hel måneds faktureringsdata mod det, der rent
+                faktisk var blevet faktureret.</p>
                 <div style="margin-top:8px">
                     <span class="tag">Angular</span>
                     <span class="tag">.NET</span>
@@ -845,40 +855,18 @@ const CONTENT_DA = {
 
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Accelo til Business Central-integration</h3>
-                    <span class="entry-date">Bachelorprojekt</span>
-                </div>
-                <p>Fullstack-applikation, der forbinder to virksomhedsplatforme og overfører og
-                gennemgår tidsregistreringer fra Accelo (PSA) til Microsoft Business Central (ERP).
-                Byggede en brugerflade til at gennemgå og justere timer inden synkronisering.
-                Designede datamodellen i MSSQL, implementerede multi-tenant-autentificering via
-                Microsoft Entra ID og containeriserede hele stakken med Docker i en Jenkins
-                CI/CD-pipeline. Fuldt testet med unit tests i begge lag samt integrationstests med
-                Selenium og WebApplicationFactory.</p>
-                <div style="margin-top:8px">
-                    <span class="tag">Angular</span>
-                    <span class="tag">.NET</span>
-                    <span class="tag">MSSQL</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Jenkins</span>
-                    <span class="tag">Selenium</span>
-                </div>
-            </div>
-
-            <div class="entry">
-                <div class="entry-header">
                     <h3>Skræddersyet REST-API til Uno X</h3>
                     <span class="entry-date">Kunde: ISTOBAL</span>
                 </div>
                 <p>Byggede et skræddersyet API til ISTOBAL (producent af bilvaskeanlæg), som leverer
                 driftsdata til deres kunde Uno X (nordisk tankstationskæde). Implementerede et
-                tokenbaseret autentificeringssystem og rate limiting med automatiske e-mailadvarsler,
-                når en grænseværdi overskrides.</p>
+                tokenbaseret autentificeringssystem og optælling af forbrug pr. kald med automatiske
+                e-mailadvarsler, når en forbrugsgrænse nås.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">REST-API</span>
                     <span class="tag">Autentificering</span>
-                    <span class="tag">Rate limiting</span>
+                    <span class="tag">Forbrugsgrænser</span>
                 </div>
             </div>
 
@@ -938,12 +926,41 @@ const CONTENT_DA = {
                     <h3>Eksterne API-integrationer, TIMEVAT</h3>
                     <span class="entry-date">Kunde: TIMEVAT</span>
                 </div>
-                <p>Integrerede EU's VIES-API til validering af momsnumre og Nationalbankens API til
-                daglige valutakurser i en momscompliance-platform.</p>
+                <p>Integrerede EU's VIES-API til validering af momsnumre og daglige valutakurser
+                fra Den Europæiske Centralbank i en momscompliance-platform.</p>
                 <div style="margin-top:8px">
                     <span class="tag">.NET</span>
                     <span class="tag">VIES-API</span>
                     <span class="tag">API-integration</span>
+                </div>
+            </div>
+
+            <p style="opacity:0.5; font-size:0.78rem; margin:24px 0 16px; letter-spacing:0.02em;">
+                Bachelorprojekt på DTU i samarbejde med IT Operators / Simple Agency
+            </p>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Accelo til Business Central-integration</h3>
+                    <span class="entry-date">DTU, feb.–jun. 2025</span>
+                </div>
+                <p>Fullstack-applikation, der importerer tidsregistreringer fra Accelo (PSA) til
+                MSSQL, så de kan gennemgås: Accelo-delen af en integration med Microsoft Business
+                Central (ERP). Byggede en brugerflade til at gennemgå og justere timer og designede
+                datamodellen i MSSQL. Designede Business Central-delen op mod systemets API v2.0;
+                den blev ikke bygget, fordi virksomhedens adgangsoplysninger til API'et kom for
+                sent. Implementerede single sign-on via Microsoft Entra ID (single-tenant) og kørte
+                applikationen i Docker i en Jenkins CI/CD-pipeline, med SQL Server uden for
+                containerne. Unit tests i begge lag (63 backend-tests og 161 frontend-specs) samt
+                end-to-end-tests med WebApplicationFactory og headless Selenium af de centrale
+                flows til hentning og oversigt.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Angular</span>
+                    <span class="tag">.NET</span>
+                    <span class="tag">MSSQL</span>
+                    <span class="tag">Docker</span>
+                    <span class="tag">Jenkins</span>
+                    <span class="tag">Selenium</span>
                 </div>
             </div>
 
@@ -1104,7 +1121,9 @@ const CONTENT_DA = {
                     <span class="entry-date">2021–2025</span>
                 </div>
                 <p>Valgfag i computergrafik, rendering, C++-programmering og ingeniørøkonomi.
-                Bachelorprojekt: en integration mellem to ERP-systemer bygget fra bunden.
+                Bachelorprojekt: en PSA-til-ERP-integration (Accelo til Microsoft Business Central),
+                hvor Accelo-delen blev bygget fra bunden, og Business Central-delen blev designet,
+                men ikke bygget.
                 Gennemsnit: 7,62 (dansk <span style="white-space:nowrap">7-trinsskala</span>).</p>
                 ${gradeRuler(7.62, '7,62')}
             </div>

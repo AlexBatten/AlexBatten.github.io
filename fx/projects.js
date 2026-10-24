@@ -44,8 +44,8 @@
     // as ~ instead of bits.
     var PROJECTS = [
         { id: 'accelo',
-          en: { from: ['Accelo'], to: ['Business Central'] },
-          da: { from: ['Accelo'], to: ['Business Central'] } },
+          en: { from: ['Accelo'], to: ['MSSQL'] },
+          da: { from: ['Accelo'], to: ['MSSQL'] } },
         { id: 'istobal',
           en: { from: ['ISTOBAL'], to: ['Uno X'] },
           da: { from: ['ISTOBAL'], to: ['Uno X'] } },
@@ -59,8 +59,8 @@
           en: { from: ['DAW'], to: ['distortion plugin'] },
           da: { from: ['DAW'], to: ['distortion-plugin'] } },
         { id: 'timevat',
-          en: { from: ['EU VIES API', 'Danish National Bank API'], to: ['VAT compliance platform'] },
-          da: { from: ['VIES-API', 'Nationalbankens API'], to: ['momscompliance-platform'] } }
+          en: { from: ['EU VIES API', 'European Central Bank'], to: ['VAT compliance platform'] },
+          da: { from: ['VIES-API', 'Den Europæiske Centralbank'], to: ['momscompliance-platform'] } }
     ];
 
     // Sources run down the left in this order and destinations down the
@@ -102,7 +102,7 @@
     // ── Grounding ──
     // Finds each project's entry in the open modal by the phrases it needs.
     // Whitespace is collapsed first because the source HTML wraps lines in
-    // the middle of names like "Danish National Bank API".
+    // the middle of names like "European Central Bank".
     function match(lang) {
         var root = document.getElementById('modal-content');
         if (!root) return [];

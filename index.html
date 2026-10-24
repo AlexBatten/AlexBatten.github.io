@@ -73,7 +73,7 @@
           "mainEntity": { "@id": "https://alexbatten.dk/#alex-batten" },
           "about": { "@id": "https://alexbatten.dk/#alex-batten" },
           "inLanguage": "en",
-          "dateModified": "2026-10-23T02:05:00+02:00",
+          "dateModified": "2026-10-24T21:07:00+02:00",
           "relatedLink": "https://alexbatten.dk/cv"
         },
         {
@@ -276,33 +276,25 @@
             </article>
             <article>
                 <h3>Software Development Intern at IT Operators / Simple Agency Group (2024)</h3>
-                <p>Developed REST APIs with auth, rate limiting, and monitoring. Built
-                fullstack web apps with Angular, .NET, and Bootstrap, including JWT auth,
-                real-time dashboards, and automated reporting. Migrated an in-house ERP's
-                time representation from quarter hours to minutes across every display,
-                estimate and report field, then rebuilt the billing review on top of it so
-                a task worked by employees from more than one group billed under each of
-                those groups instead of one. Validated the rebuilt invoicing screen by
-                reconciling a full month of billing data against what had actually been
-                invoiced.</p>
+                <p>Developed REST APIs with auth, plus usage-limit monitoring with email
+                alerts. Built fullstack web apps with Angular, .NET, and Bootstrap,
+                including JWT auth, real-time dashboards, and automated reporting.
+                Migrated an in-house ERP's time representation from quarter hours to
+                minutes across every display, estimate and report field, then rebuilt the
+                billing review on top of it so a task worked by employees from more than
+                one group billed under each of those groups instead of one. Validated the
+                rebuilt invoicing screen by reconciling a full month of billing data
+                against what had actually been invoiced.</p>
             </article>
         </section>
 
         <section aria-labelledby="seo-proj">
             <h2 id="seo-proj">Projects</h2>
             <article>
-                <h3>Accelo to Business Central integration (Bachelor Project)</h3>
-                <p>Fullstack application bridging two enterprise platforms, transferring and
-                reviewing time registrations from Accelo (PSA) into Microsoft Business Central
-                (ERP). Custom review UI, MSSQL data model, multi-tenant authentication via
-                Microsoft Entra ID, containerized with Docker in a Jenkins CI/CD pipeline,
-                with unit and Selenium integration tests.</p>
-            </article>
-            <article>
                 <h3>Custom REST API for Uno X (Client: ISTOBAL)</h3>
                 <p>Custom API for ISTOBAL (car wash manufacturer) serving operational data to
-                Uno X (Nordic fuel station chain), with token-based authentication and rate
-                limiting with automated email alerts.</p>
+                Uno X (Nordic fuel station chain), with token-based authentication and
+                per-call usage counting with automated email alerts on a usage limit.</p>
             </article>
             <article>
                 <h3>Automated SMS alert system (Client: Eye4u)</h3>
@@ -329,8 +321,20 @@
             </article>
             <article>
                 <h3>External API integrations, TIMEVAT</h3>
-                <p>Integrated the EU VIES API for VAT number validation and the Danish
-                National Bank API for currency exchange rates into a VAT compliance platform.</p>
+                <p>Integrated the EU VIES API for VAT number validation and currency exchange
+                rates from the European Central Bank into a VAT compliance platform.</p>
+            </article>
+            <article>
+                <h3>Accelo to Business Central integration (Bachelor Project, DTU, 2025)</h3>
+                <p>Fullstack application, made in collaboration with IT Operators / Simple
+                Agency Group, that imports time registrations from Accelo (PSA) into MSSQL for
+                review: the Accelo side of an integration with Microsoft Business Central
+                (ERP). The Business Central side was designed against its API v2.0 but not
+                built. Custom review UI, MSSQL data model, single sign-on via Microsoft Entra
+                ID (single-tenant), Docker in a Jenkins CI/CD pipeline with SQL Server outside
+                the containers, unit tests on both layers, and end-to-end tests
+                (WebApplicationFactory, headless Selenium) for the core fetch and overview
+                flows.</p>
             </article>
             <article>
                 <h3>Invarix Guard</h3>
@@ -405,8 +409,9 @@
             <article>
                 <h3>BEng Software Technology, Technical University of Denmark (DTU), 2021–2025</h3>
                 <p>Electives in Computer Graphics, Rendering, C++ Programming, and Engineering
-                Economics. Bachelor's project: an integration between two ERP systems built
-                from scratch. GPA: 7.62 (Danish 7-point scale).</p>
+                Economics. Bachelor's project: a PSA-to-ERP integration (Accelo to Microsoft
+                Business Central), with the Accelo side built from scratch and the Business
+                Central side designed but not built. GPA: 7.62 (Danish 7-point scale).</p>
             </article>
         </section>
 
@@ -563,12 +568,12 @@
     </footer>
 
     <script src="posts.js?v=2"></script>
-    <script src="content.js?v=26"></script>
+    <script src="content.js?v=27"></script>
     <script src="freelance.js?v=4"></script>
     <script src="back.js?v=1"></script>
     <script src="chat.js?v=3"></script>
     <script src="ascii-bg.js?v=13"></script>
-    <script src="modal-fx.js?v=5"></script>
+    <script src="modal-fx.js?v=6"></script>
     <!-- Matter is only needed from physics.js on. As a plain script in
          <head> it would hold up the first paint. -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
