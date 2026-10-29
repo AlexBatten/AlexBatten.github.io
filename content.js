@@ -182,16 +182,16 @@ const CONTENT_EN = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Generalist Danish Annotator at Mercor (Contract)</h3>
+                    <h3>AI Safety Expert at Mercor (Contract)</h3>
                     <span class="entry-date">2026–Present</span>
                 </div>
-                <p>Writing prompts in natural Danish on topics of general interest and
-                annotating how AI models respond to them. The annotations point out errors in
-                the responses, including errors in their Danish. The finished work becomes
-                training data for large language models.</p>
+                <p>Writing prompts and conversations that test how AI models handle harmful and
+                sensitive requests, and pointing out where their responses fall short of safety
+                guidelines. The finished work becomes safety training data for large language
+                models.</p>
                 <div style="margin-top:8px">
-                    <span class="tag">Data Annotation</span>
-                    <span class="tag">Danish Language</span>
+                    <span class="tag">AI Safety</span>
+                    <span class="tag">Red Teaming</span>
                     <span class="tag">Prompt Writing</span>
                     <span class="tag">LLM Training Data</span>
                 </div>
@@ -212,6 +212,22 @@ const CONTENT_EN = {
                     <span class="tag">LLM Outputs</span>
                     <span class="tag">Structured Feedback</span>
                     <span class="tag">Technical Writing</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Generalist Danish Annotator at Mercor (Contract)</h3>
+                    <span class="entry-date">2026</span>
+                </div>
+                <p>Wrote prompts in natural Danish on topics of general interest and annotated
+                how AI models responded to them. The annotations pointed out errors in the
+                responses, including errors in their Danish. The finished work became training
+                data for large language models.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Data Annotation</span>
+                    <span class="tag">Danish Language</span>
+                    <span class="tag">Prompt Writing</span>
+                    <span class="tag">LLM Training Data</span>
                 </div>
             </div>
             <div class="entry">
@@ -767,15 +783,16 @@ const CONTENT_DA = {
             </div>
             <div class="entry">
                 <div class="entry-header">
-                    <h3>Generalist Danish Annotator hos Mercor (kontrakt)</h3>
+                    <h3>AI Safety Expert hos Mercor (kontrakt)</h3>
                     <span class="entry-date">2026–nu</span>
                 </div>
-                <p>Skriver prompts på naturligt dansk om emner af almen interesse og annoterer
-                AI-modellers svar. Annoteringerne påpeger fejl i svarene, også sproglige. Det
-                færdige arbejde bruges som træningsdata til store sprogmodeller.</p>
+                <p>Skriver prompts og samtaler for at afprøve, hvordan AI-modeller håndterer
+                skadelige og følsomme forespørgsler, og påpeger, hvor svarene ikke lever op til
+                sikkerhedsretningslinjerne. Det færdige arbejde bruges som sikkerhedstræningsdata
+                til store sprogmodeller.</p>
                 <div style="margin-top:8px">
-                    <span class="tag">Dataannotering</span>
-                    <span class="tag">Dansk sprog</span>
+                    <span class="tag">AI-sikkerhed</span>
+                    <span class="tag">Red teaming</span>
                     <span class="tag">Promptskrivning</span>
                     <span class="tag">LLM-træningsdata</span>
                 </div>
@@ -796,6 +813,21 @@ const CONTENT_DA = {
                     <span class="tag">LLM-output</span>
                     <span class="tag">Struktureret feedback</span>
                     <span class="tag">Teknisk skrivning</span>
+                </div>
+            </div>
+            <div class="entry">
+                <div class="entry-header">
+                    <h3>Generalist Danish Annotator hos Mercor (kontrakt)</h3>
+                    <span class="entry-date">2026</span>
+                </div>
+                <p>Skrev prompts på naturligt dansk om emner af almen interesse og annoterede
+                AI-modellers svar. Annoteringerne påpegede fejl i svarene, også sproglige. Det
+                færdige arbejde blev brugt som træningsdata til store sprogmodeller.</p>
+                <div style="margin-top:8px">
+                    <span class="tag">Dataannotering</span>
+                    <span class="tag">Dansk sprog</span>
+                    <span class="tag">Promptskrivning</span>
+                    <span class="tag">LLM-træningsdata</span>
                 </div>
             </div>
             <div class="entry">

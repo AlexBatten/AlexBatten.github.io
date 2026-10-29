@@ -48,8 +48,8 @@ hreflang. English is the default (x-default).
   in-depth code review. Set up an autonomous AI development agent (an OpenAI
   dot) built to take GitHub issues and run Codex agents that implement, review,
   and test each change before a human reviews the pull request.
-- **Generalist Danish Annotator at Mercor** (2026 to present): writing prompts in
-  Danish on topics of general interest and annotating how AI models respond.
+- **AI Safety Expert at Mercor** (2026 to present): writing prompts and
+  conversations that test how AI models handle harmful and sensitive requests.
 - **Generalist Expert, AI Evaluation at Mercor** (2026 to present): evaluating AI
   model outputs against structured guidelines and writing the rationale behind
   each judgment.
